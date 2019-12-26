@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import br.com.climbORM.api.utils.SqlUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.climbORM.api.interfaces.ClimbConnection;
@@ -208,7 +209,7 @@ public class ConnectionDB implements ClimbConnection {
 
 		try {
 
-			PreparedStatement ps = ReflectionUtil.preparedStatementInsert(this.schema, this.connection, generateModel(object),
+			PreparedStatement ps = SqlUtil.preparedStatementInsert(this.schema, this.connection, generateModel(object),
 					getTableName(object));
 			ps.executeUpdate();
 
@@ -230,7 +231,7 @@ public class ConnectionDB implements ClimbConnection {
 		Long id = ((PersistentEntity) object).getId();
 
 		try {
-			PreparedStatement ps = ReflectionUtil.preparedStatementUpdate(this.schema, this.connection, generateModel(object),
+			PreparedStatement ps = SqlUtil.preparedStatementUpdate(this.schema, this.connection, generateModel(object),
 					getTableName(object), id);
 			ps.executeUpdate();
 		} catch (Exception e) {
@@ -338,7 +339,7 @@ public class ConnectionDB implements ClimbConnection {
 						if (inst.getClass() == byte[].class) {
 							byte[] b = (byte[]) inst;
 							String fieldName = new String(b);
-							return ReflectionUtil.getBinaryValue(id, fieldName, entity.name(), connection);
+							return SqlUtil.getBinaryValue(id, fieldName, entity.name(), connection);
 						}
 
 					}
