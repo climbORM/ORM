@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f563a8c1-5958-484f-85bf-23b373586e7d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/api/utils/SqlUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/api/ConnectionDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/api/ConnectionDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/api/utils/ReflectionUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/api/utils/ReflectionUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +49,9 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RunManager">
@@ -96,7 +96,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1577373571106</updated>
-      <workItem from="1577373579070" duration="10507000" />
+      <workItem from="1577373579070" duration="11114000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1577374215130</created>
@@ -126,7 +126,14 @@
       <option name="project" value="LOCAL" />
       <updated>1577389883539</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="update">
+      <created>1577391129062</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1577391129062</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -149,10 +156,14 @@
     <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="308" y="0" key="CommitChangelistDialog2" timestamp="1577389882989">
+    <state x="434" y="169" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1577391648000">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="308" y="0" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1577389882989" />
+    <state x="434" y="169" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1366.768@0.0.1366.768" timestamp="1577391648000" />
+    <state x="308" y="0" key="CommitChangelistDialog2" timestamp="1577391128299">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="308" y="0" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1577391128299" />
     <state width="1323" height="214" key="GridCell.Tab.0.bottom" timestamp="1577391110766">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -173,14 +184,14 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="451" y="96" key="RollbackChangesDialog/0.0.1366.768@0.0.1366.768" timestamp="1577374132366" />
-    <state x="184" y="27" key="SettingsEditor" timestamp="1577374706025">
+    <state x="184" y="0" key="SettingsEditor" timestamp="1577391682777">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="184" y="27" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1577374706025" />
-    <state x="275" y="118" key="Vcs.Push.Dialog.v2" timestamp="1577380314458">
+    <state x="184" y="0" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1577391682777" />
+    <state x="275" y="118" key="Vcs.Push.Dialog.v2" timestamp="1577391135574">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="275" y="118" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1577380314458" />
+    <state x="275" y="118" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1577391135574" />
     <state x="413" y="151" key="extract.method.dialog" timestamp="1577388570185">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
