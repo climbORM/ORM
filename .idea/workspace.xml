@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="climbORM:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="f563a8c1-5958-484f-85bf-23b373586e7d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -33,6 +38,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
   <component name="ProjectId" id="1VWf3Na2sN0RcHINf95MgVQPpvJ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -50,9 +62,9 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="project.structure.last.edited" value="Artifacts" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -96,7 +108,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1577373571106</updated>
-      <workItem from="1577373579070" duration="11114000" />
+      <workItem from="1577373579070" duration="11622000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1577374215130</created>
@@ -133,7 +145,14 @@
       <option name="project" value="LOCAL" />
       <updated>1577391129062</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="update">
+      <created>1577391711285</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1577391711285</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -156,38 +175,50 @@
     <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="434" y="169" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1577391648000">
+    <state x="275" y="43" key="#Project_Structure" timestamp="1577391900059">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="434" y="169" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1366.768@0.0.1366.768" timestamp="1577391648000" />
-    <state x="308" y="0" key="CommitChangelistDialog2" timestamp="1577391128299">
+    <state x="275" y="43" key="#Project_Structure/0.0.1366.768@0.0.1366.768" timestamp="1577391900059" />
+    <state x="434" y="169" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1577392021808">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="308" y="0" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1577391128299" />
-    <state width="1323" height="214" key="GridCell.Tab.0.bottom" timestamp="1577391110766">
+    <state x="434" y="169" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1366.768@0.0.1366.768" timestamp="1577392021808" />
+    <state x="308" y="0" key="CommitChangelistDialog2" timestamp="1577391710808">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="214" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1577391110766" />
-    <state width="1323" height="214" key="GridCell.Tab.0.center" timestamp="1577391110766">
+    <state x="308" y="0" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1577391710808" />
+    <state x="129" y="65" key="DiffContextDialog" timestamp="1577391707642">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="214" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1577391110766" />
-    <state width="1323" height="214" key="GridCell.Tab.0.left" timestamp="1577391110766">
+    <state x="129" y="65" key="DiffContextDialog/0.0.1366.768@0.0.1366.768" timestamp="1577391707642" />
+    <state x="484" y="140" key="FileChooserDialogImpl" timestamp="1577392113647">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="214" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1577391110766" />
-    <state width="1323" height="214" key="GridCell.Tab.0.right" timestamp="1577391110766">
+    <state x="484" y="140" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1577392113647" />
+    <state width="1323" height="214" key="GridCell.Tab.0.bottom" timestamp="1577392191306">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="214" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1577391110766" />
+    <state width="1323" height="214" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1577392191306" />
+    <state width="1323" height="214" key="GridCell.Tab.0.center" timestamp="1577392191306">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1323" height="214" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1577392191306" />
+    <state width="1323" height="214" key="GridCell.Tab.0.left" timestamp="1577392191306">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1323" height="214" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1577392191306" />
+    <state width="1323" height="214" key="GridCell.Tab.0.right" timestamp="1577392191306">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1323" height="214" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1577392191306" />
     <state x="451" y="96" key="RollbackChangesDialog" timestamp="1577374132366">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="451" y="96" key="RollbackChangesDialog/0.0.1366.768@0.0.1366.768" timestamp="1577374132366" />
-    <state x="184" y="0" key="SettingsEditor" timestamp="1577391682777">
+    <state x="184" y="0" key="SettingsEditor" timestamp="1577392187208">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="184" y="0" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1577391682777" />
+    <state x="184" y="0" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1577392187208" />
     <state x="275" y="118" key="Vcs.Push.Dialog.v2" timestamp="1577391135574">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
