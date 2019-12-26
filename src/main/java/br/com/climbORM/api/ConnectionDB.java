@@ -29,7 +29,6 @@ import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
 public class ConnectionDB implements ClimbConnection {
-
 	private Connection connection;
 	private Properties properties;
 	private String schema;
@@ -65,7 +64,14 @@ public class ConnectionDB implements ClimbConnection {
 	}
 
 	private String getTableName(Object object) {
-		Entity entity = (Entity) object.getClass().getAnnotation(Entity.class);
+
+		Entity entity = null;
+
+		if (ReflectionUtil.isProxedCGLIB(object)) {
+			entity = (Entity) object.getClass().getSuperclass().getAnnotation(Entity.class);
+		} else {
+			entity = (Entity) object.getClass().getAnnotation(Entity.class);
+		}
 
 		String tableName = "";
 
@@ -81,7 +87,14 @@ public class ConnectionDB implements ClimbConnection {
 	private List<Model> generateModel(Object object) {
 
 		List<Model> models = new ArrayList<Model>();
-		Field[] fields = object.getClass().getDeclaredFields();
+		Field[] fields = null;
+
+		if (ReflectionUtil.isProxedCGLIB(object)) {
+			fields = object.getClass().getSuperclass().getDeclaredFields();
+		} else {
+			fields = object.getClass().getDeclaredFields();
+		}
+
 
 		for (Field field : fields) {
 
@@ -195,7 +208,7 @@ public class ConnectionDB implements ClimbConnection {
 
 		try {
 
-			PreparedStatement ps = ReflectionUtil.preparedStatement(this.schema, this.connection, generateModel(object),
+			PreparedStatement ps = ReflectionUtil.preparedStatementInsert(this.schema, this.connection, generateModel(object),
 					getTableName(object));
 			ps.executeUpdate();
 
@@ -215,15 +228,12 @@ public class ConnectionDB implements ClimbConnection {
 	public void update(Object object) {
 
 		Long id = ((PersistentEntity) object).getId();
-		String sql = ReflectionUtil.generateSqlUpdate(this.schema, generateModel(object), getTableName(object), id);
-
-		// TODO: COLOCAR LOG AQUI
-		System.out.println(sql);
 
 		try {
-			Statement stmt = this.connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, 1);
-			stmt.executeUpdate(sql);
-		} catch (SQLException e) {
+			PreparedStatement ps = ReflectionUtil.preparedStatementUpdate(this.schema, this.connection, generateModel(object),
+					getTableName(object), id);
+			ps.executeUpdate();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 

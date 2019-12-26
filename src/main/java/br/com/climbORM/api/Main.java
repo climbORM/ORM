@@ -17,61 +17,6 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 
-//		ObjectMapper mapper = new ObjectMapper();
-//
-//		List<Email> emails = new ArrayList<Email>();
-//
-//		Email email = new Email();
-//		email.setEmail("teste@teste.com.br");
-//		
-//		emails.add(email);
-//		
-//		System.out.println(emails.getClass() == ArrayList.class);
-//		
-//		ArrayList templist = (ArrayList)emails;
-//		
-//		List<Object> objects = new ArrayList<>();
-//		
-//		for (Object object: templist) {
-//			objects.add(objects);
-//		}
-//		
-//		String json = mapper.writeValueAsString(templist);
-////		System.out.println(json);
-//		
-//		Class cs = Email[].class;
-//		ArrayList e = (ArrayList) mapper.readValue(json, cs);
-//		
-//		
-//		
-//		/////////////////
-//		
-//		String[] emails1 = json.substring(1, json.length() - 1).split(",");
-//		
-//		ArrayList temp = new ArrayList<>();
-//		for (String emailx : emails1) {
-//			System.out.println(email);
-//			
-//			Email e = mapper.readValue(emailx, Email.class);
-//			System.out.println(e.getEmail());
-//			
-//			temp.add(e);
-//		}
-////		
-////		
-////		
-//		Pessoa pessoa = new Pessoa();
-//		pessoa.setEmails(e);
-////		
-////		for (Email emails11 : pessoa.getEmails()) {
-////			System.out.println(emails11.getEmail());
-////		}
-//		
-////		String jsonString = mapper.writeValueAsString(emails);
-//		
-//		
-//		if (true) return;
-
 		ManagerFactory factory = ClimbORM.createManagerFactory("climb.properties");
 		ClimbConnection connection = factory.getConnection("localhost");
 
@@ -83,7 +28,12 @@ public class Main {
 		
 		
 //		System.out.println("GetID: " + pessoa.getId());
-//		System.out.println("Get Nome: " + pessoa.getNome());
+		System.out.println("Get Nome: " + pessoa.getNome());
+		System.out.println("Get Endereço: " + pessoa.getEndereco().getId());
+
+		pessoa.setNome("Maria update");
+		connection.update(pessoa);
+
 //		System.out.println("Get foto: " + pessoa.getFoto());
 ////		
 //		System.out.println("Get ID rua: " + pessoa.getEndereco().getId());

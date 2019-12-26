@@ -70,8 +70,8 @@ public class ReflectionUtil {
 		return null;
 	}
 
-	public static PreparedStatement preparedStatement(String schema, Connection connection, List<Model> models,
-			String tableName) throws Exception {
+	public static PreparedStatement preparedStatementInsert(String schema, Connection connection, List<Model> models,
+															String tableName) throws Exception {
 
 		StringBuilder atributes = new StringBuilder();
 		StringBuilder values = new StringBuilder();
@@ -122,6 +122,83 @@ public class ReflectionUtil {
 				String jsonString = mapper.writeValueAsString(model.getValue());
 
 				System.out.println("json" + jsonString);
+
+				ps.setObject(i, jsonString);
+			}
+		}
+
+		return ps;
+
+	}
+
+	public synchronized static boolean isProxedCGLIB(Object object) {
+
+		return object.getClass().getName().contains("EnhancerByCGLI");
+	}
+
+	public static PreparedStatement preparedStatementUpdate(String schema, Connection connection, List<Model> models,
+															String tableName, Long id) throws Exception {
+
+		StringBuilder atributes = new StringBuilder();
+		StringBuilder values = new StringBuilder();
+		for (Model model : models) {
+
+//			atributes.append(model.getAtribute() + ",");
+
+			if (model.getField().isAnnotationPresent(Json.class)) {
+				values.append(model.getAtribute() + "= ?::JSON,");
+			} else {
+				values.append(model.getAtribute() + "= ?,");
+			}
+
+		}
+
+		String sql = "UPDATE " + schema + "." + tableName + " SET " + values.toString().substring(0, values.toString().length() -1) + " WHERE id = " + id.toString();
+
+//		String sql = "INSERT INTO " + schema + "." + tableName + "("
+//				+ atributes.toString().substring(0, atributes.toString().length() - 1) + ") VALUES ("
+//				+ values.toString().substring(0, values.toString().length() -1) + ") RETURNING ID";
+
+		System.out.println(sql);
+
+		PreparedStatement ps = connection.prepareStatement(sql);
+
+		int i = 0;
+		for (Model model : models) {
+
+			i += 1;
+
+//			ps.setObject(parameterIndex, x);
+
+			if (model.getType() == Long.class) {
+
+				if (ReflectionUtil.isProxedCGLIB(model.getValue())) {
+
+					Object value = new PropertyDescriptor("id", model.getValue().getClass().getSuperclass()).getReadMethod().invoke(model.getValue());
+					ps.setLong(i, (long) value);
+
+				} else {
+					ps.setLong(i, (long) model.getValue());
+				}
+
+
+
+			} else if (model.getType() == Integer.class) {
+				ps.setInt(i, (int) model.getValue());
+			} else if (model.getType() == Float.class || model.getType() == float.class) {
+				ps.setFloat(i, (float) model.getValue());
+			} else if (model.getType() == Double.class || model.getType() == double.class) {
+				ps.setDouble(i, (double) model.getValue());
+			} else if (model.getType() == Boolean.class || model.getType() == boolean.class) {
+				ps.setBoolean(i, (boolean) model.getValue());
+			} else if (model.getType() == String.class || model.getType() == char.class) {
+				ps.setString(i, model.getValue().toString());
+			} else if (model.getType() == byte[].class) {
+				ps.setBytes(i, (byte[]) model.getValue());
+			} else if (model.getType() == List.class && model.getField().isAnnotationPresent(Json.class)) {
+
+				ObjectMapper mapper = new ObjectMapper();
+				String jsonString = mapper.writeValueAsString(model.getValue());
 
 				ps.setObject(i, jsonString);
 			}
