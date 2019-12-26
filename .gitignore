@@ -1,0 +1,15 @@
+#intellij files
+.idea/
+*.iml
+*.ipr
+*.iws
+build-idea/
+
+#eclipse
+.settings
+.class
+/target/
+build-eclipse/
+
+# osx stuff
+.DS_Store
