@@ -20,13 +20,12 @@ public class Main {
 		ManagerFactory factory = ClimbORM.createManagerFactory("climb.properties");
 		ClimbConnection connection = factory.getConnection("localhost");
 
-		Pessoa pessoa = (Pessoa) connection.findOne(Pessoa.class, 120l);
+		Pessoa pessoa = (Pessoa) connection.findOne(Pessoa.class, 119l);
 		
 		for (Email email : pessoa.getEmails()) {
 			System.out.println(email.getEmail());
 		}
-		
-		
+
 //		System.out.println("GetID: " + pessoa.getId());
 		System.out.println("Get Nome: " + pessoa.getNome());
 		System.out.println("Get Endereço: " + pessoa.getEndereco().getId());
