@@ -9,6 +9,7 @@ build-idea/
 .settings
 .class
 /target/
+target/
 build-eclipse/
 
 # osx stuff
