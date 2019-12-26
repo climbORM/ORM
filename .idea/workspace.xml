@@ -6,18 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f563a8c1-5958-484f-85bf-23b373586e7d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/CommandDB.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/LazyLoad.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/WhereDB.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/interfaces/Command.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/interfaces/Where.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/ConnectionDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/ConnectionDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/interfaces/ClimbConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/interfaces/ClimbConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/utils/ReflectionUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/utils/ReflectionUtil.java" afterDir="false" />
-    </list>
+    <list default="true" id="f563a8c1-5958-484f-85bf-23b373586e7d" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -135,7 +124,7 @@
       <option name="presentableId" value="Default" />
       <updated>1577373571106</updated>
       <workItem from="1577373579070" duration="11708000" />
-      <workItem from="1577392749891" duration="11794000" />
+      <workItem from="1577392749891" duration="11962000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1577374215130</created>
@@ -207,7 +196,14 @@
       <option name="project" value="LOCAL" />
       <updated>1577396742031</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="update">
+      <created>1577404703036</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1577404703036</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -248,10 +244,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="479" y="244" width="409" height="288" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1366.768@0.0.1366.768" timestamp="1577397662796" />
-    <state x="308" y="0" key="CommitChangelistDialog2" timestamp="1577396741515">
+    <state x="308" y="0" key="CommitChangelistDialog2" timestamp="1577404702302">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="308" y="0" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1577396741515" />
+    <state x="308" y="0" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1577404702302" />
     <state x="129" y="65" key="DiffContextDialog" timestamp="1577391707642">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
