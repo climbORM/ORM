@@ -18,13 +18,18 @@ public class Main {
 		ManagerFactory factory = ClimbORM.createManagerFactory("climb.properties");
 		ClimbConnection connection = factory.getConnection("localhost");
 
-		Pessoa pessoa = (Pessoa) connection.findOne(Pessoa.class, 123l);
+		List<Pessoa> pessoas = connection.find(Pessoa.class, "WHERE ID>0"); //findOne(Pessoa.class, 121l);
 
-		for (Email email : pessoa.getEmails()) {
-			System.out.println(email.getEmail());
+				//connection.findOne(Pessoa.class, 123l);
+
+		for (Pessoa pessoa : pessoas) {
+			System.out.println(pessoa.getNome());
+//			System.out.println(pessoa.getEndereco().getNomeDaRua());
+
+			System.out.println(pessoa.getFoto());
 		}
 
-		System.out.println(pessoa.getId());
+
 
 		if (true) {
 			return;
@@ -60,7 +65,7 @@ public class Main {
 		connection.save(endereco);
 		System.out.println(endereco.getId());
 //
-		pessoa = new Pessoa();
+		Pessoa pessoa = new Pessoa();
 		pessoa.setNome("Maria antonia");
 		pessoa.setEnderecoComercial("Treta");
 		pessoa.setIdade(32l);
