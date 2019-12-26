@@ -8,6 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f563a8c1-5958-484f-85bf-23b373586e7d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,9 +53,14 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="climborm" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -66,7 +72,12 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Thago Rodrigues\IdeaProjects\ORM\src\main\resources\META-INF" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JAR Application.climbORM.jar">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="br.com.climbORM.api.Main" />
       <module name="climbORM" />
@@ -80,8 +91,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="climbORM.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/classes/artifacts/climbORM_jar/climbORM.jar" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JAR Application.climbORM.jar" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -108,7 +124,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1577373571106</updated>
-      <workItem from="1577373579070" duration="11622000" />
+      <workItem from="1577373579070" duration="11708000" />
+      <workItem from="1577392749891" duration="1008000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1577374215130</created>
@@ -152,7 +169,14 @@
       <option name="project" value="LOCAL" />
       <updated>1577391711285</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="update">
+      <created>1577392257816</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1577392257816</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,7 +187,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -179,50 +205,50 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="275" y="43" key="#Project_Structure/0.0.1366.768@0.0.1366.768" timestamp="1577391900059" />
-    <state x="434" y="169" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1577392021808">
+    <state x="434" y="169" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1577393437672">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="434" y="169" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1366.768@0.0.1366.768" timestamp="1577392021808" />
-    <state x="308" y="0" key="CommitChangelistDialog2" timestamp="1577391710808">
+    <state x="434" y="169" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1366.768@0.0.1366.768" timestamp="1577393437672" />
+    <state x="308" y="0" key="CommitChangelistDialog2" timestamp="1577392257324">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="308" y="0" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1577391710808" />
+    <state x="308" y="0" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1577392257324" />
     <state x="129" y="65" key="DiffContextDialog" timestamp="1577391707642">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="129" y="65" key="DiffContextDialog/0.0.1366.768@0.0.1366.768" timestamp="1577391707642" />
-    <state x="484" y="140" key="FileChooserDialogImpl" timestamp="1577392113647">
+    <state x="484" y="140" key="FileChooserDialogImpl" timestamp="1577393446087">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="484" y="140" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1577392113647" />
-    <state width="1323" height="214" key="GridCell.Tab.0.bottom" timestamp="1577392191306">
+    <state x="484" y="140" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1577393446087" />
+    <state width="1323" height="214" key="GridCell.Tab.0.bottom" timestamp="1577393522813">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="214" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1577392191306" />
-    <state width="1323" height="214" key="GridCell.Tab.0.center" timestamp="1577392191306">
+    <state width="1323" height="214" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1577393522813" />
+    <state width="1323" height="214" key="GridCell.Tab.0.center" timestamp="1577393522813">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="214" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1577392191306" />
-    <state width="1323" height="214" key="GridCell.Tab.0.left" timestamp="1577392191306">
+    <state width="1323" height="214" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1577393522813" />
+    <state width="1323" height="214" key="GridCell.Tab.0.left" timestamp="1577393522813">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="214" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1577392191306" />
-    <state width="1323" height="214" key="GridCell.Tab.0.right" timestamp="1577392191306">
+    <state width="1323" height="214" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1577393522813" />
+    <state width="1323" height="214" key="GridCell.Tab.0.right" timestamp="1577393522813">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="214" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1577392191306" />
+    <state width="1323" height="214" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1577393522813" />
     <state x="451" y="96" key="RollbackChangesDialog" timestamp="1577374132366">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="451" y="96" key="RollbackChangesDialog/0.0.1366.768@0.0.1366.768" timestamp="1577374132366" />
-    <state x="184" y="0" key="SettingsEditor" timestamp="1577392187208">
+    <state x="184" y="0" key="SettingsEditor" timestamp="1577393466049">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="184" y="0" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1577392187208" />
-    <state x="275" y="118" key="Vcs.Push.Dialog.v2" timestamp="1577391135574">
+    <state x="184" y="0" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1577393466049" />
+    <state x="275" y="118" key="Vcs.Push.Dialog.v2" timestamp="1577392266717">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="275" y="118" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1577391135574" />
+    <state x="275" y="118" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1577392266717" />
     <state x="413" y="151" key="extract.method.dialog" timestamp="1577388570185">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
