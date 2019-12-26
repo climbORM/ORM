@@ -20,10 +20,11 @@ public class Main {
 
 		Pessoa pessoa = (Pessoa) connection.findOne(Pessoa.class, 123l);
 
-		System.out.println(pessoa.getEmails().size());
 		for (Email email : pessoa.getEmails()) {
 			System.out.println(email.getEmail());
 		}
+
+		System.out.println(pessoa.getId());
 
 		if (true) {
 			return;
