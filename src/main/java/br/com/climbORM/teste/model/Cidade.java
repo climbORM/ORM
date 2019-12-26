@@ -1,8 +1,8 @@
 package br.com.climbORM.teste.model;
 
-import br.com.climbORM.api.PersistentEntity;
-import br.com.climbORM.api.mapping.Column;
-import br.com.climbORM.api.mapping.Entity;
+import br.com.climbORM.framework.PersistentEntity;
+import br.com.climbORM.framework.mapping.Column;
+import br.com.climbORM.framework.mapping.Entity;
 
 @Entity(name = "tb_cidade")
 public class Cidade extends PersistentEntity {

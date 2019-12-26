@@ -1,9 +1,9 @@
 package br.com.climbORM.teste.model;
 
-import br.com.climbORM.api.PersistentEntity;
-import br.com.climbORM.api.mapping.Column;
-import br.com.climbORM.api.mapping.Entity;
-import br.com.climbORM.api.mapping.Relation;
+import br.com.climbORM.framework.PersistentEntity;
+import br.com.climbORM.framework.mapping.Column;
+import br.com.climbORM.framework.mapping.Entity;
+import br.com.climbORM.framework.mapping.Relation;
 
 @Entity(name = "tb_endereco")
 public class Endereco extends PersistentEntity {
