@@ -1,9 +1,6 @@
 package br.com.climbORM.framework;
 
-import br.com.climbORM.framework.mapping.Entity;
-import br.com.climbORM.framework.mapping.Json;
-import br.com.climbORM.framework.mapping.Relation;
-import br.com.climbORM.framework.mapping.Transient;
+import br.com.climbORM.framework.mapping.*;
 import br.com.climbORM.framework.utils.Model;
 import br.com.climbORM.framework.utils.ReflectionUtil;
 import br.com.climbORM.framework.utils.SqlUtil;
@@ -30,6 +27,41 @@ public class LazyLoad {
     public LazyLoad(Connection connection, String schema) {
         this.connection = connection;
         this.schema = schema;
+    }
+
+    public ArrayList loadLazyObjectQuery(Class classe, String sql) {
+
+        final QueryResult QueryResult = (QueryResult) classe.getAnnotation(QueryResult.class);
+
+        if (QueryResult == null) {
+            throw new Error(classe.getName() + " not is QueryResult");
+        }
+
+        final StringBuilder atributes = getAtributes(classe);
+
+        System.out.println(sql);
+
+        ArrayList objects = null;
+
+        try {
+
+            Statement stmt = this.connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, 1);
+            ResultSet resultSet = stmt.executeQuery(sql);
+
+            objects = new ArrayList<>();
+
+            while (resultSet.next()) {
+                Object object = newEnhancer(classe).create();
+                objects.add(object);
+                Field[] fields = object.getClass().getSuperclass().getDeclaredFields();
+                loadObject(fields, object, resultSet);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return objects;
     }
 
     public ArrayList loadLazyObject(Class classe, String where) {
@@ -134,6 +166,32 @@ public class LazyLoad {
         }
 
         return atributes;
+    }
+
+    private Enhancer newEnhancer(Class classe) {
+
+        Enhancer enhancer = new Enhancer();
+        enhancer.setSuperclass(classe);
+        enhancer.setCallback(new MethodInterceptor() {
+
+            public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
+
+                Object inst = proxy.invokeSuper(obj, args);
+
+                if (inst != null) {
+
+                    if (inst.getClass().getAnnotation(Entity.class) != null) {
+                        Long id = ((PersistentEntity) inst).getId();
+                        return loadLazyObject(inst.getClass(), id);
+                    }
+
+                }
+
+                return proxy.invokeSuper(obj, args);
+            }
+        });
+
+        return enhancer;
     }
 
     private Enhancer newEnhancer(Class classe, String entity, long id) {

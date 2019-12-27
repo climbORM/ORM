@@ -19,6 +19,8 @@ public interface ClimbConnection {
 
 	public ArrayList find(Class classe, String where);
 
+	public ArrayList findWithQuery(Class classe, String sql);
+
 	public Where find(Class classe);
 
 	public void close();

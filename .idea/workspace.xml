@@ -7,9 +7,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f563a8c1-5958-484f-85bf-23b373586e7d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/mapping/QueryResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/test/model/RespostaQuery.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/Manager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/test/units/climbORM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/test/units/climbORM.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/ConnectionDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/ConnectionDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/LazyLoad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/LazyLoad.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/interfaces/ClimbConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/interfaces/ClimbConnection.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +41,7 @@
         <option value="package-info" />
         <option value="JUnit5 Test Class" />
         <option value="Class" />
+        <option value="AnnotationType" />
       </list>
     </option>
   </component>
@@ -93,19 +98,16 @@
       <recent name="C:\Users\Thago Rodrigues\IdeaProjects\ORM\src\main\resources\META-INF" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.climbORM">
-    <configuration name="Test.soma" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="br.com.climbORM.framework.Main" />
       <module name="climbORM" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="br.com.climbORM.test.units.*" />
+          <option name="PATTERN" value="br.com.climbORM.framework.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="br.com.climbORM.test.units" />
-      <option name="MAIN_CLASS_NAME" value="br.com.climbORM.test.units.Test" />
-      <option name="METHOD_NAME" value="soma" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -177,11 +179,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.climbORM" />
         <item itemvalue="JUnit.climbORM.printaID" />
         <item itemvalue="JUnit.climbORM.insert" />
         <item itemvalue="TestNG.climbORM.insert" />
-        <item itemvalue="JUnit.Test.soma" />
       </list>
     </recent_temporary>
   </component>
@@ -209,7 +211,7 @@
       <updated>1577373571106</updated>
       <workItem from="1577373579070" duration="11708000" />
       <workItem from="1577392749891" duration="12005000" />
-      <workItem from="1577457281189" duration="15139000" />
+      <workItem from="1577457281189" duration="19713000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1577374215130</created>
@@ -316,7 +318,14 @@
       <option name="project" value="LOCAL" />
       <updated>1577472024141</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="update">
+      <created>1577473183553</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1577473183553</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -349,10 +358,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="92" y="92" width="1182" height="584" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1366.768@0.0.1366.768" timestamp="1577469043617" />
-    <state x="488" y="94" key="#com.intellij.ide.util.MemberChooser" timestamp="1577404101469">
+    <state x="488" y="94" key="#com.intellij.ide.util.MemberChooser" timestamp="1577479041670">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="488" y="94" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1577404101469" />
+    <state x="488" y="94" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1577479041670" />
     <state x="434" y="169" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1577393437672">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -365,10 +374,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="385" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.768@0.0.1366.768" timestamp="1577458820439" />
-    <state x="344" y="45" width="749" height="586" key="CommitChangelistDialog2" timestamp="1577472023539">
+    <state x="344" y="45" width="749" height="586" key="CommitChangelistDialog2" timestamp="1577473183006">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="344" y="45" width="749" height="586" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1577472023539" />
+    <state x="344" y="45" width="749" height="586" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1577473183006" />
     <state x="129" y="65" key="DiffContextDialog" timestamp="1577391707642">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -377,22 +386,22 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="484" y="140" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1577393446087" />
-    <state width="1323" height="334" key="GridCell.Tab.0.bottom" timestamp="1577473064865">
+    <state width="1323" height="161" key="GridCell.Tab.0.bottom" timestamp="1577479972100">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="334" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1577473064865" />
-    <state width="1323" height="334" key="GridCell.Tab.0.center" timestamp="1577473064865">
+    <state width="1323" height="161" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1577479972100" />
+    <state width="1323" height="161" key="GridCell.Tab.0.center" timestamp="1577479972099">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="334" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1577473064865" />
-    <state width="1323" height="334" key="GridCell.Tab.0.left" timestamp="1577473064865">
+    <state width="1323" height="161" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1577479972099" />
+    <state width="1323" height="161" key="GridCell.Tab.0.left" timestamp="1577479972099">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="334" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1577473064865" />
-    <state width="1323" height="334" key="GridCell.Tab.0.right" timestamp="1577473064865">
+    <state width="1323" height="161" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1577479972099" />
+    <state width="1323" height="161" key="GridCell.Tab.0.right" timestamp="1577479972100">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="334" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1577473064865" />
+    <state width="1323" height="161" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1577479972100" />
     <state width="1323" height="238" key="GridCell.Tab.1.bottom" timestamp="1577470050118">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -421,10 +430,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="184" y="0" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1577393466049" />
-    <state x="275" y="118" key="Vcs.Push.Dialog.v2" timestamp="1577472029437">
+    <state x="275" y="118" key="Vcs.Push.Dialog.v2" timestamp="1577473188878">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="275" y="118" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1577472029437" />
+    <state x="275" y="118" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1577473188878" />
     <state x="499" y="163" key="chooseDestDirectoryDialog" timestamp="1577460903557">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
