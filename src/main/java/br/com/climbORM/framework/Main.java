@@ -20,7 +20,6 @@ public class Main {
 
 		List<Pessoa> pessoas = connection.find(Pessoa.class, "WHERE ID>0"); //findOne(Pessoa.class, 121l);
 
-				//connection.findOne(Pessoa.class, 123l);
 
 		for (Pessoa pessoa : pessoas) {
 			System.out.println(pessoa.getNome());

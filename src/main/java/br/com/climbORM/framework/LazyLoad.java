@@ -299,20 +299,21 @@ public class LazyLoad {
                 try {
 
                     try {
-
                         ObjectMapper mapper = new ObjectMapper();
 
-                        Class jsonType = ((Class) ((ParameterizedType) field.getGenericType())
-                                .getActualTypeArguments()[0]);
+                        Class jsonType = (Class) ((ParameterizedType) field.getGenericType())
+                                .getActualTypeArguments()[0];
 
                         String fieldName = ReflectionUtil.getFieldName(field);
                         String json = resultSet.getString(fieldName);
 
-                        ArrayList value = mapper.readValue(json,
-                                mapper.getTypeFactory().constructCollectionType(List.class, jsonType));
+                        if (json != null && json.trim().length() > 0) {
+                            ArrayList value = mapper.readValue(json,
+                                    mapper.getTypeFactory().constructCollectionType(List.class, jsonType));
 
-                        Object rs = new PropertyDescriptor(field.getName(), object.getClass()).getWriteMethod()
-                                .invoke(object, value);
+                            Object rs = new PropertyDescriptor(field.getName(), object.getClass()).getWriteMethod()
+                                    .invoke(object, value);
+                        }
 
                     } catch (Exception e) {
                         e.printStackTrace();
