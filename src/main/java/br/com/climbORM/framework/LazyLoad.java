@@ -130,7 +130,7 @@ public class LazyLoad {
                 continue;
             }
 
-            atributes.append(model.getAtribute() + ",");
+            atributes.append(model.getAttribute() + ",");
         }
 
         return atributes;

@@ -6,10 +6,10 @@ import java.util.List;
 
 import br.com.climbORM.framework.interfaces.ClimbConnection;
 import br.com.climbORM.framework.interfaces.ManagerFactory;
-import br.com.climbORM.teste.model.Cidade;
-import br.com.climbORM.teste.model.Email;
-import br.com.climbORM.teste.model.Endereco;
-import br.com.climbORM.teste.model.Pessoa;
+import br.com.climbORM.test.model.Cidade;
+import br.com.climbORM.test.model.Email;
+import br.com.climbORM.test.model.Endereco;
+import br.com.climbORM.test.model.Pessoa;
 
 public class Main {
 
@@ -51,42 +51,7 @@ public class Main {
 //
 
 		System.out.println("******************************");
-		connection.getTransaction().start();
-//		
-		Cidade cidade = new Cidade();
-		cidade.setNomeDaCidade("Cacoal");
-		connection.save(cidade);
-		System.out.println(cidade.getId());
-//
-		Endereco endereco = new Endereco();
-		endereco.setNomeDaRua("Rua Ji-parana");
-		endereco.setCidade(cidade);
-		connection.save(endereco);
-		System.out.println(endereco.getId());
-//
-		Pessoa pessoa = new Pessoa();
-		pessoa.setNome("Maria antonia");
-		pessoa.setEnderecoComercial("Treta");
-		pessoa.setIdade(32l);
-		pessoa.setAltura(174.1325525544f);
-		pessoa.setQtdQuilos(145.6144d);
-		pessoa.setCasado(true);
-		pessoa.setEndereco(endereco);
-		pessoa.setFoto(new byte[] {});
 
-
-		List<Email> emails = new ArrayList<>();
-		Email email = new Email();
-		email.setEmail("taliba@jose.com.br");
-		emails.add(email);
-
-		pessoa.setEmails(emails);
-//
-		connection.save(pessoa);
-//		
-		System.out.println(pessoa.getId());
-//		
-		connection.getTransaction().commit();
 
 	}
 

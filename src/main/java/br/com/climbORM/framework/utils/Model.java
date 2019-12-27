@@ -4,20 +4,20 @@ import java.lang.reflect.Field;
 
 public class Model {
 
-	private String atribute;
+	private String attribute;
 	private Object value;
 	private Class type;
 	private Field field;
 	
-	public Model(String atribute, Object value, Class type, Field field) {
-		this.atribute = atribute;
+	public Model(String attribute, Object value, Class type, Field field) {
+		this.attribute = attribute;
 		this.value = value;
 		this.type = type;
 		this.field = field;
 	}
 
-	public String getAtribute() {
-		return atribute;
+	public String getAttribute() {
+		return attribute;
 	}
 
 	public Object getValue() {

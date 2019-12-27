@@ -1,4 +1,4 @@
-package br.com.climbORM.teste.model;
+package br.com.climbORM.test.model;
 
 import br.com.climbORM.framework.PersistentEntity;
 import br.com.climbORM.framework.mapping.Column;

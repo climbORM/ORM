@@ -28,7 +28,7 @@ public class SqlUtil {
         StringBuilder values = new StringBuilder();
         for (Model model : models) {
 
-            atributes.append(model.getAtribute() + ",");
+            atributes.append(model.getAttribute() + ",");
             if (model.getField().isAnnotationPresent(Json.class)) {
                 values.append("?::JSON,");
             } else {
@@ -92,9 +92,9 @@ public class SqlUtil {
         for (Model model : models) {
 
             if (model.getField().isAnnotationPresent(Json.class)) {
-                values.append(model.getAtribute() + "= ?::JSON,");
+                values.append(model.getAttribute() + "= ?::JSON,");
             } else {
-                values.append(model.getAtribute() + "= ?,");
+                values.append(model.getAttribute() + "= ?,");
             }
 
         }
@@ -117,10 +117,10 @@ public class SqlUtil {
         for (Model model : models) {
 
             if (models.size() == count) {
-                atributes.append(model.getAtribute());
+                atributes.append(model.getAttribute());
                 values.append(model.getValue());
             } else {
-                atributes.append(model.getAtribute() + ",");
+                atributes.append(model.getAttribute() + ",");
                 values.append(model.getValue() + ",");
             }
 
@@ -139,9 +139,9 @@ public class SqlUtil {
         for (Model model : models) {
 
             if (models.size() == count) {
-                values.append(model.getAtribute() + "=" + model.getValue());
+                values.append(model.getAttribute() + "=" + model.getValue());
             } else {
-                values.append(model.getAtribute() + "=" + model.getValue() + ",");
+                values.append(model.getAttribute() + "=" + model.getValue() + ",");
             }
 
             count += 1;
