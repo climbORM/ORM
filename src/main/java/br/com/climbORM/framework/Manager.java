@@ -25,6 +25,7 @@ public class Manager implements ManagerFactory {
 			System.out.println("Criou");
 			connection = new ConnectionDB(this.properties);
 			mapConnections.put(schemaName, connection);
+			System.out.println("criou novo objeto");
 			return connection;
 		}
 		

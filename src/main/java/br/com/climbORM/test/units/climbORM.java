@@ -23,12 +23,19 @@ public class climbORM {
     public static Long idPessoa;
     public static Long idCidade;
     public static Long idEndereco;
+    public static ManagerFactory factory;
+
+    @Test
+    @Order(0)
+    void generateFactory() {
+        factory = ClimbORM.createManagerFactory("climb.properties");
+        assertTrue(factory != null);
+    }
 
     @Test
     @Order(1)
     void insert() {
 
-        ManagerFactory factory = ClimbORM.createManagerFactory("climb.properties");
         ClimbConnection connection = factory.getConnection("localhost");
 
         connection.getTransaction().start();
@@ -77,12 +84,13 @@ public class climbORM {
     @Order(2)
     void printaID() {
         System.out.println("ID PESSOA: " + idPessoa);
+        System.out.println("ID CIDADE: " + idCidade);
+        System.out.println("ID ENDERECO: " + idCidade);
     }
 
     @Test
     @Order(3)
     void select() {
-        ManagerFactory factory = ClimbORM.createManagerFactory("climb.properties");
         ClimbConnection connection = factory.getConnection("localhost");
 
         Pessoa pessoa = (Pessoa) connection.findOne(Pessoa.class, idPessoa);
@@ -119,8 +127,6 @@ public class climbORM {
     @Test
     @Order(4)
     void update() {
-
-        ManagerFactory factory = ClimbORM.createManagerFactory("climb.properties");
         ClimbConnection connection = factory.getConnection("localhost");
 
         connection.getTransaction().start();
@@ -181,7 +187,6 @@ public class climbORM {
     @Test
     @Order(5)
     void deleteAllBase() {
-        ManagerFactory factory = ClimbORM.createManagerFactory("climb.properties");
         ClimbConnection connection = factory.getConnection("localhost");
 
         connection.getTransaction().start();
@@ -197,6 +202,8 @@ public class climbORM {
         assertTrue(connection.findOne(Pessoa.class, idPessoa) == null);
         assertTrue(connection.findOne(Cidade.class, idCidade) == null);
         assertTrue(connection.findOne(Endereco.class, idEndereco) == null);
+
+        connection.close();
 
     }
 
