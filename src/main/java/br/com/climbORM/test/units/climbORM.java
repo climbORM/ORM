@@ -4,10 +4,8 @@ import br.com.climbORM.framework.ClimbORM;
 import br.com.climbORM.framework.interfaces.ClimbConnection;
 import br.com.climbORM.framework.interfaces.ManagerFactory;
 import br.com.climbORM.framework.interfaces.ResultIterator;
-import br.com.climbORM.test.model.Cidade;
-import br.com.climbORM.test.model.Email;
-import br.com.climbORM.test.model.Endereco;
-import br.com.climbORM.test.model.Pessoa;
+import br.com.climbORM.test.model.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.MethodOrderer;
@@ -122,6 +120,18 @@ public class climbORM {
             assertTrue(pessoa1.getEndereco().getCidade().getId() != null);
         }
 
+        ResultIterator resultIterator = connection.findWithQuery(RespostaQuery.class, "SELECT " +
+                "p.nome, e.nome_da_rua, p.id_endereco, c.nome_da_cidade, p.lista_emails " +
+                "FROM localhost.tb_pessoa p \n" +
+                "INNER JOIN localhost.tb_endereco e on p.id_endereco = e.id\n" +
+                "INNER JOIN localhost.tb_cidade c on e.id_cidade = c.id\n" +
+                "where e.id_cidade > 1 and p.lista_emails is not null");
+
+        while(resultIterator.next()) {
+			RespostaQuery RespostaQuery = (RespostaQuery) resultIterator.getObject();
+            assertTrue(RespostaQuery != null);
+            assertTrue(RespostaQuery.getNome() != null);
+        }
 
         connection.close();
 

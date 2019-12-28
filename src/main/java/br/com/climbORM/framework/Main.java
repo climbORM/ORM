@@ -17,7 +17,8 @@ public class Main {
 		ClimbConnection connection = factory.getConnection("localhost");
 
 //		//retorna apenas uma pessoa
-//		Pessoa pessoa = (Pessoa) connection.findOne(Pessoa.class, 136l);
+		Pessoa pessoa1 = (Pessoa) connection.findOne(Pessoa.class, 136l);
+		System.out.println(pessoa1.getId());
 //
 //		//retorna uma lista de pessoas
 		ResultIterator pessoasIterator = connection.find(Pessoa.class, "WHERE ID > 0");
@@ -37,9 +38,9 @@ public class Main {
 				"where e.id_cidade > 1 and p.lista_emails is not null");
 
 		while(resultIterator.next()) {
-//			RespostaQuery RespostaQuery = (RespostaQuery) resultIterator.getObject();
-//			System.out.println(RespostaQuery.getNome());
-//			System.out.println(RespostaQuery.getEndereco().getNomeDaRua());
+			RespostaQuery RespostaQuery = (RespostaQuery) resultIterator.getObject();
+			System.out.println(RespostaQuery.getNome());
+			System.out.println(RespostaQuery.getEndereco().getNomeDaRua());
 		}
 
 //		for (RespostaQuery resp : respostaQuerys) {

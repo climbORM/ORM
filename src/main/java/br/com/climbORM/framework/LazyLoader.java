@@ -32,6 +32,11 @@ public class LazyLoader implements ResultIterator {
     private String sql;
     private Object object;
 
+    public LazyLoader(Connection connection, String schema) {
+        this.connection = connection;
+        this.schema = schema;
+    }
+
     public LazyLoader(Connection connection, String schema, Class classe, String sql, String typeQuery) {
         this.connection = connection;
         this.schema = schema;
