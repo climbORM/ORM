@@ -1,9 +1,5 @@
 package br.com.climbORM.framework;
 
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,23 +8,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 
-import br.com.climbORM.framework.interfaces.Command;
-import br.com.climbORM.framework.interfaces.Transaction;
-import br.com.climbORM.framework.interfaces.Where;
+import br.com.climbORM.framework.interfaces.*;
 import br.com.climbORM.framework.utils.SqlUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.climbORM.framework.interfaces.ClimbConnection;
 import br.com.climbORM.framework.mapping.Entity;
-import br.com.climbORM.framework.mapping.ID;
-import br.com.climbORM.framework.mapping.Json;
-import br.com.climbORM.framework.mapping.Relation;
-import br.com.climbORM.framework.mapping.Transient;
-import br.com.climbORM.framework.utils.Model;
 import br.com.climbORM.framework.utils.ReflectionUtil;
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
 
 public class ConnectionDB implements ClimbConnection {
 	private Connection connection;
@@ -147,23 +131,20 @@ public class ConnectionDB implements ClimbConnection {
 
 	@Override
 	public Object findOne(Class classe, Long id) {
-		return new LazyLoad(this.connection, this.schema).loadLazyObject(classe, id);
+		return new LazyLoadTEMP(this.connection, this.schema).loadLazyObject(classe, id);
 	}
 
 	@Override
-	public ArrayList find(Class classe, String where) {
-		return new LazyLoad(this.connection, this.schema).loadLazyObject(classe, where);
+	public ResultIterator find(Class classe, String where) {
+//		return new LazyLoadTEMP(this.connection, this.schema).loadLazyObject(classe, where);
+		return new LazyLoader(this.connection,this.schema, classe, where, LazyLoader.ENTITY);
 	}
 
 	@Override
-	public ArrayList findWithQuery(Class classe, String sql) {
-		return new LazyLoad(this.connection, this.schema).loadLazyObjectQuery(classe, sql);
+	public ResultIterator findWithQuery(Class classe, String sql) {
+		return new LazyLoader(this.connection,this.schema, classe, sql, LazyLoader.QUERY_RESULT);
 	}
 
-	@Override
-	public Where find(Class classe) {
-		return new WhereDB();
-	}
 
 	@Override
 	public void close() {

@@ -3,6 +3,7 @@ package br.com.climbORM.test.units;
 import br.com.climbORM.framework.ClimbORM;
 import br.com.climbORM.framework.interfaces.ClimbConnection;
 import br.com.climbORM.framework.interfaces.ManagerFactory;
+import br.com.climbORM.framework.interfaces.ResultIterator;
 import br.com.climbORM.test.model.Cidade;
 import br.com.climbORM.test.model.Email;
 import br.com.climbORM.test.model.Endereco;
@@ -105,12 +106,13 @@ public class climbORM {
         connection.close();
 
         connection = factory.getConnection("localhost");
-        List<Pessoa> pessoas = connection.find(Pessoa.class, "where id = " + idPessoa.toString());
+        ResultIterator iterator = connection.find(Pessoa.class, "where id = " + idPessoa.toString());
 
-        assertTrue(pessoas != null);
-        assertTrue(pessoas.size() > 0);
+        assertTrue(iterator != null);
 
-        for(Pessoa pessoa1 : pessoas) {
+        while (iterator.next()) {
+            Pessoa pessoa1 = (Pessoa) iterator.getObject();
+
             assertTrue(pessoa1 != null);
             assertTrue(pessoa1.getEmails().size() > 0);
             assertTrue(pessoa1.getId() != null);
@@ -119,6 +121,7 @@ public class climbORM {
             assertTrue(pessoa1.getEndereco().getCidade() != null);
             assertTrue(pessoa1.getEndereco().getCidade().getId() != null);
         }
+
 
         connection.close();
 

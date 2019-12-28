@@ -19,12 +19,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LazyLoad {
+public class LazyLoadTEMP {
 
     private Connection connection;
     private String schema;
 
-    public LazyLoad(Connection connection, String schema) {
+    public LazyLoadTEMP(Connection connection, String schema) {
         this.connection = connection;
         this.schema = schema;
     }

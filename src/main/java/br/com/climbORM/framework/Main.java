@@ -6,6 +6,7 @@ import java.util.List;
 
 import br.com.climbORM.framework.interfaces.ClimbConnection;
 import br.com.climbORM.framework.interfaces.ManagerFactory;
+import br.com.climbORM.framework.interfaces.ResultIterator;
 import br.com.climbORM.test.model.*;
 
 public class Main {
@@ -15,25 +16,37 @@ public class Main {
 		ManagerFactory factory = ClimbORM.createManagerFactory("climb.properties");
 		ClimbConnection connection = factory.getConnection("localhost");
 
-		//retorna apenas uma pessoa
-		Pessoa pessoa = (Pessoa) connection.findOne(Pessoa.class, 136l);
+//		//retorna apenas uma pessoa
+//		Pessoa pessoa = (Pessoa) connection.findOne(Pessoa.class, 136l);
+//
+//		//retorna uma lista de pessoas
+		ResultIterator pessoasIterator = connection.find(Pessoa.class, "WHERE ID > 0");
 
-		//retorna uma lista de pessoas
-		List<Pessoa> pessoas = connection.find(Pessoa.class, "WHERE ID > 0");
+		while(pessoasIterator.next()) {
+			Pessoa pessoa = (Pessoa)pessoasIterator.getObject();
+			System.out.println(pessoa.getId());
+			System.out.println(pessoa.getNome());
+		}
 
 		//retorna atraves de query
-		List<RespostaQuery> respostaQuerys = connection.findWithQuery(RespostaQuery.class, "SELECT " +
+		ResultIterator resultIterator = connection.findWithQuery(RespostaQuery.class, "SELECT " +
 				"p.nome, e.nome_da_rua, p.id_endereco, c.nome_da_cidade, p.lista_emails " +
 				"FROM localhost.tb_pessoa p \n" +
 				"INNER JOIN localhost.tb_endereco e on p.id_endereco = e.id\n" +
 				"INNER JOIN localhost.tb_cidade c on e.id_cidade = c.id\n" +
 				"where e.id_cidade > 1 and p.lista_emails is not null");
 
-		for (RespostaQuery resp : respostaQuerys) {
-			System.out.println(resp.getNome());
-			System.out.println(resp.getEndereco().getNomeDaRua());
-
+		while(resultIterator.next()) {
+//			RespostaQuery RespostaQuery = (RespostaQuery) resultIterator.getObject();
+//			System.out.println(RespostaQuery.getNome());
+//			System.out.println(RespostaQuery.getEndereco().getNomeDaRua());
 		}
+
+//		for (RespostaQuery resp : respostaQuerys) {
+//			System.out.println(resp.getNome());
+//			System.out.println(resp.getEndereco().getNomeDaRua());
+//
+//		}
 
 
 
