@@ -1,13 +1,10 @@
-package br.com.climbORM.test.units;
+package br.com.climbORM;
 
 import br.com.climbORM.framework.ClimbORM;
 import br.com.climbORM.framework.interfaces.ClimbConnection;
 import br.com.climbORM.framework.interfaces.ManagerFactory;
 import br.com.climbORM.framework.interfaces.ResultIterator;
 import br.com.climbORM.test.model.*;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -16,8 +13,10 @@ import org.junit.jupiter.api.TestMethodOrder;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class climbORM {
+public class TestCase {
 
     public static Long idPessoa;
     public static Long idCidade;

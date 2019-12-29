@@ -18,7 +18,7 @@ public class Main {
 
 //		//retorna apenas uma pessoa
 		Pessoa pessoa1 = (Pessoa) connection.findOne(Pessoa.class, 136l);
-		System.out.println(pessoa1.getId());
+//		System.out.println(pessoa1.getId());
 //
 //		//retorna uma lista de pessoas
 		ResultIterator pessoasIterator = connection.find(Pessoa.class, "WHERE ID > 0");
