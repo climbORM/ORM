@@ -9,14 +9,14 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class TestCase {
+public class TestOrm {
 
     public static Long idPessoa;
     public static Long idCidade;
