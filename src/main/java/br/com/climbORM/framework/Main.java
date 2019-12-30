@@ -17,11 +17,16 @@ public class Main {
 		ClimbConnection connection = factory.getConnection("localhost");
 
 //		//retorna apenas uma pessoa
-		Pessoa pessoa1 = (Pessoa) connection.findOne(Pessoa.class, 136l);
+//		Pessoa pessoa1 = (Pessoa) connection.findOne(Pessoa.class, 126l);
+//
+//		System.out.println(pessoa1.getNome());
+
+//		if (true) return;
+
 //		System.out.println(pessoa1.getId());
 //
 //		//retorna uma lista de pessoas
-		ResultIterator pessoasIterator = connection.find(Pessoa.class, "WHERE ID > 0");
+		ResultIterator pessoasIterator = connection.find(Pessoa.class, "WHERE ID < 0");
 
 		while(pessoasIterator.next()) {
 			Pessoa pessoa = (Pessoa)pessoasIterator.getObject();
@@ -37,11 +42,11 @@ public class Main {
 				"INNER JOIN localhost.tb_cidade c on e.id_cidade = c.id\n" +
 				"where e.id_cidade > 1 and p.lista_emails is not null");
 
-		while(resultIterator.next()) {
-			RespostaQuery RespostaQuery = (RespostaQuery) resultIterator.getObject();
-			System.out.println(RespostaQuery.getNome());
-			System.out.println(RespostaQuery.getEndereco().getNomeDaRua());
-		}
+//		while(resultIterator.next()) {
+//			RespostaQuery RespostaQuery = (RespostaQuery) resultIterator.getObject();
+//			System.out.println(RespostaQuery.getNome());
+//			System.out.println(RespostaQuery.getEndereco().getNomeDaRua());
+//		}
 
 //		for (RespostaQuery resp : respostaQuerys) {
 //			System.out.println(resp.getNome());

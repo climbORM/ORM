@@ -43,7 +43,7 @@ public class TestOrm {
         connection.save(cidade);
 
         idCidade = cidade.getId();
-        assertTrue(idCidade != null);
+        assertTrue(idCidade != null && idCidade > 0);
 
         Endereco endereco = new Endereco();
         endereco.setNomeDaRua("Rua Ji-parana");

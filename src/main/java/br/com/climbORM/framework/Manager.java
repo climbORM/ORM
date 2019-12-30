@@ -22,15 +22,12 @@ public class Manager implements ManagerFactory {
 		ConnectionDB connection = mapConnections.get(schemaName);
 		
 		if (connection == null) {
-			System.out.println("Criou");
 			connection = new ConnectionDB(this.properties);
 			mapConnections.put(schemaName, connection);
-			System.out.println("criou novo objeto");
 			return connection;
 		}
 		
 		if (connection.isClosedConnection()) {
-			System.out.println("usou o objeto");
 			connection.createConnectionDB();
 		}
 		
