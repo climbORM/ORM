@@ -53,15 +53,15 @@ public class ReflectionUtil {
 	}
 
 	public static Class getFieldGenericType(Field field) {
-        if (ParameterizedType.class.isAssignableFrom(field.getGenericType().getClass())) {
-            ParameterizedType genericType =
-             (ParameterizedType) field.getGenericType();
-            return ((Class)
-              (genericType.getActualTypeArguments()[0])).getSuperclass();
-        }
+		if (ParameterizedType.class.isAssignableFrom(field.getGenericType().getClass())) {
+			ParameterizedType genericType =
+					(ParameterizedType) field.getGenericType();
+			return ((Class)
+					(genericType.getActualTypeArguments()[0])).getSuperclass();
+		}
 
-        return new Boolean(false).getClass();
-    }
+		return new Boolean(false).getClass();
+	}
 
 	public static  String getTableName(Object object) {
 
@@ -94,7 +94,6 @@ public class ReflectionUtil {
 		} else {
 			fields = object.getClass().getDeclaredFields();
 		}
-
 
 		for (Field field : fields) {
 

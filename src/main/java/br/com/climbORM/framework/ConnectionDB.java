@@ -93,6 +93,7 @@ public class ConnectionDB implements ClimbConnection {
 	}
 
 	public void delete(Object object) {
+
 		Long id = ((PersistentEntity) object).getId();
 		String tableName = ReflectionUtil.getTableName(object);
 
@@ -136,7 +137,6 @@ public class ConnectionDB implements ClimbConnection {
 
 	@Override
 	public ResultIterator find(Class classe, String where) {
-//		return new LazyLoadTEMP(this.connection, this.schema).loadLazyObject(classe, where);
 		return new LazyLoader(this.connection,this.schema, classe, where, LazyLoader.ENTITY);
 	}
 
