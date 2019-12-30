@@ -8,9 +8,9 @@
   <component name="ChangeListManager">
     <list default="true" id="f563a8c1-5958-484f-85bf-23b373586e7d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/Manager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/br/com/climbORM/TestOrm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/br/com/climbORM/TestOrm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/mapping/Json.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/mapping/Json.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/utils/SqlUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/utils/SqlUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/test/model/Pessoa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/test/model/Pessoa.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +95,7 @@
       <recent name="C:\Users\Thago Rodrigues\IdeaProjects\ORM\src\main\resources\META-INF" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.TestOrm">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="br.com.climbORM.framework.Main" />
       <module name="climbORM" />
@@ -173,8 +173,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.TestOrm" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.climbORM" />
         <item itemvalue="JUnit.climbORM.printaID" />
         <item itemvalue="JUnit.climbORM.insert" />
@@ -208,7 +208,7 @@
       <workItem from="1577457281189" duration="22483000" />
       <workItem from="1577538710705" duration="11465000" />
       <workItem from="1577733320009" duration="1648000" />
-      <workItem from="1577736493216" duration="4057000" />
+      <workItem from="1577736493216" duration="4801000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1577374215130</created>
@@ -357,7 +357,14 @@
       <option name="project" value="LOCAL" />
       <updated>1577736800235</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="update">
+      <created>1577743204696</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1577743204696</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -414,10 +421,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="412" y="263" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1366.768@0.0.1366.768" timestamp="1577569980701" />
-    <state x="344" y="45" width="749" height="586" key="CommitChangelistDialog2" timestamp="1577736799407">
+    <state x="344" y="45" width="749" height="586" key="CommitChangelistDialog2" timestamp="1577743204050">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="344" y="45" width="749" height="586" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1577736799407" />
+    <state x="344" y="45" width="749" height="586" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1577743204050" />
     <state x="129" y="65" key="DiffContextDialog" timestamp="1577736789873">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -426,22 +433,22 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="484" y="140" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1577393446087" />
-    <state width="1323" height="209" key="GridCell.Tab.0.bottom" timestamp="1577742513812">
+    <state width="1323" height="209" key="GridCell.Tab.0.bottom" timestamp="1577743936658">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="209" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1577742513812" />
-    <state width="1323" height="209" key="GridCell.Tab.0.center" timestamp="1577742513812">
+    <state width="1323" height="209" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1577743936658" />
+    <state width="1323" height="209" key="GridCell.Tab.0.center" timestamp="1577743936657">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="209" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1577742513812" />
-    <state width="1323" height="209" key="GridCell.Tab.0.left" timestamp="1577742513811">
+    <state width="1323" height="209" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1577743936657" />
+    <state width="1323" height="209" key="GridCell.Tab.0.left" timestamp="1577743936657">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="209" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1577742513811" />
-    <state width="1323" height="209" key="GridCell.Tab.0.right" timestamp="1577742513812">
+    <state width="1323" height="209" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1577743936657" />
+    <state width="1323" height="209" key="GridCell.Tab.0.right" timestamp="1577743936657">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="209" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1577742513812" />
+    <state width="1323" height="209" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1577743936657" />
     <state width="1323" height="238" key="GridCell.Tab.1.bottom" timestamp="1577735044449">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -474,10 +481,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1366.768@0.0.1366.768" timestamp="1577566590370" />
-    <state x="275" y="118" key="Vcs.Push.Dialog.v2" timestamp="1577570471228">
+    <state x="275" y="118" key="Vcs.Push.Dialog.v2" timestamp="1577743211183">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="275" y="118" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1577570471228" />
+    <state x="275" y="118" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1577743211183" />
     <state x="499" y="163" key="chooseDestDirectoryDialog" timestamp="1577460903557">
       <screen x="0" y="0" width="1366" height="768" />
     </state>

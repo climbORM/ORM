@@ -30,7 +30,8 @@ public class SqlUtil {
 
             atributes.append(model.getAttribute() + ",");
             if (model.getField().isAnnotationPresent(Json.class)) {
-                values.append("?::JSON,");
+                Json json = (Json)model.getField().getAnnotation(Json.class);
+                values.append("?::"+json.typeJson()+",");
             } else {
                 values.append("?,");
             }
@@ -92,7 +93,10 @@ public class SqlUtil {
         for (Model model : models) {
 
             if (model.getField().isAnnotationPresent(Json.class)) {
-                values.append(model.getAttribute() + "= ?::JSON,");
+
+                Json json = (Json)model.getField().getAnnotation(Json.class);
+
+                values.append(model.getAttribute() + "= ?::"+json.typeJson()+",");
             } else {
                 values.append(model.getAttribute() + "= ?,");
             }
@@ -109,47 +113,6 @@ public class SqlUtil {
 
     }
 
-    public static String generateSqlInsert(String schema, List<Model> models, String tableName) {
-
-        StringBuilder atributes = new StringBuilder();
-        StringBuilder values = new StringBuilder();
-        int count = 1;
-        for (Model model : models) {
-
-            if (models.size() == count) {
-                atributes.append(model.getAttribute());
-                values.append(model.getValue());
-            } else {
-                atributes.append(model.getAttribute() + ",");
-                values.append(model.getValue() + ",");
-            }
-
-            count += 1;
-        }
-
-        return "INSERT INTO " + schema + "." + tableName + "(" + atributes.toString() + ") VALUES (" + values.toString()
-                + ")";
-
-    }
-
-    public static String generateSqlUpdate(String schema, List<Model> models, String tableName, Long id) {
-
-        StringBuilder values = new StringBuilder();
-        int count = 1;
-        for (Model model : models) {
-
-            if (models.size() == count) {
-                values.append(model.getAttribute() + "=" + model.getValue());
-            } else {
-                values.append(model.getAttribute() + "=" + model.getValue() + ",");
-            }
-
-            count += 1;
-        }
-
-        return "UPDATE " + schema + "." + tableName + " SET " + values.toString() + " WHERE id = " + id.toString();
-
-    }
 
 }
 
