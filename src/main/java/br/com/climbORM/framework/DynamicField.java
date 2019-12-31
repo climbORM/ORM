@@ -1,9 +1,11 @@
 package br.com.climbORM.framework;
 
-public abstract class DynamicField {
+public interface DynamicField {
 
-    public Object getValue(String fieldName) { return null; }
+    public Object getValue(String fieldName);
 
-    public void createField(String name, Class type) { }
+    public void addValue(String fieldName, Object value);
+
+    public void createField(String name, Class type);
 
 }

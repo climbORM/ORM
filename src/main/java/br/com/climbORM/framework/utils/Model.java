@@ -16,6 +16,12 @@ public class Model {
 		this.field = field;
 	}
 
+	public Model(String attribute, Object value, Class type) {
+		this.attribute = attribute;
+		this.value = value;
+		this.type = type;
+	}
+
 	public String getAttribute() {
 		return attribute;
 	}
