@@ -11,7 +11,7 @@ import br.com.climbORM.framework.mapping.*;
 
 public class ReflectionUtil {
 
-	public static String getFieldName(Field field) {
+	public synchronized static String getFieldName(Field field) {
 		String fieldName = field.getName();
 		Column column = (Column) field.getAnnotation(Column.class);
 
@@ -22,7 +22,7 @@ public class ReflectionUtil {
 		return fieldName;
 	}
 
-	public static Object getValueField(Field field, Object object) {
+	public synchronized static Object getValueField(Field field, Object object) {
 
 		Object tempValue = null;
 
@@ -52,18 +52,8 @@ public class ReflectionUtil {
 		return object.getClass().getName().contains("EnhancerByCGLI");
 	}
 
-	public static Class getFieldGenericType(Field field) {
-		if (ParameterizedType.class.isAssignableFrom(field.getGenericType().getClass())) {
-			ParameterizedType genericType =
-					(ParameterizedType) field.getGenericType();
-			return ((Class)
-					(genericType.getActualTypeArguments()[0])).getSuperclass();
-		}
 
-		return new Boolean(false).getClass();
-	}
-
-	public static  String getTableName(Object object) {
+	public synchronized static  String getTableName(Object object) {
 
 		Entity entity = null;
 
@@ -84,7 +74,7 @@ public class ReflectionUtil {
 		return tableName;
 	}
 
-	public static List<Model> generateModel(Object object) {
+	public synchronized static List<Model> generateModel(Object object) {
 
 		List<Model> models = new ArrayList<Model>();
 		Field[] fields = null;

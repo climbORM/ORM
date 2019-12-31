@@ -9,7 +9,7 @@ import java.util.List;
 
 public class SqlUtil {
 
-    public static byte[] getBinaryValue(Long id, String field, String entity, Connection connection)
+    public synchronized static byte[] getBinaryValue(Long id, String field, String entity, Connection connection)
             throws SQLException {
         Statement stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, 1);
         ResultSet resultSet = stmt.executeQuery("SELECT " + field + " FROM " + entity + " WHERE ID = " + id.toString());
@@ -21,7 +21,7 @@ public class SqlUtil {
         return null;
     }
 
-    public static PreparedStatement preparedStatementInsert(String schema, Connection connection, List<Model> models,
+    public synchronized static PreparedStatement preparedStatementInsert(String schema, Connection connection, List<Model> models,
                                                             String tableName) throws Exception {
 
         StringBuilder atributes = new StringBuilder();
@@ -48,7 +48,7 @@ public class SqlUtil {
 
     }
 
-    public static PreparedStatement getPreparedStatement(PreparedStatement ps, List<Model> models) throws Exception {
+    public synchronized static PreparedStatement getPreparedStatement(PreparedStatement ps, List<Model> models) throws Exception {
 
         int i = 0;
         for (Model model : models) {
@@ -85,7 +85,7 @@ public class SqlUtil {
         return ps;
     }
 
-    public static PreparedStatement preparedStatementUpdate(String schema, Connection connection, List<Model> models,
+    public synchronized static PreparedStatement preparedStatementUpdate(String schema, Connection connection, List<Model> models,
                                                             String tableName, Long id) throws Exception {
 
         StringBuilder values = new StringBuilder();
@@ -109,47 +109,19 @@ public class SqlUtil {
 
     }
 
-    public static String generateSqlInsert(String schema, List<Model> models, String tableName) {
+    public static synchronized boolean isTableExist(Connection connection, String schema, String table) throws SQLException {
 
-        StringBuilder atributes = new StringBuilder();
-        StringBuilder values = new StringBuilder();
-        int count = 1;
-        for (Model model : models) {
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT to_regclass('"+schema+"."+table+"') is not null");
 
-            if (models.size() == count) {
-                atributes.append(model.getAttribute());
-                values.append(model.getValue());
-            } else {
-                atributes.append(model.getAttribute() + ",");
-                values.append(model.getValue() + ",");
-            }
-
-            count += 1;
+        if (rs.next()) {
+            return rs.getBoolean(1);
         }
 
-        return "INSERT INTO " + schema + "." + tableName + "(" + atributes.toString() + ") VALUES (" + values.toString()
-                + ")";
+        return false;
 
     }
 
-    public static String generateSqlUpdate(String schema, List<Model> models, String tableName, Long id) {
-
-        StringBuilder values = new StringBuilder();
-        int count = 1;
-        for (Model model : models) {
-
-            if (models.size() == count) {
-                values.append(model.getAttribute() + "=" + model.getValue());
-            } else {
-                values.append(model.getAttribute() + "=" + model.getValue() + ",");
-            }
-
-            count += 1;
-        }
-
-        return "UPDATE " + schema + "." + tableName + " SET " + values.toString() + " WHERE id = " + id.toString();
-
-    }
 
 }
 

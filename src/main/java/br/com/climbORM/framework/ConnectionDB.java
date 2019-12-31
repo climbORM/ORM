@@ -1,5 +1,6 @@
 package br.com.climbORM.framework;
 
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,13 +14,13 @@ import br.com.climbORM.framework.utils.SqlUtil;
 
 import br.com.climbORM.framework.mapping.Entity;
 import br.com.climbORM.framework.utils.ReflectionUtil;
+import br.com.climbORM.test.model.Fields;
 
 public class ConnectionDB implements ClimbConnection {
 	private Connection connection;
 	private Properties properties;
 	private String schema;
 	private Transaction transaction;
-	private Command command;
 
 	public void createConnectionDB() {
 		try {
@@ -57,6 +58,46 @@ public class ConnectionDB implements ClimbConnection {
 		return this.transaction;
 	}
 
+	private void createDynamicTable(Object object) throws SQLException {
+
+		String tableName = ReflectionUtil.getTableName(object);
+
+		Field[] fields = object.getClass().getDeclaredFields();
+
+		boolean exist = false;
+		for (Field field : fields) {
+			if (field.getType() == Fields.class) {
+				exist = true;
+				break;
+			}
+		}
+
+		if (exist) {
+
+			tableName = tableName + "_dynamic";
+
+			if (SqlUtil.isTableExist(this.connection,this.schema, tableName)) {
+				return;
+			}
+
+			String sql = "CREATE TABLE localhost." + tableName +"\n" +
+					"(\n" +
+					"    id serial NOT NULL,\n" +
+					"    table_name text NOT NULL,\n" +
+					"    id_record bigint NOT NULL,\n" +
+					"    PRIMARY KEY (id)\n" +
+					")";
+
+			Statement statement = this.connection.createStatement();
+
+			statement.execute(sql);
+
+		}
+
+
+
+	}
+
 	public void save(Object object) {
 
 		try {
@@ -71,6 +112,8 @@ public class ConnectionDB implements ClimbConnection {
 
 			PersistentEntity pers = (PersistentEntity) object;
 			pers.setId(id);
+
+			createDynamicTable(object);
 
 		} catch (Exception e) {
 			e.printStackTrace();

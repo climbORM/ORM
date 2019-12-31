@@ -26,21 +26,21 @@ public class Main {
 //		System.out.println(pessoa1.getId());
 //
 //		//retorna uma lista de pessoas
-		ResultIterator pessoasIterator = connection.find(Pessoa.class, "WHERE ID < 0");
+//		ResultIterator pessoasIterator = connection.find(Pessoa.class, "WHERE ID < 0");
+//
+//		while(pessoasIterator.next()) {
+//			Pessoa pessoa = (Pessoa)pessoasIterator.getObject();
+//			System.out.println(pessoa.getId());
+//			System.out.println(pessoa.getNome());
+//		}
 
-		while(pessoasIterator.next()) {
-			Pessoa pessoa = (Pessoa)pessoasIterator.getObject();
-			System.out.println(pessoa.getId());
-			System.out.println(pessoa.getNome());
-		}
-
-		//retorna atraves de query
-		ResultIterator resultIterator = connection.findWithQuery(RespostaQuery.class, "SELECT " +
-				"p.nome, e.nome_da_rua, p.id_endereco, c.nome_da_cidade, p.lista_emails " +
-				"FROM localhost.tb_pessoa p \n" +
-				"INNER JOIN localhost.tb_endereco e on p.id_endereco = e.id\n" +
-				"INNER JOIN localhost.tb_cidade c on e.id_cidade = c.id\n" +
-				"where e.id_cidade > 1 and p.lista_emails is not null");
+//		//retorna atraves de query
+//		ResultIterator resultIterator = connection.findWithQuery(RespostaQuery.class, "SELECT " +
+//				"p.nome, e.nome_da_rua, p.id_endereco, c.nome_da_cidade, p.lista_emails " +
+//				"FROM localhost.tb_pessoa p \n" +
+//				"INNER JOIN localhost.tb_endereco e on p.id_endereco = e.id\n" +
+//				"INNER JOIN localhost.tb_cidade c on e.id_cidade = c.id\n" +
+//				"where e.id_cidade > 1 and p.lista_emails is not null");
 
 //		while(resultIterator.next()) {
 //			RespostaQuery RespostaQuery = (RespostaQuery) resultIterator.getObject();
