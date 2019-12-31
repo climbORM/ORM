@@ -37,6 +37,14 @@ public class Pessoa extends PersistentEntity {
 	@Column(name = "lista_emails")
 	private List<Email> emails;
 
+	public Fields getFields() {
+		return fields;
+	}
+
+	public void setFields(Fields fields) {
+		this.fields = fields;
+	}
+
 	@DynamicField
 	private Fields fields;
 	
