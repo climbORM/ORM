@@ -2,7 +2,6 @@ package br.com.climbORM.test.model;
 
 import java.util.List;
 
-import br.com.climbORM.framework.interfaces.DynamicFields;
 import br.com.climbORM.framework.PersistentEntity;
 import br.com.climbORM.framework.mapping.*;
 
@@ -39,8 +38,8 @@ public class Pessoa extends PersistentEntity {
 	private List<Email> emails;
 
 	@DynamicField
-	private DynamicFields dynamicFields;
-
+	private Fields fields;
+	
 	public String getEnderecoComercial() {
 		return enderecoComercial;
 	}
@@ -111,14 +110,5 @@ public class Pessoa extends PersistentEntity {
 
 	public void setEmails(List<Email> emails) {
 		this.emails = emails;
-	}
-
-
-	public DynamicFields getDynamicFields() {
-		return dynamicFields;
-	}
-
-	public void setDynamicFields(DynamicFields dynamicFields) {
-		this.dynamicFields = dynamicFields;
 	}
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class SqlUtil {
 
-    public static byte[] getBinaryValue(Long id, String field, String entity, Connection connection)
+    public synchronized static byte[] getBinaryValue(Long id, String field, String entity, Connection connection)
             throws SQLException {
         Statement stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, 1);
         ResultSet resultSet = stmt.executeQuery("SELECT " + field + " FROM " + entity + " WHERE ID = " + id.toString());
@@ -21,7 +21,7 @@ public class SqlUtil {
         return null;
     }
 
-    public static PreparedStatement preparedStatementInsert(String schema, Connection connection, List<Model> models,
+    public synchronized static PreparedStatement preparedStatementInsert(String schema, Connection connection, List<Model> models,
                                                             String tableName) throws Exception {
 
         StringBuilder atributes = new StringBuilder();
@@ -30,8 +30,7 @@ public class SqlUtil {
 
             atributes.append(model.getAttribute() + ",");
             if (model.getField().isAnnotationPresent(Json.class)) {
-                Json json = (Json)model.getField().getAnnotation(Json.class);
-                values.append("?::"+json.typeJson()+",");
+                values.append("?::JSON,");
             } else {
                 values.append("?,");
             }
@@ -49,7 +48,7 @@ public class SqlUtil {
 
     }
 
-    public static PreparedStatement getPreparedStatement(PreparedStatement ps, List<Model> models) throws Exception {
+    public synchronized static PreparedStatement getPreparedStatement(PreparedStatement ps, List<Model> models) throws Exception {
 
         int i = 0;
         for (Model model : models) {
@@ -86,17 +85,14 @@ public class SqlUtil {
         return ps;
     }
 
-    public static PreparedStatement preparedStatementUpdate(String schema, Connection connection, List<Model> models,
+    public synchronized static PreparedStatement preparedStatementUpdate(String schema, Connection connection, List<Model> models,
                                                             String tableName, Long id) throws Exception {
 
         StringBuilder values = new StringBuilder();
         for (Model model : models) {
 
             if (model.getField().isAnnotationPresent(Json.class)) {
-
-                Json json = (Json)model.getField().getAnnotation(Json.class);
-
-                values.append(model.getAttribute() + "= ?::"+json.typeJson()+",");
+                values.append(model.getAttribute() + "= ?::JSON,");
             } else {
                 values.append(model.getAttribute() + "= ?,");
             }
@@ -110,6 +106,19 @@ public class SqlUtil {
         PreparedStatement ps = connection.prepareStatement(sql);
 
         return getPreparedStatement(ps, models);
+
+    }
+
+    public static synchronized boolean isTableExist(Connection connection, String schema, String table) throws SQLException {
+
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT to_regclass('"+schema+"."+table+"') is not null");
+
+        if (rs.next()) {
+            return rs.getBoolean(1);
+        }
+
+        return false;
 
     }
 

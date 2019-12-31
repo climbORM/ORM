@@ -15,7 +15,7 @@ import net.sf.cglib.core.Predicate;
 
 public class ReflectionUtil {
 
-	public static String getFieldName(Field field) {
+	public synchronized static String getFieldName(Field field) {
 		String fieldName = field.getName();
 		Column column = (Column) field.getAnnotation(Column.class);
 
@@ -26,7 +26,7 @@ public class ReflectionUtil {
 		return fieldName;
 	}
 
-	public static Object getValueField(Field field, Object object) {
+	public synchronized static Object getValueField(Field field, Object object) {
 
 		Object tempValue = null;
 
@@ -57,7 +57,7 @@ public class ReflectionUtil {
 	}
 
 
-	public static  String getTableName(Object object) {
+	public synchronized static  String getTableName(Object object) {
 
 		Entity entity = null;
 
@@ -78,7 +78,7 @@ public class ReflectionUtil {
 		return tableName;
 	}
 
-	public static List<Model> generateModel(Object object) {
+	public synchronized static List<Model> generateModel(Object object) {
 
 		List<Model> models = new ArrayList<Model>();
 		Field[] fields = null;
