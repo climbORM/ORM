@@ -5,7 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.beans.PropertyDescriptor;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SqlUtil {
 
@@ -61,7 +64,11 @@ public class SqlUtil {
                     ps.setLong(i, (long) value);
 
                 } else {
-                    ps.setLong(i, (long) model.getValue());
+                    if (model.getValue() != null) {
+                        ps.setLong(i, (long) model.getValue());
+                    } else {
+                        ps.setNull(i, 0);
+                    }
                 }
             } else if (model.getType() == Integer.class || model.getType() == int.class) {
                 ps.setInt(i, (int) model.getValue());
@@ -83,6 +90,84 @@ public class SqlUtil {
         }
 
         return ps;
+    }
+
+    public synchronized static Map<String,String> getCreatedFields(final String tableName, final Connection connection) {
+
+        final String sql = "SELECT column_name, data_type FROM information_schema.columns WHERE \n" +
+                "table_name = ?;";
+
+        Map<String, String> map = null;
+        PreparedStatement ps = null;
+        try {
+
+            map = new HashMap<>();
+
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, tableName);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                map.put(rs.getString("column_name"), rs.getString("data_type"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return map;
+
+
+    }
+
+    public synchronized static String getTypeDataBase(final Class type) {
+
+        if (type == Long.class || type == long.class) {
+            return "integer";
+        } else if (type == Integer.class || type == int.class) {
+            return "integer";
+        } else if (type == Float.class || type == float.class) {
+            return "decimal";
+        } else if (type == Double.class || type == double.class) {
+            return "real";
+        } else if (type == Boolean.class || type == boolean.class) {
+            return "boolean";
+        } else if (type == String.class || type == char.class) {
+            return "text";
+        } else if (type == byte[].class) {
+            return "bytea";
+        } else {
+            new Error("Not suportend type: " + type);
+        }
+
+        return null;
+    }
+
+    public synchronized static Class getTypeDataJava(final String type) {
+
+        if ("integer".equals(type)) {
+            return Long.class;
+        } else if ("decimal".equals(type)) {
+            return Float.class;
+        } else if ("real".equals(type)) {
+            return Double.class;
+        } else if ("boolean".equals(type)) {
+            return Boolean.class;
+        } else if ("text".equals(type)) {
+            return String.class;
+        } else if ("bytea".equals(type)) {
+            return byte[].class;
+        } else {
+            new Error("Not suportend type: " + type);
+        }
+
+        return null;
     }
 
     public synchronized static PreparedStatement preparedStatementUpdate(String schema, Connection connection, List<Model> models,
@@ -109,13 +194,25 @@ public class SqlUtil {
 
     }
 
-    public static synchronized boolean isTableExist(Connection connection, String schema, String table) throws SQLException {
+    public static synchronized boolean isTableExist(Connection connection, String schema, String table) {
 
-        Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT to_regclass('"+schema+"."+table+"') is not null");
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT to_regclass('"+schema+"."+table+"') is not null");
 
-        if (rs.next()) {
-            return rs.getBoolean(1);
+            if (rs.next()) {
+                return rs.getBoolean(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return false;

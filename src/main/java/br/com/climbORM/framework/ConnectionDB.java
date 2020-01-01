@@ -10,17 +10,24 @@ import java.sql.Statement;
 import java.util.*;
 
 import br.com.climbORM.framework.interfaces.*;
+import br.com.climbORM.framework.mapping.DynamicField;
+import br.com.climbORM.framework.utils.Model;
 import br.com.climbORM.framework.utils.SqlUtil;
 
 import br.com.climbORM.framework.mapping.Entity;
 import br.com.climbORM.framework.utils.ReflectionUtil;
-import br.com.climbORM.test.model.Fields;
+import br.com.climbORM.test.model.FieldManager;
 
 public class ConnectionDB implements ClimbConnection {
 	private Connection connection;
 	private Properties properties;
 	private String schema;
 	private Transaction transaction;
+	private Map<String, List<Model>> tableOfDynamicFields;
+
+	{
+		tableOfDynamicFields = new HashMap<>();
+	}
 
 	public void createConnectionDB() {
 		try {
@@ -58,45 +65,6 @@ public class ConnectionDB implements ClimbConnection {
 		return this.transaction;
 	}
 
-	private void createDynamicTable(Object object) throws SQLException {
-
-		String tableName = ReflectionUtil.getTableName(object);
-
-		Field[] fields = object.getClass().getDeclaredFields();
-
-		boolean exist = false;
-		for (Field field : fields) {
-			if (field.getType() == Fields.class) {
-				exist = true;
-				break;
-			}
-		}
-
-		if (exist) {
-
-			tableName = tableName + "_dynamic";
-
-			if (SqlUtil.isTableExist(this.connection,this.schema, tableName)) {
-				return;
-			}
-
-			String sql = "CREATE TABLE localhost." + tableName +"\n" +
-					"(\n" +
-					"    id serial NOT NULL,\n" +
-					"    table_name text NOT NULL,\n" +
-					"    id_record bigint NOT NULL,\n" +
-					"    PRIMARY KEY (id)\n" +
-					")";
-
-			Statement statement = this.connection.createStatement();
-
-			statement.execute(sql);
-
-		}
-
-
-
-	}
 
 	public void save(Object object) {
 
@@ -113,7 +81,11 @@ public class ConnectionDB implements ClimbConnection {
 			PersistentEntity pers = (PersistentEntity) object;
 			pers.setId(id);
 
-			createDynamicTable(object);
+			if (ReflectionUtil.isContainsDynamicFields(object)) {
+				createDynamicTable(object);
+				createDynamicFields(object);
+			}
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -199,6 +171,93 @@ public class ConnectionDB implements ClimbConnection {
 		}
 	}
 
+	///// CRIAR NOVA CLASSE PARA ESSES TRABALHOS
+
+	private String getTableName(Object object) {
+		return ReflectionUtil.getTableName(object) + "_dynamic";
+	}
+
+	private void createDynamicTable(Object object) {
+
+		try {
+
+
+			final String tableName = getTableName(object);
+
+			if (this.tableOfDynamicFields.get(tableName) != null) {
+				return;
+			}
+
+			if (SqlUtil.isTableExist(this.connection,this.schema, tableName)) {
+				return;
+			}
+
+			final String sql = "CREATE TABLE localhost." + tableName +"\n" +
+					"(\n" +
+					"    id serial NOT NULL,\n" +
+					"    table_name text NOT NULL,\n" +
+					"    id_record bigint NOT NULL,\n" +
+					"    PRIMARY KEY (id)\n" +
+					")";
+
+			final Statement statement = this.connection.createStatement();
+			statement.execute(sql);
+
+			this.tableOfDynamicFields.put(tableName, new ArrayList<Model>());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void loadDynamicFieldsTable(final String tableName) {
+
+		if (this.tableOfDynamicFields.get(tableName) != null) {
+			return;
+		}
+
+		if (SqlUtil.isTableExist(this.connection,this.schema, tableName)) {
+			return;
+		}
+
+		Map<String, String> map = SqlUtil.getCreatedFields(tableName, this.connection);
+
+		this.tableOfDynamicFields.put(tableName, new ArrayList<Model>());
+	}
+
+	private void createDynamicFields(Object object) {
+
+		try {
+
+			final Field field = ReflectionUtil.getDynamicField(object);
+
+			if (field == null) {
+				return;
+			}
+
+			final String tableName = getTableName(object);
+
+			final FieldManager fieldManager = (FieldManager) ReflectionUtil.getValueField(field,object);
+
+			final Map<String, Class> newFields = fieldManager.getNewFields();
+
+			final StringBuilder builder = new StringBuilder();
+
+			for (String fieldName : newFields.keySet()) {
+
+				String type = SqlUtil.getTypeDataBase(newFields.get(fieldName));
+
+				builder.append("ALTER TABLE " + this.schema +"." + tableName +"\n" +
+						"\tADD COLUMN " + fieldName + " " + type + ";\n");
+			}
+
+			final Statement statement = this.connection.createStatement();
+			statement.execute(builder.toString());
+
+			this.tableOfDynamicFields.put(tableName, new ArrayList<Model>());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 
 }
