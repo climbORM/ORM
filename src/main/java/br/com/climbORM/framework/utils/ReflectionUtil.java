@@ -110,9 +110,9 @@ public class ReflectionUtil {
 		return tableName;
 	}
 
-	public synchronized static List<Model> generateModel(Object object) {
+	public synchronized static List<ModelTableField> generateModel(Object object) {
 
-		List<Model> models = new ArrayList<Model>();
+		List<ModelTableField> modelTableFields = new ArrayList<ModelTableField>();
 		Field[] fields = null;
 
 		if (ReflectionUtil.isProxedCGLIB(object)) {
@@ -130,7 +130,7 @@ public class ReflectionUtil {
 			if (field.isAnnotationPresent(Relation.class)) {
 				String fieldName = ReflectionUtil.getFieldName(field);
 				Object tempValue = ReflectionUtil.getValueField(field, object);
-				models.add(new Model(fieldName, tempValue, Long.class, field));
+				modelTableFields.add(new ModelTableField(fieldName, tempValue, Long.class, field));
 
 				continue;
 			}
@@ -146,7 +146,7 @@ public class ReflectionUtil {
 
 					String fieldName = ReflectionUtil.getFieldName(field);
 					Object tempValue = ReflectionUtil.getValueField(field, object);
-					models.add(new Model(fieldName, tempValue, Long.class, field));
+					modelTableFields.add(new ModelTableField(fieldName, tempValue, Long.class, field));
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -162,7 +162,7 @@ public class ReflectionUtil {
 
 					String fieldName = ReflectionUtil.getFieldName(field);
 					Object tempValue = ReflectionUtil.getValueField(field, object);
-					models.add(new Model(fieldName, tempValue, Integer.class, field));
+					modelTableFields.add(new ModelTableField(fieldName, tempValue, Integer.class, field));
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -172,7 +172,7 @@ public class ReflectionUtil {
 
 					String fieldName = ReflectionUtil.getFieldName(field);
 					Object tempValue = ReflectionUtil.getValueField(field, object);
-					models.add(new Model(fieldName, tempValue, Float.class, field));
+					modelTableFields.add(new ModelTableField(fieldName, tempValue, Float.class, field));
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -182,7 +182,7 @@ public class ReflectionUtil {
 
 					String fieldName = ReflectionUtil.getFieldName(field);
 					Object tempValue = ReflectionUtil.getValueField(field, object);
-					models.add(new Model(fieldName, tempValue, Double.class, field));
+					modelTableFields.add(new ModelTableField(fieldName, tempValue, Double.class, field));
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -192,7 +192,7 @@ public class ReflectionUtil {
 
 					String fieldName = ReflectionUtil.getFieldName(field);
 					Object tempValue = ReflectionUtil.getValueField(field, object);
-					models.add(new Model(fieldName, tempValue, Boolean.class, field));
+					modelTableFields.add(new ModelTableField(fieldName, tempValue, Boolean.class, field));
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -202,7 +202,7 @@ public class ReflectionUtil {
 
 					String fieldName = ReflectionUtil.getFieldName(field);
 					Object tempValue = ReflectionUtil.getValueField(field, object);
-					models.add(new Model(fieldName, tempValue, String.class, field));
+					modelTableFields.add(new ModelTableField(fieldName, tempValue, String.class, field));
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -211,7 +211,7 @@ public class ReflectionUtil {
 				try {
 					String fieldName = ReflectionUtil.getFieldName(field);
 					Object tempValue = ReflectionUtil.getValueField(field, object);
-					models.add(new Model(fieldName, tempValue, byte[].class, field));
+					modelTableFields.add(new ModelTableField(fieldName, tempValue, byte[].class, field));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -219,14 +219,14 @@ public class ReflectionUtil {
 				try {
 					String fieldName = ReflectionUtil.getFieldName(field);
 					Object tempValue = ReflectionUtil.getValueField(field, object);
-					models.add(new Model(fieldName, tempValue, List.class, field));
+					modelTableFields.add(new ModelTableField(fieldName, tempValue, List.class, field));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		}
 
-		return models;
+		return modelTableFields;
 	}
 
 }

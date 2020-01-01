@@ -1,15 +1,16 @@
-package br.com.climbORM.test.model;
+package br.com.climbORM.framework;
 
 import br.com.climbORM.framework.interfaces.DynamicFields;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class FieldManager implements DynamicFields {
+public class DynamicFieldsEntity implements DynamicFields {
 
     private Class type;
 
     private Map<String, Class> newFields;
+
     private Map<String, Object> valueFields;
 
     {
@@ -18,12 +19,12 @@ public class FieldManager implements DynamicFields {
     }
 
 
-    private FieldManager(Class type) {
+    private DynamicFieldsEntity(Class type) {
         this.type = type;
     }
 
-    public static DynamicFields create(Class type) {
-        return new FieldManager(type);
+    public static br.com.climbORM.framework.interfaces.DynamicFields create(Class type) {
+        return new DynamicFieldsEntity(type);
     }
 
     @Override
@@ -55,6 +56,14 @@ public class FieldManager implements DynamicFields {
 
     public void setNewFields(Map<String, Class> newFields) {
         this.newFields = newFields;
+    }
+
+    public Map<String, Object> getValueFields() {
+        return valueFields;
+    }
+
+    public void setValueFields(Map<String, Object> valueFields) {
+        this.valueFields = valueFields;
     }
 
 }

@@ -2,7 +2,7 @@ package br.com.climbORM.framework;
 
 import br.com.climbORM.framework.interfaces.ResultIterator;
 import br.com.climbORM.framework.mapping.*;
-import br.com.climbORM.framework.utils.Model;
+import br.com.climbORM.framework.utils.ModelTableField;
 import br.com.climbORM.framework.utils.ReflectionUtil;
 import br.com.climbORM.framework.utils.SqlUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -175,21 +175,21 @@ public class LazyLoader implements ResultIterator {
     }
 
     private StringBuilder getAtributes(Class classe) {
-        List<Model> models = null;
+        List<ModelTableField> modelTableFields = null;
         try {
-            models = ReflectionUtil.generateModel(classe.newInstance());
+            modelTableFields = ReflectionUtil.generateModel(classe.newInstance());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         StringBuilder atributes = new StringBuilder();
-        for (Model model : models) {
+        for (ModelTableField modelTableField : modelTableFields) {
 
-            if (model.getType() == byte[].class) {
+            if (modelTableField.getType() == byte[].class) {
                 continue;
             }
 
-            atributes.append(model.getAttribute() + ",");
+            atributes.append(modelTableField.getAttribute() + ",");
         }
 
         return atributes;

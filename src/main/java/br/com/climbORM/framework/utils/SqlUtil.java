@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.beans.PropertyDescriptor;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,15 +23,16 @@ public class SqlUtil {
         return null;
     }
 
-    public synchronized static PreparedStatement preparedStatementInsert(String schema, Connection connection, List<Model> models,
+    public synchronized static PreparedStatement preparedStatementInsert(String schema, Connection connection, List<ModelTableField> modelTableFields,
                                                             String tableName) throws Exception {
 
         StringBuilder atributes = new StringBuilder();
         StringBuilder values = new StringBuilder();
-        for (Model model : models) {
 
-            atributes.append(model.getAttribute() + ",");
-            if (model.getField().isAnnotationPresent(Json.class)) {
+        for (ModelTableField modelTableField : modelTableFields) {
+
+            atributes.append(modelTableField.getAttribute() + ",");
+            if (modelTableField.getField().isAnnotationPresent(Json.class)) {
                 values.append("?::JSON,");
             } else {
                 values.append("?,");
@@ -47,44 +47,73 @@ public class SqlUtil {
 
         PreparedStatement ps = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 
-        return getPreparedStatement(ps, models);
+        return getPreparedStatement(ps, modelTableFields);
 
     }
 
-    public synchronized static PreparedStatement getPreparedStatement(PreparedStatement ps, List<Model> models) throws Exception {
+    public synchronized static PreparedStatement getPreparedStatementDynamicFields(PreparedStatement ps, Map<String, Object> fields, int start) throws Exception {
 
-        int i = 0;
-        for (Model model : models) {
+        int i = start;
+
+        for (String fieldName : fields.keySet()) {
+
+            Object object = fields.get(fieldName);
 
             i += 1;
-            if (model.getType() == Long.class || model.getType() == long.class) {
-                if (ReflectionUtil.isProxedCGLIB(model.getValue())) {
+            if (object.getClass() == Long.class || object.getClass() == long.class) {
+                ps.setLong(i, (Long) object);
+            } else if (object.getClass() == Integer.class || object.getClass() == int.class) {
+                ps.setInt(i, (int) object);
+            } else if (object.getClass() == Float.class || object.getClass() == float.class) {
+                ps.setFloat(i, (float) object);
+            } else if (object.getClass() == Double.class || object.getClass() == double.class) {
+                ps.setDouble(i, (double) object);
+            } else if (object.getClass() == Boolean.class || object.getClass() == boolean.class) {
+                ps.setBoolean(i, (boolean) object);
+            } else if (object.getClass() == String.class || object.getClass() == char.class) {
+                ps.setString(i, (String) object);
+            } else if (object.getClass() == byte[].class) {
+                ps.setBytes(i, (byte[]) object);
+            }
+        }
 
-                    Object value = new PropertyDescriptor("id", model.getValue().getClass().getSuperclass()).getReadMethod().invoke(model.getValue());
+        return ps;
+    }
+
+    public synchronized static PreparedStatement getPreparedStatement(PreparedStatement ps, List<ModelTableField> modelTableFields) throws Exception {
+
+        int i = 0;
+        for (ModelTableField modelTableField : modelTableFields) {
+
+            i += 1;
+            if (modelTableField.getType() == Long.class || modelTableField.getType() == long.class) {
+                if (ReflectionUtil.isProxedCGLIB(modelTableField.getValue())) {
+
+                    Object value = new PropertyDescriptor("id", modelTableField.getValue().getClass().getSuperclass()).getReadMethod().invoke(modelTableField.getValue());
                     ps.setLong(i, (long) value);
 
                 } else {
-                    if (model.getValue() != null) {
-                        ps.setLong(i, (long) model.getValue());
+                    if (modelTableField.getValue() != null) {
+                        ps.setLong(i, (long) modelTableField.getValue());
                     } else {
                         ps.setNull(i, 0);
                     }
                 }
-            } else if (model.getType() == Integer.class || model.getType() == int.class) {
-                ps.setInt(i, (int) model.getValue());
-            } else if (model.getType() == Float.class || model.getType() == float.class) {
-                ps.setFloat(i, (float) model.getValue());
-            } else if (model.getType() == Double.class || model.getType() == double.class) {
-                ps.setDouble(i, (double) model.getValue());
-            } else if (model.getType() == Boolean.class || model.getType() == boolean.class) {
-                ps.setBoolean(i, (boolean) model.getValue());
-            } else if (model.getType() == String.class || model.getType() == char.class) {
-                ps.setString(i, model.getValue().toString());
-            } else if (model.getType() == byte[].class) {
-                ps.setBytes(i, (byte[]) model.getValue());
-            } else if (model.getType() == List.class && model.getField().isAnnotationPresent(Json.class)) {
+            } else if (modelTableField.getType() == Integer.class || modelTableField.getType() == int.class) {
+                ps.setInt(i, (int) modelTableField.getValue());
+            } else if (modelTableField.getType() == Float.class || modelTableField.getType() == float.class) {
+                ps.setFloat(i, (float) modelTableField.getValue());
+            } else if (modelTableField.getType() == Double.class || modelTableField.getType() == double.class) {
+                ps.setDouble(i, (double) modelTableField.getValue());
+            } else if (modelTableField.getType() == Boolean.class || modelTableField.getType() == boolean.class) {
+                ps.setBoolean(i, (boolean) modelTableField.getValue());
+            } else if (modelTableField.getType() == String.class || modelTableField.getType() == char.class) {
+                ps.setString(i, modelTableField.getValue().toString());
+            } else if (modelTableField.getType() == byte[].class) {
+                ps.setBytes(i, (byte[]) modelTableField.getValue());
+            } else if (modelTableField.getType() == List.class && modelTableField.getField().isAnnotationPresent(Json.class)) {
                 ObjectMapper mapper = new ObjectMapper();
-                String jsonString = mapper.writeValueAsString(model.getValue());
+                String jsonString = mapper.writeValueAsString(modelTableField.getValue());
                 ps.setObject(i, jsonString);
             }
         }
@@ -170,16 +199,16 @@ public class SqlUtil {
         return null;
     }
 
-    public synchronized static PreparedStatement preparedStatementUpdate(String schema, Connection connection, List<Model> models,
+    public synchronized static PreparedStatement preparedStatementUpdate(String schema, Connection connection, List<ModelTableField> modelTableFields,
                                                             String tableName, Long id) throws Exception {
 
         StringBuilder values = new StringBuilder();
-        for (Model model : models) {
+        for (ModelTableField modelTableField : modelTableFields) {
 
-            if (model.getField().isAnnotationPresent(Json.class)) {
-                values.append(model.getAttribute() + "= ?::JSON,");
+            if (modelTableField.getField().isAnnotationPresent(Json.class)) {
+                values.append(modelTableField.getAttribute() + "= ?::JSON,");
             } else {
-                values.append(model.getAttribute() + "= ?,");
+                values.append(modelTableField.getAttribute() + "= ?,");
             }
 
         }
@@ -190,7 +219,7 @@ public class SqlUtil {
 
         PreparedStatement ps = connection.prepareStatement(sql);
 
-        return getPreparedStatement(ps, models);
+        return getPreparedStatement(ps, modelTableFields);
 
     }
 
