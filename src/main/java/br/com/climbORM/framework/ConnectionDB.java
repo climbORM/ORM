@@ -1,6 +1,5 @@
 package br.com.climbORM.framework;
 
-import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,24 +9,17 @@ import java.sql.Statement;
 import java.util.*;
 
 import br.com.climbORM.framework.interfaces.*;
-import br.com.climbORM.framework.mapping.DynamicField;
-import br.com.climbORM.framework.utils.Model;
 import br.com.climbORM.framework.utils.SqlUtil;
 
 import br.com.climbORM.framework.mapping.Entity;
 import br.com.climbORM.framework.utils.ReflectionUtil;
-import br.com.climbORM.test.model.FieldManager;
 
 public class ConnectionDB implements ClimbConnection {
 	private Connection connection;
 	private Properties properties;
 	private String schema;
 	private Transaction transaction;
-	private Map<String, List<Model>> tableOfDynamicFields;
-
-	{
-		tableOfDynamicFields = new HashMap<>();
-	}
+	private FieldsManager fieldsManager;
 
 	public void createConnectionDB() {
 		try {
@@ -38,6 +30,7 @@ public class ConnectionDB implements ClimbConnection {
 			this.connection = DriverManager.getConnection("jdbc:postgresql://" + url + ":" + port + "/" + dataBase + "",
 					this.properties);
 			this.transaction = new TransactionDB(this.connection);
+			this.fieldsManager = new DynamicFieldsManager(this.connection, this.schema);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -75,15 +68,15 @@ public class ConnectionDB implements ClimbConnection {
 			ps.executeUpdate();
 
 			ResultSet rsID = ps.getGeneratedKeys();
-			rsID.next();
-			Long id = rsID.getLong("id");
+			if (rsID.next()) {
+				Long id = rsID.getLong("id");
 
-			PersistentEntity pers = (PersistentEntity) object;
-			pers.setId(id);
+				PersistentEntity pers = (PersistentEntity) object;
+				pers.setId(id);
+			}
 
 			if (ReflectionUtil.isContainsDynamicFields(object)) {
-				createDynamicTable(object);
-				createDynamicFields(object);
+				this.fieldsManager.save(object);
 			}
 
 
@@ -171,93 +164,7 @@ public class ConnectionDB implements ClimbConnection {
 		}
 	}
 
-	///// CRIAR NOVA CLASSE PARA ESSES TRABALHOS
 
-	private String getTableName(Object object) {
-		return ReflectionUtil.getTableName(object) + "_dynamic";
-	}
-
-	private void createDynamicTable(Object object) {
-
-		try {
-
-
-			final String tableName = getTableName(object);
-
-			if (this.tableOfDynamicFields.get(tableName) != null) {
-				return;
-			}
-
-			if (SqlUtil.isTableExist(this.connection,this.schema, tableName)) {
-				return;
-			}
-
-			final String sql = "CREATE TABLE localhost." + tableName +"\n" +
-					"(\n" +
-					"    id serial NOT NULL,\n" +
-					"    table_name text NOT NULL,\n" +
-					"    id_record bigint NOT NULL,\n" +
-					"    PRIMARY KEY (id)\n" +
-					")";
-
-			final Statement statement = this.connection.createStatement();
-			statement.execute(sql);
-
-			this.tableOfDynamicFields.put(tableName, new ArrayList<Model>());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void loadDynamicFieldsTable(final String tableName) {
-
-		if (this.tableOfDynamicFields.get(tableName) != null) {
-			return;
-		}
-
-		if (SqlUtil.isTableExist(this.connection,this.schema, tableName)) {
-			return;
-		}
-
-		Map<String, String> map = SqlUtil.getCreatedFields(tableName, this.connection);
-
-		this.tableOfDynamicFields.put(tableName, new ArrayList<Model>());
-	}
-
-	private void createDynamicFields(Object object) {
-
-		try {
-
-			final Field field = ReflectionUtil.getDynamicField(object);
-
-			if (field == null) {
-				return;
-			}
-
-			final String tableName = getTableName(object);
-
-			final FieldManager fieldManager = (FieldManager) ReflectionUtil.getValueField(field,object);
-
-			final Map<String, Class> newFields = fieldManager.getNewFields();
-
-			final StringBuilder builder = new StringBuilder();
-
-			for (String fieldName : newFields.keySet()) {
-
-				String type = SqlUtil.getTypeDataBase(newFields.get(fieldName));
-
-				builder.append("ALTER TABLE " + this.schema +"." + tableName +"\n" +
-						"\tADD COLUMN " + fieldName + " " + type + ";\n");
-			}
-
-			final Statement statement = this.connection.createStatement();
-			statement.execute(builder.toString());
-
-			this.tableOfDynamicFields.put(tableName, new ArrayList<Model>());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 
 }

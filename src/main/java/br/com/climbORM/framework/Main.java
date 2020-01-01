@@ -31,7 +31,7 @@ public class Main {
 		emails.add(email);
 		pessoa.setEmails(emails);
 
-		DynamicFields dynamicFields = FieldManager.create(Pessoa.class);
+		DynamicFields dynamicFields = DynamicFieldsEntity.create(Pessoa.class);
 		pessoa.setDynamicFields(dynamicFields);
 
 		pessoa.getDynamicFields().createField("cnpj", String.class);
