@@ -42,6 +42,32 @@ public class Main {
 
 		connection.save(pessoa);
 
+		pessoa = new Pessoa();
+		pessoa.setNome("Maria antonia");
+		pessoa.setEnderecoComercial("Treta");
+		pessoa.setIdade(32l);
+		pessoa.setAltura(174.1325525544f);
+		pessoa.setQtdQuilos(145.6144d);
+		pessoa.setCasado(true);
+		pessoa.setFoto(new byte[] {});
+
+		emails = new ArrayList<>();
+		email = new Email();
+		email.setEmail("taliba@jose.com.br");
+		emails.add(email);
+		pessoa.setEmails(emails);
+
+		dynamicFields = DynamicFieldsEntity.create(Pessoa.class);
+		pessoa.setDynamicFields(dynamicFields);
+
+		pessoa.getDynamicFields().createField("numerocasa", String.class);
+		pessoa.getDynamicFields().createField("nomedoboi", Long.class);
+
+		pessoa.getDynamicFields().addValue("numerocasa", "2522554425555");
+		pessoa.getDynamicFields().addValue("nomedoboi", 78);
+
+		connection.save(pessoa);
+
 	}
 
 }

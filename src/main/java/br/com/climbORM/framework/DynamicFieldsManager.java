@@ -153,13 +153,21 @@ public class DynamicFieldsManager implements FieldsManager {
             StringBuilder builder = new StringBuilder();
 
             List<ModelDynamicField> listModel = this.tableOfDynamicFields.get(tableName);
+
             for (ModelDynamicField model : listModel) {
 
-                if (newFields.get(model.getAttribute()) != null) {
-                    newFields.remove(model);
-                    System.out.println("Encontrou: " + newFields.get(model.getAttribute()));
-                    continue;
+                Class classe = newFields.get(model.getAttribute());
+
+                if (classe != null) {
+
+                    classe = newFields.remove(model.getAttribute());
+
+                    if (classe == null) {
+                        throw new Error("cannot remove map field" + model.getAttribute());
+                    }
+
                 }
+
 
             }
 
