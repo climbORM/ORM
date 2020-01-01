@@ -2,11 +2,11 @@ package br.com.climbORM.framework.utils;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.climbORM.framework.PersistentEntity;
+import br.com.climbORM.framework.interfaces.DynamicFields;
 import br.com.climbORM.framework.mapping.*;
 
 public class ReflectionUtil {
@@ -22,6 +22,38 @@ public class ReflectionUtil {
 		return fieldName;
 	}
 
+	public synchronized static Field getDynamicField(Object object) {
+
+		Field field = null;
+
+		Field[] fields = object.getClass().getDeclaredFields();
+
+		for (Field f : fields) {
+			if (f.getType() == DynamicFields.class) {
+				field = f;
+			}
+		}
+
+		return field;
+
+	}
+
+	public synchronized static boolean isContainsDynamicFields(Object object) {
+
+		Field[] fields = object.getClass().getDeclaredFields();
+
+		boolean exist = false;
+
+		for (Field field : fields) {
+			if (field.isAnnotationPresent(DynamicField.class)) {
+				exist= true;
+				break;
+			}
+		}
+
+		return exist;
+	}
+
 	public synchronized static Object getValueField(Field field, Object object) {
 
 		Object tempValue = null;
@@ -31,7 +63,7 @@ public class ReflectionUtil {
 			Object value = new PropertyDescriptor(field.getName(), object.getClass()).getReadMethod().invoke(object);
 
 			if (value == null) {
-				return "null";
+				return null;
 			}
 
 			if (value != null && value.getClass().isAnnotationPresent(Entity.class)) {
@@ -48,6 +80,10 @@ public class ReflectionUtil {
 	}
 
 	public synchronized static boolean isProxedCGLIB(Object object) {
+
+		if (object == null) {
+			return false;
+		}
 
 		return object.getClass().getName().contains("EnhancerByCGLI");
 	}

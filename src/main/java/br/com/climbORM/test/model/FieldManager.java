@@ -1,18 +1,11 @@
 package br.com.climbORM.test.model;
 
-import br.com.climbORM.framework.DynamicField;
-import br.com.climbORM.framework.PersistentEntity;
-import br.com.climbORM.framework.utils.ReflectionUtil;
-import br.com.climbORM.framework.utils.SqlUtil;
+import br.com.climbORM.framework.interfaces.DynamicFields;
 
-import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FieldManager implements DynamicField {
+public class FieldManager implements DynamicFields {
 
     private Class type;
 
@@ -24,11 +17,12 @@ public class FieldManager implements DynamicField {
         valueFields = new HashMap<>();
     }
 
+
     private FieldManager(Class type) {
         this.type = type;
     }
 
-    public static DynamicField create(Class type) {
+    public static DynamicFields create(Class type) {
         return new FieldManager(type);
     }
 
@@ -47,5 +41,20 @@ public class FieldManager implements DynamicField {
         this.valueFields.put(name, value);
     }
 
+    public Class getType() {
+        return type;
+    }
+
+    public void setType(Class type) {
+        this.type = type;
+    }
+
+    public Map<String, Class> getNewFields() {
+        return newFields;
+    }
+
+    public void setNewFields(Map<String, Class> newFields) {
+        this.newFields = newFields;
+    }
 
 }

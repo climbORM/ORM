@@ -1,6 +1,6 @@
-package br.com.climbORM.framework;
+package br.com.climbORM.framework.interfaces;
 
-public interface DynamicField {
+public interface DynamicFields {
 
     public Object getValue(String fieldName);
 

@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.climbORM.framework.interfaces.ClimbConnection;
+import br.com.climbORM.framework.interfaces.DynamicFields;
 import br.com.climbORM.framework.interfaces.ManagerFactory;
-import br.com.climbORM.framework.interfaces.ResultIterator;
 import br.com.climbORM.test.model.*;
 
 public class Main {
@@ -31,14 +31,14 @@ public class Main {
 		emails.add(email);
 		pessoa.setEmails(emails);
 
-		DynamicField dynamicField = FieldManager.create(Pessoa.class);
-		pessoa.setDynamicField(dynamicField);
+		DynamicFields dynamicFields = FieldManager.create(Pessoa.class);
+		pessoa.setDynamicFields(dynamicFields);
 
-		pessoa.getDynamicField().createField("cnpj", String.class);
-		pessoa.getDynamicField().createField("peso", Long.class);
+		pessoa.getDynamicFields().createField("cnpj", String.class);
+		pessoa.getDynamicFields().createField("peso", Long.class);
 
-		pessoa.getDynamicField().addValue("cnpj", "2522554425555");
-		pessoa.getDynamicField().addValue("peso", 78);
+		pessoa.getDynamicFields().addValue("cnpj", "2522554425555");
+		pessoa.getDynamicFields().addValue("peso", 78);
 
 		connection.save(pessoa);
 
