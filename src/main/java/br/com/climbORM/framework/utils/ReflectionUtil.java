@@ -50,6 +50,10 @@ public class ReflectionUtil {
 		boolean exist = false;
 		Field[] fields = null;
 
+		if (object == null) {
+			return false;
+		}
+
 		if (isProxedCGLIB(object)) {
 			fields = object.getClass().getSuperclass().getDeclaredFields();
 		} else {

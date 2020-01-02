@@ -155,6 +155,10 @@ public class DynamicFieldsManager implements FieldsManager {
 
             DynamicFieldsEntity dynamicFieldsEntity = (DynamicFieldsEntity) ReflectionUtil.getValueField(field,object);
 
+            if (dynamicFieldsEntity == null) {
+                return;
+            }
+
             Map<String, Class> newFields = dynamicFieldsEntity.getNewFields();
 
             StringBuilder builder = new StringBuilder();
@@ -219,6 +223,11 @@ public class DynamicFieldsManager implements FieldsManager {
             }
 
             DynamicFieldsEntity dynamicFieldsEntity = (DynamicFieldsEntity) ReflectionUtil.getValueField(field,object);
+
+            if (dynamicFieldsEntity == null) {
+                return;
+            }
+
             Map<String, Object> newFields = dynamicFieldsEntity.getValueFields();
 
             StringBuilder attributes = new StringBuilder();
