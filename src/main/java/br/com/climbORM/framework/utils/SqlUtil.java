@@ -100,17 +100,52 @@ public class SqlUtil {
                     }
                 }
             } else if (modelTableField.getType() == Integer.class || modelTableField.getType() == int.class) {
-                ps.setInt(i, (int) modelTableField.getValue());
+
+                if (modelTableField.getValue() == null) {
+                    ps.setNull(i, 0);
+                } else {
+                    ps.setInt(i, (int) modelTableField.getValue());
+                }
+
             } else if (modelTableField.getType() == Float.class || modelTableField.getType() == float.class) {
-                ps.setFloat(i, (float) modelTableField.getValue());
+                if (modelTableField.getValue() == null) {
+                    ps.setNull(i,0);
+                } else {
+                    ps.setFloat(i, (float) modelTableField.getValue());
+                }
+
             } else if (modelTableField.getType() == Double.class || modelTableField.getType() == double.class) {
-                ps.setDouble(i, (double) modelTableField.getValue());
+
+                if (modelTableField.getValue() == null) {
+                    ps.setNull(i, 0);
+                } else {
+                    ps.setDouble(i, (double) modelTableField.getValue());
+                }
+
             } else if (modelTableField.getType() == Boolean.class || modelTableField.getType() == boolean.class) {
-                ps.setBoolean(i, (boolean) modelTableField.getValue());
+
+                if (modelTableField.getValue() == null) {
+                    ps.setNull(i, 0);
+                } else {
+                    ps.setBoolean(i, (boolean) modelTableField.getValue());
+                }
+
             } else if (modelTableField.getType() == String.class || modelTableField.getType() == char.class) {
-                ps.setString(i, modelTableField.getValue().toString());
+
+                if (modelTableField.getValue() == null) {
+                    ps.setNull(i, 0);
+                } else {
+                    ps.setString(i, modelTableField.getValue().toString());
+                }
+
             } else if (modelTableField.getType() == byte[].class) {
-                ps.setBytes(i, (byte[]) modelTableField.getValue());
+
+                if (modelTableField.getValue() == null) {
+                    ps.setNull(i, 0);
+                } else {
+                    ps.setBytes(i, (byte[]) modelTableField.getValue());
+                }
+
             } else if (modelTableField.getType() == List.class && modelTableField.getField().isAnnotationPresent(Json.class)) {
                 ObjectMapper mapper = new ObjectMapper();
                 String jsonString = mapper.writeValueAsString(modelTableField.getValue());

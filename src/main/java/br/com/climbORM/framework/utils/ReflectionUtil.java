@@ -1,7 +1,9 @@
 package br.com.climbORM.framework.utils;
 
+import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,8 +31,13 @@ public class ReflectionUtil {
 	public synchronized static Field getDynamicField(Object object) {
 
 		Field field = null;
+		Field[] fields = null;
 
-		Field[] fields = object.getClass().getDeclaredFields();
+		if (isProxedCGLIB(object)) {
+			fields = object.getClass().getSuperclass().getDeclaredFields();
+		} else {
+			fields = object.getClass().getDeclaredFields();
+		}
 
 		for (Field f : fields) {
 			if (f.getType() == DynamicFields.class) {
@@ -44,9 +51,14 @@ public class ReflectionUtil {
 
 	public synchronized static boolean isContainsDynamicFields(Object object) {
 
-		Field[] fields = object.getClass().getDeclaredFields();
-
 		boolean exist = false;
+		Field[] fields = null;
+
+		if (isProxedCGLIB(object)) {
+			fields = object.getClass().getSuperclass().getDeclaredFields();
+		} else {
+			fields = object.getClass().getDeclaredFields();
+		}
 
 		for (Field field : fields) {
 			if (field.isAnnotationPresent(DynamicField.class)) {
@@ -56,6 +68,19 @@ public class ReflectionUtil {
 		}
 
 		return exist;
+	}
+
+	public synchronized static void setValueField(Field field, Object object, Object value) {
+		try {
+			new PropertyDescriptor(field.getName(), object.getClass()).getWriteMethod()
+					.invoke(object, value);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (IntrospectionException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public synchronized static Object getValueField(Field field, Object object) {

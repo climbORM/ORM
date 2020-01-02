@@ -140,17 +140,17 @@ public class ConnectionDB implements ClimbConnection {
 
 	@Override
 	public Object findOne(Class classe, Long id) {
-		return new LazyLoader(this.connection, this.schema).loadLazyObject(classe, id);
+		return new LazyLoader(this.connection, this.schema, this.fieldsManager).loadLazyObject(classe, id);
 	}
 
 	@Override
 	public ResultIterator find(Class classe, String where) {
-		return new LazyLoader(this.connection,this.schema, classe, where, LazyLoader.ENTITY);
+		return new LazyLoader(this.connection, this.fieldsManager, this.schema, classe, where, LazyLoader.ENTITY);
 	}
 
 	@Override
 	public ResultIterator findWithQuery(Class classe, String sql) {
-		return new LazyLoader(this.connection,this.schema, classe, sql, LazyLoader.QUERY_RESULT);
+		return new LazyLoader(this.connection, this.fieldsManager, this.schema, classe, sql, LazyLoader.QUERY_RESULT);
 	}
 
 

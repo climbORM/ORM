@@ -1,12 +1,19 @@
 package br.com.climbORM.framework;
 
+import br.com.climbORM.framework.interfaces.DynamicFields;
 import br.com.climbORM.framework.interfaces.FieldsManager;
+import br.com.climbORM.framework.mapping.Json;
+import br.com.climbORM.framework.mapping.Relation;
+import br.com.climbORM.framework.mapping.Transient;
 import br.com.climbORM.framework.utils.ModelDynamicField;
 import br.com.climbORM.framework.utils.ModelTableField;
 import br.com.climbORM.framework.utils.ReflectionUtil;
 import br.com.climbORM.framework.utils.SqlUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -153,13 +160,23 @@ public class DynamicFieldsManager implements FieldsManager {
             StringBuilder builder = new StringBuilder();
 
             List<ModelDynamicField> listModel = this.tableOfDynamicFields.get(tableName);
+
             for (ModelDynamicField model : listModel) {
 
-                if (newFields.get(model.getAttribute()) != null) {
-                    newFields.remove(model);
-                    System.out.println("Encontrou: " + newFields.get(model.getAttribute()));
-                    continue;
+                Class classe = newFields.get(model.getAttribute());
+
+                if (classe != null) {
+
+                    classe = newFields.remove(model.getAttribute());
+
+                    System.out.println("Removed: " + model.getAttribute());
+
+                    if (classe == null) {
+                        throw new Error("cannot remove map field" + model.getAttribute());
+                    }
+
                 }
+
 
             }
 
@@ -252,5 +269,151 @@ public class DynamicFieldsManager implements FieldsManager {
     @Override
     public void update(Object object) {
 
+    }
+
+    @Override
+    public void findOne(Object object) {
+
+        try {
+
+            String tableName = getTableNameDynamic(object);
+
+            System.out.println("aki");
+
+            Field field = ReflectionUtil.getDynamicField(object);
+            DynamicFields dynamicFields = DynamicFieldsEntity.create(object.getClass());
+            ReflectionUtil.setValueField(field,object,dynamicFields);
+
+            List<ModelDynamicField> modelDynamicFields = this.tableOfDynamicFields.get(tableName);
+
+            StringBuilder atributes = new StringBuilder();
+            for (ModelDynamicField modelDynamicField : modelDynamicFields) {
+                atributes.append(modelDynamicField.getAttribute()+",");
+            }
+
+            final String sql = "SELECT " + atributes.toString().substring(0, atributes.toString().length() - 1) + " FROM " +
+                    this.schema + "."+ tableName + " WHERE id_record="+((PersistentEntity)object).getId().toString();
+
+            System.out.println(sql);
+
+            ResultSet resultSet = null;
+            Map<String, Object> mapValue = new HashMap<>();
+            ((DynamicFieldsEntity)dynamicFields).setValueFields(mapValue);
+
+            try {
+
+                Statement stmt = this.connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, 1);
+                resultSet = stmt.executeQuery(sql);
+
+                while (resultSet.next()) {
+                    loadObject(modelDynamicFields, mapValue, resultSet);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    resultSet.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadObject(List<ModelDynamicField> modelDynamicFields, Map<String, Object> mapValue, ResultSet resultSet) {
+
+        for (ModelDynamicField field : modelDynamicFields) {
+
+            if (field.getType() == Long.class) {
+                try {
+
+                    Long value = resultSet.getLong(field.getAttribute());
+                    mapValue.put(field.getAttribute(), value);
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } else if (field.getType() == Integer.class || field.getType() == int.class) {
+                try {
+
+                    Long value = resultSet.getLong(field.getAttribute());
+                    mapValue.put(field.getAttribute(), value);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (field.getType() == Float.class || field.getType() == float.class) {
+                try {
+
+                    Long value = resultSet.getLong(field.getAttribute());
+                    mapValue.put(field.getAttribute(), value);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (field.getType() == Double.class || field.getType() == double.class) {
+
+                try {
+
+                    Long value = resultSet.getLong(field.getAttribute());
+                    mapValue.put(field.getAttribute(), value);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } else if (field.getType() == Boolean.class || field.getType() == boolean.class) {
+                try {
+
+                    try {
+
+                        Long value = resultSet.getLong(field.getAttribute());
+                        mapValue.put(field.getAttribute(), value);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (field.getType() == String.class || field.getType() == char.class) {
+                try {
+
+                    try {
+                        String value = resultSet.getString(field.getAttribute());
+                        mapValue.put(field.getAttribute(), value);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (field.getType() == byte[].class) {
+                try {
+
+                    try {
+
+                        byte[] value = resultSet.getBytes(field.getAttribute());
+                        mapValue.put(field.getAttribute(), value);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
     }
 }

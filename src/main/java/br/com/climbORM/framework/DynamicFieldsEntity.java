@@ -23,18 +23,18 @@ public class DynamicFieldsEntity implements DynamicFields {
         this.type = type;
     }
 
-    public static br.com.climbORM.framework.interfaces.DynamicFields create(Class type) {
+    public static DynamicFields create(Class type) {
         return new DynamicFieldsEntity(type);
     }
 
     @Override
     public Object getValue(String fieldName) {
-        return this.valueFields.get(fieldName);
+        return this.valueFields.get(fieldName.toLowerCase());
     }
 
     @Override
     public void createField(String name, Class type) {
-        this.newFields.put(name, type);
+        this.newFields.put(name.toLowerCase(), type);
     }
 
     @Override
