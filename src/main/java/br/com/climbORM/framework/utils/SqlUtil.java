@@ -217,7 +217,9 @@ public class SqlUtil {
 
         if ("integer".equals(type)) {
             return Long.class;
-        } else if ("decimal".equals(type)) {
+        } else if ("bigint".equals(type)) {
+            return Long.class;
+        } else if ("decimal".equals(type) || "numeric".equals(type)) {
             return Float.class;
         } else if ("real".equals(type)) {
             return Double.class;

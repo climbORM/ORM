@@ -159,7 +159,8 @@ public class DynamicFieldsManager implements FieldsManager {
                 return;
             }
 
-            Map<String, Class> newFields = dynamicFieldsEntity.getNewFields();
+            Map<String, Class> newFields = new HashMap<>();
+            newFields.putAll(dynamicFieldsEntity.getNewFields());
 
             StringBuilder builder = new StringBuilder();
 
@@ -228,7 +229,8 @@ public class DynamicFieldsManager implements FieldsManager {
                 return;
             }
 
-            Map<String, Object> newFields = dynamicFieldsEntity.getValueFields();
+            Map<String, Object> newFields = new HashMap<>();
+            newFields.putAll(dynamicFieldsEntity.getValueFields());
 
             StringBuilder attributes = new StringBuilder();
             StringBuilder values = new StringBuilder();
@@ -352,7 +354,7 @@ public class DynamicFieldsManager implements FieldsManager {
             } else if (field.getType() == Integer.class || field.getType() == int.class) {
                 try {
 
-                    Long value = resultSet.getLong(field.getAttribute());
+                    Integer value = resultSet.getInt(field.getAttribute());
                     mapValue.put(field.getAttribute(), value);
 
                 } catch (Exception e) {
@@ -361,7 +363,7 @@ public class DynamicFieldsManager implements FieldsManager {
             } else if (field.getType() == Float.class || field.getType() == float.class) {
                 try {
 
-                    Long value = resultSet.getLong(field.getAttribute());
+                    Float value = resultSet.getFloat(field.getAttribute());
                     mapValue.put(field.getAttribute(), value);
 
                 } catch (Exception e) {
@@ -371,7 +373,7 @@ public class DynamicFieldsManager implements FieldsManager {
 
                 try {
 
-                    Long value = resultSet.getLong(field.getAttribute());
+                    Double value = resultSet.getDouble(field.getAttribute());
                     mapValue.put(field.getAttribute(), value);
 
                 } catch (Exception e) {
@@ -383,7 +385,7 @@ public class DynamicFieldsManager implements FieldsManager {
 
                     try {
 
-                        Long value = resultSet.getLong(field.getAttribute());
+                        Boolean value = resultSet.getBoolean(field.getAttribute());
                         mapValue.put(field.getAttribute(), value);
 
                     } catch (Exception e) {
