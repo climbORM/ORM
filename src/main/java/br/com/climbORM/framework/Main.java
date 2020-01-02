@@ -7,6 +7,7 @@ import java.util.List;
 import br.com.climbORM.framework.interfaces.ClimbConnection;
 import br.com.climbORM.framework.interfaces.DynamicFields;
 import br.com.climbORM.framework.interfaces.ManagerFactory;
+import br.com.climbORM.framework.interfaces.ResultIterator;
 import br.com.climbORM.test.model.*;
 
 public class Main {
@@ -16,57 +17,43 @@ public class Main {
 		ManagerFactory factory = ClimbORM.createManagerFactory("climb.properties");
 		ClimbConnection connection = factory.getConnection("localhost");
 
-		Pessoa pessoa = new Pessoa();
-		pessoa.setNome("Maria antonia");
-		pessoa.setEnderecoComercial("Treta");
-		pessoa.setIdade(32l);
-		pessoa.setAltura(174.1325525544f);
-		pessoa.setQtdQuilos(145.6144d);
-		pessoa.setCasado(true);
-		pessoa.setFoto(new byte[] {});
+		ResultIterator pessoasIterator = connection.find(Pessoa.class, "where id > 0");
 
-		List<Email> emails = new ArrayList<>();
-		Email email = new Email();
-		email.setEmail("taliba@jose.com.br");
-		emails.add(email);
-		pessoa.setEmails(emails);
+//		while (pessoasIterator.next()) {
+//
+//			Pessoa pessoa = (Pessoa) pessoasIterator.getObject();
+//			System.out.println(pessoa.getNome());
+//
+//			for(String fieldName : pessoa.getDynamicFields().getValueFields().keySet()) {
+//				System.out.println(fieldName + " = " +pessoa.getDynamicFields().getValue(fieldName));
+//			}
+//
+//			System.out.println("=======================");
+//		}
+
+
+		Pessoa pessoa = new Pessoa();
+		pessoa.setNome("Taliba jose");
 
 		DynamicFields dynamicFields = DynamicFieldsEntity.create(Pessoa.class);
 		pessoa.setDynamicFields(dynamicFields);
 
-		pessoa.getDynamicFields().createField("cnpj", String.class);
-		pessoa.getDynamicFields().createField("peso", Long.class);
+		pessoa.getDynamicFields().createField("NomeDoCachoroo", String.class);
+		pessoa.getDynamicFields().createField("IdadeDoCachorro", Long.class);
+		pessoa.getDynamicFields().createField("FotoDoCachorro", byte[].class);
 
-		pessoa.getDynamicFields().addValue("cnpj", "2522554425555");
-		pessoa.getDynamicFields().addValue("peso", 78);
-
-		connection.save(pessoa);
-
-		pessoa = new Pessoa();
-		pessoa.setNome("Maria antonia");
-		pessoa.setEnderecoComercial("Treta");
-		pessoa.setIdade(32l);
-		pessoa.setAltura(174.1325525544f);
-		pessoa.setQtdQuilos(145.6144d);
-		pessoa.setCasado(true);
-		pessoa.setFoto(new byte[] {});
-
-		emails = new ArrayList<>();
-		email = new Email();
-		email.setEmail("taliba@jose.com.br");
-		emails.add(email);
-		pessoa.setEmails(emails);
-
-		dynamicFields = DynamicFieldsEntity.create(Pessoa.class);
-		pessoa.setDynamicFields(dynamicFields);
-
-		pessoa.getDynamicFields().createField("numerocasa", String.class);
-		pessoa.getDynamicFields().createField("nomedoboi", Long.class);
-
-		pessoa.getDynamicFields().addValue("numerocasa", "2522554425555");
-		pessoa.getDynamicFields().addValue("nomedoboi", 78);
+		pessoa.getDynamicFields().addValue("NomeDoCachoroo","Dog");
+		pessoa.getDynamicFields().addValue("IdadeDoCachorro",30);
+		pessoa.getDynamicFields().addValue("FotoDoCachorro",new byte[]{});
 
 		connection.save(pessoa);
+
+
+		pessoa = (Pessoa) connection.findOne(Pessoa.class, pessoa.getId());
+		dynamicFields = pessoa.getDynamicFields();
+
+		System.out.println("nome: " + pessoa.getNome());
+		System.out.println("Nome do cachorro: " + dynamicFields.getValue("NomeDoCachoroo"));
 
 	}
 

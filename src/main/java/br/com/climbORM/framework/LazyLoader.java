@@ -1,5 +1,6 @@
 package br.com.climbORM.framework;
 
+import br.com.climbORM.framework.interfaces.FieldsManager;
 import br.com.climbORM.framework.interfaces.ResultIterator;
 import br.com.climbORM.framework.mapping.*;
 import br.com.climbORM.framework.utils.ModelTableField;
@@ -31,17 +32,20 @@ public class LazyLoader implements ResultIterator {
     private ResultSet resultSet;
     private String sql;
     private Object object;
+    private FieldsManager fieldsManager;
 
-    public LazyLoader(Connection connection, String schema) {
+    public LazyLoader(Connection connection, String schema, FieldsManager fieldsManager) {
         this.connection = connection;
         this.schema = schema;
+        this.fieldsManager = fieldsManager;
     }
 
-    public LazyLoader(Connection connection, String schema, Class classe, String sql, String typeQuery) {
+    public LazyLoader(Connection connection,FieldsManager fieldsManager, String schema, Class classe, String sql, String typeQuery) {
         this.connection = connection;
         this.schema = schema;
         this.sql = sql;
         this.classe = classe;
+        this.fieldsManager = fieldsManager;
 
         if (typeQuery.equals(QUERY_RESULT)) {
             findWithQueryExecute();
@@ -63,9 +67,16 @@ public class LazyLoader implements ResultIterator {
 
         try {
             if (this.resultSet.next()) {
+
                 this.object = newEnhancer(this.classe).create();
                 Field[] fields = this.object.getClass().getSuperclass().getDeclaredFields();
                 loadObject(fields, this.object, this.resultSet);
+
+                //se existir campos dinamicos
+                if (ReflectionUtil.isContainsDynamicFields(this.object)) {
+                    this.fieldsManager.findOne(this.object);
+                }
+
                 return true;
             }
         } catch(Exception e) {
@@ -169,6 +180,11 @@ public class LazyLoader implements ResultIterator {
                 e.printStackTrace();
             }
 
+        }
+
+        //se existir campos dinamicos
+        if (ReflectionUtil.isContainsDynamicFields(object)) {
+            this.fieldsManager.findOne(object);
         }
 
         return object;
