@@ -193,18 +193,18 @@ public class SqlUtil {
     public synchronized static String getTypeDataBase(final Class type) {
 
         if (type == Long.class || type == long.class) {
-            return "integer";
+            return "bigint";
         } else if (type == Integer.class || type == int.class) {
             return "integer";
         } else if (type == Float.class || type == float.class) {
             return "decimal";
         } else if (type == Double.class || type == double.class) {
-            return "real";
+            return "double precision";
         } else if (type == Boolean.class || type == boolean.class) {
             return "boolean";
         } else if (type == String.class || type == char.class) {
             return "text";
-        } else if (type == byte[].class) {
+        } else if (type == byte[].class || type == Byte[].class) {
             return "bytea";
         } else {
             new Error("Not suportend type: " + type);
@@ -216,12 +216,12 @@ public class SqlUtil {
     public synchronized static Class getTypeDataJava(final String type) {
 
         if ("integer".equals(type)) {
-            return Long.class;
+            return Integer.class;
         } else if ("bigint".equals(type)) {
             return Long.class;
         } else if ("decimal".equals(type) || "numeric".equals(type)) {
             return Float.class;
-        } else if ("real".equals(type)) {
+        } else if ("double precision".equals(type)) {
             return Double.class;
         } else if ("boolean".equals(type)) {
             return Boolean.class;

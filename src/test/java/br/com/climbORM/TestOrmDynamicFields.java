@@ -14,6 +14,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,28 +72,124 @@ public class TestOrmDynamicFields {
         dynamicFields.createField("idade_empresa",Integer.class);
         dynamicFields.createField("faturamento",Double.class);
         dynamicFields.createField("dias_fechado",Long.class);
+        dynamicFields.createField("distancia",Float.class);
+        dynamicFields.createField("foto",byte[].class);
+
 
         dynamicFields.addValue("nome_do_gerente","Francisco antonio");
-        dynamicFields.addValue("idade_empresa",30);
+        dynamicFields.addValue("idade_empresa",3000);
         dynamicFields.addValue("faturamento",36874.6985500);
-        dynamicFields.addValue("dias_fechado",30);
+        dynamicFields.addValue("dias_fechado",300000000);
+        dynamicFields.addValue("distancia",6985.987);
+        dynamicFields.addValue("foto","taliba jose da silva".getBytes());
 
         empresa.setDynamicFields(dynamicFields);
         connection.save(empresa);
 
         idEmpresa = empresa.getId();
+    }
+
+    @Test
+    @Order(2)
+    void dataValidDynamicFields() {
+
+        ClimbConnection connection = factory.getConnection("localhost");
+        Empresa empresa = (Empresa) connection.findOne(Empresa.class, idEmpresa);
+
+        idEmpresa = empresa.getId();
         assertTrue(idEmpresa != null && idEmpresa > 0);
+        assertTrue(empresa.getDiretor() != null && empresa.getDiretor().getId() > 0);
+
+        String nome = (String) empresa.getDynamicFields().getValue("nome_do_gerente");
+        assertTrue(nome.equals("Francisco antonio"));
+
+        Double faturamento = (Double) empresa.getDynamicFields().getValue("faturamento");
+        assertTrue(faturamento.equals(36874.6985500));
+
+        Integer idadeEmpresa = (Integer) empresa.getDynamicFields().getValue("idade_empresa");
+        assertTrue(idadeEmpresa.equals(3000));
+
+        Long diasFechado = (Long) empresa.getDynamicFields().getValue("dias_fechado");
+        assertTrue(diasFechado.equals(300000000l));
+
+        Float distancia = (Float) empresa.getDynamicFields().getValue("distancia");
+        assertTrue(distancia.equals(6985.987f));
+
+        byte[] foto = (byte[]) empresa.getDynamicFields().getValue("foto");
+        assertTrue(new String(foto).equals("taliba jose da silva"));
 
         connection.close();
 
-        connection = factory.getConnection("localhost");
+    }
 
-        empresa = (Empresa) connection.findOne(Empresa.class, idEmpresa);
+    @Test
+    @Order(3)
+    void validDataWithSelectWhere() {
+        ClimbConnection connection = factory.getConnection("localhost");
+        ResultIterator iterator = connection.find(Empresa.class, "where id="+idEmpresa.toString());
+
+        if(iterator.next());
+        Empresa empresa = (Empresa) iterator.getObject();
+
+        idEmpresa = empresa.getId();
+        assertTrue(idEmpresa != null && idEmpresa > 0);
+        assertTrue(empresa.getDiretor() != null && empresa.getDiretor().getId() > 0);
+
+        String nome = (String) empresa.getDynamicFields().getValue("nome_do_gerente");
+        assertTrue(nome.equals("Francisco antonio"));
+
         Double faturamento = (Double) empresa.getDynamicFields().getValue("faturamento");
-
-        System.out.println(faturamento);
-
         assertTrue(faturamento.equals(36874.6985500));
+
+        Integer idadeEmpresa = (Integer) empresa.getDynamicFields().getValue("idade_empresa");
+        assertTrue(idadeEmpresa.equals(3000));
+
+        Long diasFechado = (Long) empresa.getDynamicFields().getValue("dias_fechado");
+        assertTrue(diasFechado.equals(300000000l));
+
+        Float distancia = (Float) empresa.getDynamicFields().getValue("distancia");
+        assertTrue(distancia.equals(6985.987f));
+
+        byte[] foto = (byte[]) empresa.getDynamicFields().getValue("foto");
+        assertTrue(new String(foto).equals("taliba jose da silva"));
+
+        connection.close();
+    }
+
+    @Test
+    @Order(4)
+    void validDataWithSelectQuery() {
+
+    }
+
+    @Test
+    @Order(5)
+    void validUpdateDynamicFields() {
+
+    }
+
+    @Test
+    @Order(6)
+    void validDeleteDynamicFields() {
+        ClimbConnection connection = factory.getConnection("localhost");
+        connection.delete(Empresa.class, "where id > 0");
+
+        ResultIterator iterator = connection.find(Empresa.class, "Where id > 0");
+
+        if (iterator.next()) {
+            assertTrue(false);
+        } else {
+            assertTrue(true);
+        }
+
+        Diretor diretor = (Diretor) connection.findOne(Diretor.class, idDiretor);
+        connection.delete(diretor);
+
+        diretor = (Diretor) connection.findOne(Diretor.class, idDiretor);
+        assertTrue(diretor == null);
+
+
+
 
     }
 

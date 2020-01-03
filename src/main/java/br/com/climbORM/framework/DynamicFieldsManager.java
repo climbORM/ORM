@@ -189,11 +189,10 @@ public class DynamicFieldsManager implements FieldsManager {
             for (String fieldName : newFields.keySet()) {
                 String type = SqlUtil.getTypeDataBase(newFields.get(fieldName));
 
-                System.out.println("Campo: " + fieldName);
-                System.out.println("Tipo do banco: " + type);
-
                 builder.append("ALTER TABLE " + this.schema +"." + tableName +"\n" +
                         "\tADD COLUMN " + fieldName + " " + type + ";\n");
+
+                listModel.add(new ModelDynamicField(fieldName, newFields.get(fieldName)));
 
                 add = true;
 
@@ -283,13 +282,59 @@ public class DynamicFieldsManager implements FieldsManager {
     }
 
     @Override
+    public void delete(Object object) throws SQLException {
+
+        String tableName = getTableNameDynamic(object);
+
+        String sql = "DELETE FROM " + this.schema + "." + tableName + "	where id=" + ((PersistentEntity)object).getId().toString();
+
+        System.out.println(sql);
+
+        Statement stmt = this.connection.createStatement();
+        stmt.execute(sql);
+    }
+
+    @Override
+    public void delete(String tableName, String where) throws SQLException {
+
+        Statement statementSelect = null;
+        Statement statementDelete = null;
+
+        try {
+
+            String dynamicTableName = tableName + "_dynamic";
+
+            String sqlSelect = "SELECT id FROM " + this.schema + "." + tableName + " " + where;
+
+            statementSelect = this.connection.createStatement();
+            ResultSet rsSelect = statementSelect.executeQuery(sqlSelect);
+
+            StringBuilder values = new StringBuilder();
+
+            while (rsSelect.next()) {
+                values.append(rsSelect.getLong("id") + ",");
+            }
+
+            String sqlDelete = "DELETE FROM " + this.schema +"." + dynamicTableName +
+                    " WHERE id_record in (" + values.toString().substring(0, values.toString().length() - 1) + ");";
+
+            statementDelete = this.connection.createStatement();
+            statementDelete.execute(sqlDelete);
+
+
+        } finally {
+            statementSelect.close();
+            statementDelete.close();
+        }
+
+    }
+
+    @Override
     public void findOne(Object object) {
 
         try {
 
             String tableName = getTableNameDynamic(object);
-
-            System.out.println("aki");
 
             Field field = ReflectionUtil.getDynamicField(object);
             DynamicFields dynamicFields = DynamicFieldsEntity.create(object.getClass());
@@ -301,6 +346,8 @@ public class DynamicFieldsManager implements FieldsManager {
             for (ModelDynamicField modelDynamicField : modelDynamicFields) {
                 atributes.append(modelDynamicField.getAttribute()+",");
             }
+
+            System.out.println(atributes.toString());
 
             final String sql = "SELECT " + atributes.toString().substring(0, atributes.toString().length() - 1) + " FROM " +
                     this.schema + "."+ tableName + " WHERE id_record="+((PersistentEntity)object).getId().toString();

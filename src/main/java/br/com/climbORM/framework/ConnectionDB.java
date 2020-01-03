@@ -94,6 +94,11 @@ public class ConnectionDB implements ClimbConnection {
 			PreparedStatement ps = SqlUtil.preparedStatementUpdate(this.schema, this.connection, ReflectionUtil.generateModel(object),
 					ReflectionUtil.getTableName(object), id);
 			ps.executeUpdate();
+
+			if (ReflectionUtil.isContainsDynamicFields(object)) {
+				this.fieldsManager.update(object);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -113,7 +118,13 @@ public class ConnectionDB implements ClimbConnection {
 		try {
 			Statement stmt = this.connection.createStatement();
 			stmt.execute(sql);
+
+			if (ReflectionUtil.isContainsDynamicFields(object)) {
+				this.fieldsManager.delete(object);
+			}
+
 			((PersistentEntity) object).setId(null);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -131,9 +142,15 @@ public class ConnectionDB implements ClimbConnection {
 		System.out.println(sql);
 
 		try {
+
+			if (ReflectionUtil.isContainsDynamicFields(object.getDeclaredConstructor().newInstance())) {
+				this.fieldsManager.delete(tableName, where);
+			}
+
 			Statement stmt = this.connection.createStatement();
 			stmt.execute(sql);
-		} catch (SQLException e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
