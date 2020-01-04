@@ -125,6 +125,7 @@ public class TestOrmDynamicFields {
     @Test
     @Order(3)
     void validDataWithSelectWhere() {
+
         ClimbConnection connection = factory.getConnection("localhost");
         ResultIterator iterator = connection.find(Empresa.class, "where id="+idEmpresa.toString());
 
@@ -229,7 +230,6 @@ public class TestOrmDynamicFields {
 
         diretor = (Diretor) connection.findOne(Diretor.class, idDiretor);
         assertTrue(diretor == null);
-
 
     }
 

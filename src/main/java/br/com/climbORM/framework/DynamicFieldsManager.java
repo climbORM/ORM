@@ -318,6 +318,9 @@ public class DynamicFieldsManager implements FieldsManager {
                 values.append(fieldName+"=?,");
             }
 
+            if(values.toString().trim().length() == 0) {
+                return;
+            }
 
             String sql = "UPDATE " + schema + "." + tableName + " SET " + values.toString().substring(0, values.toString().length() -1) + " " +
                     "WHERE id_record = " + ((PersistentEntity)object).getId().toString();

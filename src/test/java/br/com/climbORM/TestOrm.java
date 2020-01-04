@@ -146,12 +146,12 @@ public class TestOrm {
         Cidade cidade = (Cidade) connection.findOne(Cidade.class, idCidade);
         cidade.setNomeDaCidade("Jipa");
         connection.update(cidade);
-        assertTrue(cidade.getId() == idCidade);
+        assertTrue(cidade.getId().equals(idCidade));
 
         Endereco endereco = (Endereco) connection.findOne(Endereco.class, idEndereco);
         endereco.setNomeDaRua("Rua Taliba");
         connection.update(endereco);
-        assertTrue(endereco.getId() == idEndereco);
+        assertTrue(endereco.getId().equals(idEndereco));
 
         Pessoa pessoa = (Pessoa) connection.findOne(Pessoa.class, idPessoa);
         pessoa.setNome("Maria update");
