@@ -250,7 +250,8 @@ public class SqlUtil {
 
         }
 
-        String sql = "UPDATE " + schema + "." + tableName + " SET " + values.toString().substring(0, values.toString().length() -1) + " WHERE id = " + id.toString();
+        String sql = "UPDATE " + schema + "." + tableName + " SET " + values.toString().substring(0, values.toString().length() -1) + " " +
+                "WHERE id = " + id.toString();
 
         System.out.println(sql);
 

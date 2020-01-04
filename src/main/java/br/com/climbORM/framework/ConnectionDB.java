@@ -116,14 +116,22 @@ public class ConnectionDB implements ClimbConnection {
 		System.out.println(sql);
 
 		try {
-			Statement stmt = this.connection.createStatement();
-			stmt.execute(sql);
 
 			if (ReflectionUtil.isContainsDynamicFields(object)) {
+				System.out.println("Entrou aqui??");
 				this.fieldsManager.delete(object);
 			}
 
+			Statement stmt = this.connection.createStatement();
+			stmt.execute(sql);
+
 			((PersistentEntity) object).setId(null);
+
+			try {
+				stmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -149,6 +157,12 @@ public class ConnectionDB implements ClimbConnection {
 
 			Statement stmt = this.connection.createStatement();
 			stmt.execute(sql);
+
+			try {
+				stmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

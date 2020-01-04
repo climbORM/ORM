@@ -56,12 +56,18 @@ public class DynamicFieldsManager implements FieldsManager {
 
                 try {
 
-                    Statement stmt = this.connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, 1);
-                    resultSet = stmt.executeQuery(sql);
+                    Statement statement = this.connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, 1);
+                    resultSet = statement.executeQuery(sql);
 
                     while (resultSet.next()) {
                         String tableName = resultSet.getString("table_name");
                         loadDynamicFieldsTable(tableName);
+                    }
+
+                    try {
+                        statement.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
 
                 } catch (Exception e) {
@@ -87,10 +93,14 @@ public class DynamicFieldsManager implements FieldsManager {
                     "    PRIMARY KEY (id)\n" +
                     ")";
 
-            final Statement statement = this.connection.createStatement();
+            Statement statement = this.connection.createStatement();
             statement.execute(sql);
 
-            System.out.println("criou tb_dynamic_tables");
+            try {
+                statement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -122,6 +132,13 @@ public class DynamicFieldsManager implements FieldsManager {
             statement.execute("INSERT INTO " + this.schema +".tb_dynamic_tables (table_name) VALUES ('" + tableName +"');");
 
             this.tableOfDynamicFields.put(tableName, new ArrayList<ModelDynamicField>());
+
+            try {
+                statement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -174,15 +191,10 @@ public class DynamicFieldsManager implements FieldsManager {
 
                     classe = newFields.remove(model.getAttribute());
 
-                    System.out.println("Removed: " + model.getAttribute());
-
                     if (classe == null) {
                         throw new Error("cannot remove map field" + model.getAttribute());
                     }
-
                 }
-
-
             }
 
             boolean add = false;
@@ -201,6 +213,13 @@ public class DynamicFieldsManager implements FieldsManager {
             if (add) {
                 Statement statement = this.connection.createStatement();
                 statement.execute(builder.toString());
+
+                try {
+                    statement.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
 
 
@@ -270,6 +289,13 @@ public class DynamicFieldsManager implements FieldsManager {
 
             }
 
+            try {
+                ps.close();
+                rsID.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -279,6 +305,46 @@ public class DynamicFieldsManager implements FieldsManager {
     @Override
     public void update(Object object) {
 
+        try {
+
+            String tableName = getTableNameDynamic(object);
+
+            Field field = ReflectionUtil.getDynamicField(object);
+            DynamicFields dynamicFields = (DynamicFields)ReflectionUtil.getValueField(field, object);
+
+
+            StringBuilder values = new StringBuilder();
+            for(String fieldName : dynamicFields.getValueFields().keySet()) {
+                values.append(fieldName+"=?,");
+            }
+
+
+            String sql = "UPDATE " + schema + "." + tableName + " SET " + values.toString().substring(0, values.toString().length() -1) + " " +
+                    "WHERE id_record = " + ((PersistentEntity)object).getId().toString();
+
+            System.out.println(sql);
+
+            try {
+
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement = SqlUtil.getPreparedStatementDynamicFields(preparedStatement,dynamicFields.getValueFields(), 0);
+
+                preparedStatement.executeUpdate();
+
+                try {
+                    preparedStatement.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -286,12 +352,19 @@ public class DynamicFieldsManager implements FieldsManager {
 
         String tableName = getTableNameDynamic(object);
 
-        String sql = "DELETE FROM " + this.schema + "." + tableName + "	where id=" + ((PersistentEntity)object).getId().toString();
+        String sql = "DELETE FROM " + this.schema + "." + tableName + "	where id_record=" + ((PersistentEntity)object).getId().toString();
 
         System.out.println(sql);
 
         Statement stmt = this.connection.createStatement();
         stmt.execute(sql);
+
+        try {
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
+
     }
 
     @Override
@@ -375,7 +448,6 @@ public class DynamicFieldsManager implements FieldsManager {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
 
         } catch (Exception e) {

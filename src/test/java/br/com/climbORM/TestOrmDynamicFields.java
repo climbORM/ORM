@@ -166,6 +166,48 @@ public class TestOrmDynamicFields {
     @Order(5)
     void validUpdateDynamicFields() {
 
+        ClimbConnection connection = factory.getConnection("localhost");
+        Empresa empresa = (Empresa) connection.findOne(Empresa.class, idEmpresa);
+
+        DynamicFields dynamicFields = empresa.getDynamicFields();
+
+        dynamicFields.addValue("nome_do_gerente","Francisco antonio update");
+        dynamicFields.addValue("idade_empresa",4000);
+        dynamicFields.addValue("faturamento",46874.6985500);
+        dynamicFields.addValue("dias_fechado",400000000);
+        dynamicFields.addValue("distancia",7985.987);
+        dynamicFields.addValue("foto","taliba jose da silva update".getBytes());
+
+        connection.update(empresa);
+        connection.close();
+
+        connection = factory.getConnection("localhost");
+        empresa = (Empresa) connection.findOne(Empresa.class, idEmpresa);
+
+        idEmpresa = empresa.getId();
+        assertTrue(idEmpresa != null && idEmpresa > 0);
+        assertTrue(empresa.getDiretor() != null && empresa.getDiretor().getId() > 0);
+
+        String nome = (String) empresa.getDynamicFields().getValue("nome_do_gerente");
+        assertTrue(nome.equals("Francisco antonio update"));
+
+        Double faturamento = (Double) empresa.getDynamicFields().getValue("faturamento");
+        assertTrue(faturamento.equals(46874.6985500));
+
+        Integer idadeEmpresa = (Integer) empresa.getDynamicFields().getValue("idade_empresa");
+        assertTrue(idadeEmpresa.equals(4000));
+
+        Long diasFechado = (Long) empresa.getDynamicFields().getValue("dias_fechado");
+        assertTrue(diasFechado.equals(400000000l));
+
+        Float distancia = (Float) empresa.getDynamicFields().getValue("distancia");
+        assertTrue(distancia.equals(7985.987f));
+
+        byte[] foto = (byte[]) empresa.getDynamicFields().getValue("foto");
+        assertTrue(new String(foto).equals("taliba jose da silva update"));
+
+        connection.close();
+
     }
 
     @Test
@@ -187,8 +229,6 @@ public class TestOrmDynamicFields {
 
         diretor = (Diretor) connection.findOne(Diretor.class, idDiretor);
         assertTrue(diretor == null);
-
-
 
 
     }
