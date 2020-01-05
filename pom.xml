@@ -2,10 +2,38 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>br.com.climbORM</groupId>
+	<groupId>com.climbORM</groupId>
 	<artifactId>climbORM</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>climbORM</name>
+	<url>https://github.com/climbORM/ORM</url>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<developerConnection>
+			scm:git:https://github.com/climbORM/ORM.git
+		</developerConnection>
+		<connection>
+			scm:git:https://github.com/climbORM/ORM.git
+		</connection>
+		<url>https://github.com/climbORM/ORM.git</url>
+	</scm>
+
+	<developers>
+		<developer>
+			<id>bobboyms</id>
+			<name>Thiago L. Rodrigues</name>
+			<email>thiago.luiz.rodriguez@gmail.com</email>
+		</developer>
+	</developers>
 
 	<properties>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -25,59 +53,42 @@
 			</properties>
 		</profile>
 
-		<profile>
-			<id>ossrh</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<gpg.executable>gpg2</gpg.executable>
-				<gpg.passphrase>the_pass_phrase</gpg.passphrase>
-			</properties>
-		</profile>
+<!--		<profile>-->
+<!--			<id>ossrh</id>-->
+<!--			<activation>-->
+<!--				<activeByDefault>true</activeByDefault>-->
+<!--			</activation>-->
+<!--			<properties>-->
+<!--				<gpg.executable>gpg</gpg.executable>-->
+<!--				<gpg.keyname>BA65E9F7DA677FB0</gpg.keyname>-->
+<!--				<gpg.passphrase>1234567890</gpg.passphrase>-->
+<!--			</properties>-->
+<!--		</profile>-->
 
 	</profiles>
 
-	<!--- ************************* -->
 
 	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
 		<repository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+			<id>packagecloud-bobboyms</id>
+			<url>packagecloud+https://packagecloud.io/bobboyms/climbORM</url>
 		</repository>
-
+		<snapshotRepository>
+			<id>packagecloud-bobboyms</id>
+			<url>packagecloud+https://packagecloud.io/bobboyms/climbORM</url>
+		</snapshotRepository>
 	</distributionManagement>
 
 	<build>
+
+		<extensions>
+			<extension>
+				<groupId>io.packagecloud.maven.wagon</groupId>
+				<artifactId>maven-packagecloud-wagon</artifactId>
+				<version>0.0.6</version>
+			</extension>
+		</extensions>
 		<plugins>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5.3</version>
-				<configuration>
-					<autoVersionSubmodules>true</autoVersionSubmodules>
-					<useReleaseProfile>false</useReleaseProfile>
-					<releaseProfiles>release</releaseProfiles>
-					<goals>deploy</goals>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.7</version>
-				<extensions>true</extensions>
-				<configuration>
-					<serverId>ossrh</serverId>
-					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-					<autoReleaseAfterClose>true</autoReleaseAfterClose>
-				</configuration>
-			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -145,6 +156,7 @@
 					</execution>
 				</executions>
 			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -196,6 +208,52 @@
 					</execution>
 				</executions>
 			</plugin>
+
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-gpg-plugin</artifactId>-->
+<!--				<version>1.5</version>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<id>sign-artifacts</id>-->
+<!--						<phase>verify</phase>-->
+<!--						<goals>-->
+<!--							<goal>sign</goal>-->
+<!--						</goals>-->
+<!--						<configuration>-->
+<!--							<gpgArguments>-->
+<!--								<arg>&#45;&#45;no-tty</arg>-->
+<!--								<arg>&#45;&#45;pinentry-mode</arg>-->
+<!--								<arg>loopback</arg>-->
+<!--							</gpgArguments>-->
+<!--						</configuration>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--			</plugin>-->
+
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-release-plugin</artifactId>-->
+<!--				<version>2.5.3</version>-->
+<!--				<configuration>-->
+<!--					<autoVersionSubmodules>true</autoVersionSubmodules>-->
+<!--					<useReleaseProfile>false</useReleaseProfile>-->
+<!--					<releaseProfiles>release</releaseProfiles>-->
+<!--					<goals>deploy</goals>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
+
+<!--			<plugin>-->
+<!--				<groupId>org.sonatype.plugins</groupId>-->
+<!--				<artifactId>nexus-staging-maven-plugin</artifactId>-->
+<!--				<version>1.6.7</version>-->
+<!--				<extensions>true</extensions>-->
+<!--				<configuration>-->
+<!--					<serverId>ossrh</serverId>-->
+<!--					<nexusUrl>https://oss.sonatype.org/</nexusUrl>-->
+<!--					<autoReleaseAfterClose>true</autoReleaseAfterClose>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
 
 		</plugins>
 	</build>
