@@ -63,6 +63,8 @@ public class TestOrmDynamicFields {
         Float salario = (Float) diretor.getDynamicFields().getValue("salario");
         assertTrue(salario.equals(128.36f));
 
+        //#####
+
         Empresa empresa = new Empresa();
         empresa.setDiretor(diretor);
         empresa.setNomeEmpresa("Etico software");
@@ -74,7 +76,6 @@ public class TestOrmDynamicFields {
         dynamicFields.createField("dias_fechado",Long.class);
         dynamicFields.createField("distancia",Float.class);
         dynamicFields.createField("foto",byte[].class);
-
 
         dynamicFields.addValue("nome_do_gerente","Francisco antonio");
         dynamicFields.addValue("idade_empresa",3000);
