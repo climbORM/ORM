@@ -14,4 +14,6 @@ public interface FieldsManager {
 
     public void findOne(Object object);
 
+    public void dropField(Object object) throws SQLException;
+
 }

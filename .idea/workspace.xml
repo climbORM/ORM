@@ -6,11 +6,14 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f563a8c1-5958-484f-85bf-23b373586e7d" name="Default Changelist" comment="update">
+    <list default="true" id="f563a8c1-5958-484f-85bf-23b373586e7d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/climb.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/climb.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/DynamicFieldsEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/DynamicFieldsEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/DynamicFieldsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/DynamicFieldsManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/interfaces/DynamicFields.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/interfaces/DynamicFields.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/interfaces/FieldsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/interfaces/FieldsManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/br/com/climbORM/TestOrmDynamicFields.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/br/com/climbORM/TestOrmDynamicFields.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/climb.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/climb.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +103,7 @@
       <recent name="C:\Users\Thago Rodrigues\IdeaProjects\ORM\src\main\resources\META-INF" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TestOrm">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="br.com.climbORM.framework.Main" />
       <module name="climbORM" />
@@ -129,6 +132,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestOrmDynamicFields" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="climbORM" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.com.climbORM.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="br.com.climbORM" />
+      <option name="MAIN_CLASS_NAME" value="br.com.climbORM.TestOrmDynamicFields" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="climbORM" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="climbORM" />
       <extension name="coverage">
@@ -140,22 +158,6 @@
       <option name="PACKAGE_NAME" value="br.com.climbORM.test.units" />
       <option name="MAIN_CLASS_NAME" value="br.com.climbORM.test.units.climbORM" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="climbORM.insert" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="climbORM" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="br.com.climbORM.test.units.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="br.com.climbORM.test.units" />
-      <option name="MAIN_CLASS_NAME" value="br.com.climbORM.test.units.climbORM" />
-      <option name="METHOD_NAME" value="insert" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -178,11 +180,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TestOrm" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.TestOrmDynamicFields" />
+        <item itemvalue="JUnit.TestOrm" />
         <item itemvalue="JUnit.climbORM" />
         <item itemvalue="JUnit.climbORM.printaID" />
-        <item itemvalue="JUnit.climbORM.insert" />
       </list>
     </recent_temporary>
   </component>
@@ -218,7 +220,7 @@
       <workItem from="1578515432622" duration="1731000" />
       <workItem from="1578602508017" duration="1578000" />
       <workItem from="1578927634830" duration="958000" />
-      <workItem from="1580151878972" duration="1238000" />
+      <workItem from="1580151878972" duration="9654000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1577374215130</created>
@@ -381,7 +383,14 @@
       <option name="project" value="LOCAL" />
       <updated>1577743995607</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="update">
+      <created>1580154232743</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1580154232743</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -414,10 +423,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="92" y="92" width="1182" height="584" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1366.768@0.0.1366.768" timestamp="1577469043617" />
-    <state x="488" y="94" key="#com.intellij.ide.util.MemberChooser" timestamp="1577806994733">
+    <state x="488" y="94" key="#com.intellij.ide.util.MemberChooser" timestamp="1580155962110">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="488" y="94" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1577806994733" />
+    <state x="488" y="94" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1580155962110" />
     <state x="434" y="169" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1577393437672">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -438,10 +447,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="412" y="263" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1366.768@0.0.1366.768" timestamp="1577569980701" />
-    <state x="344" y="45" width="749" height="586" key="CommitChangelistDialog2" timestamp="1580154190510">
+    <state x="344" y="45" width="749" height="586" key="CommitChangelistDialog2" timestamp="1580154231939">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="344" y="45" width="749" height="586" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1580154190510" />
+    <state x="344" y="45" width="749" height="586" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1580154231939" />
     <state x="129" y="65" key="DiffContextDialog" timestamp="1577736789873">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -450,38 +459,38 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="484" y="140" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1577393446087" />
-    <state width="1323" height="169" key="GridCell.Tab.0.bottom" timestamp="1578437066317">
+    <state width="1323" height="194" key="GridCell.Tab.0.bottom" timestamp="1580161227652">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="169" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1578437066317" />
-    <state width="1323" height="169" key="GridCell.Tab.0.center" timestamp="1578437066317">
+    <state width="1323" height="194" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1580161227652" />
+    <state width="1323" height="194" key="GridCell.Tab.0.center" timestamp="1580161227652">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="169" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1578437066317" />
-    <state width="1323" height="169" key="GridCell.Tab.0.left" timestamp="1578437066317">
+    <state width="1323" height="194" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1580161227652" />
+    <state width="1323" height="194" key="GridCell.Tab.0.left" timestamp="1580161227651">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="169" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1578437066317" />
-    <state width="1323" height="169" key="GridCell.Tab.0.right" timestamp="1578437066317">
+    <state width="1323" height="194" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1580161227651" />
+    <state width="1323" height="194" key="GridCell.Tab.0.right" timestamp="1580161227652">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="169" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1578437066317" />
-    <state width="1323" height="238" key="GridCell.Tab.1.bottom" timestamp="1577735044449">
+    <state width="1323" height="194" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1580161227652" />
+    <state width="1323" height="238" key="GridCell.Tab.1.bottom" timestamp="1580160267699">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="238" key="GridCell.Tab.1.bottom/0.0.1366.768@0.0.1366.768" timestamp="1577735044449" />
-    <state width="1323" height="238" key="GridCell.Tab.1.center" timestamp="1577735044449">
+    <state width="1323" height="238" key="GridCell.Tab.1.bottom/0.0.1366.768@0.0.1366.768" timestamp="1580160267699" />
+    <state width="1323" height="238" key="GridCell.Tab.1.center" timestamp="1580160267699">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="238" key="GridCell.Tab.1.center/0.0.1366.768@0.0.1366.768" timestamp="1577735044449" />
-    <state width="1323" height="238" key="GridCell.Tab.1.left" timestamp="1577735044449">
+    <state width="1323" height="238" key="GridCell.Tab.1.center/0.0.1366.768@0.0.1366.768" timestamp="1580160267699" />
+    <state width="1323" height="238" key="GridCell.Tab.1.left" timestamp="1580160267699">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="238" key="GridCell.Tab.1.left/0.0.1366.768@0.0.1366.768" timestamp="1577735044449" />
-    <state width="1323" height="238" key="GridCell.Tab.1.right" timestamp="1577735044449">
+    <state width="1323" height="238" key="GridCell.Tab.1.left/0.0.1366.768@0.0.1366.768" timestamp="1580160267699" />
+    <state width="1323" height="238" key="GridCell.Tab.1.right" timestamp="1580160267699">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="238" key="GridCell.Tab.1.right/0.0.1366.768@0.0.1366.768" timestamp="1577735044449" />
+    <state width="1323" height="238" key="GridCell.Tab.1.right/0.0.1366.768@0.0.1366.768" timestamp="1580160267699" />
     <state x="395" y="101" key="MultipleFileMergeDialog" timestamp="1577393828737">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -498,10 +507,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1366.768@0.0.1366.768" timestamp="1577566590370" />
-    <state x="275" y="118" key="Vcs.Push.Dialog.v2" timestamp="1577743211183">
+    <state x="275" y="118" key="Vcs.Push.Dialog.v2" timestamp="1580154245913">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="275" y="118" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1577743211183" />
+    <state x="275" y="118" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1580154245913" />
     <state x="499" y="163" key="chooseDestDirectoryDialog" timestamp="1577460903557">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -526,5 +535,21 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="339" y="172" key="run.anything.popup/0.0.1366.768@0.0.1366.768" timestamp="1577377861036" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/DynamicFieldsManager.java</url>
+          <line>412</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/DynamicFieldsManager.java</url>
+          <line>425</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

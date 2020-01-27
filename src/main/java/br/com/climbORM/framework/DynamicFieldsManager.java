@@ -15,10 +15,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DynamicFieldsManager implements FieldsManager {
 
@@ -118,7 +115,7 @@ public class DynamicFieldsManager implements FieldsManager {
                 return;
             }
 
-            final String sql = "CREATE TABLE localhost." + tableName +"\n" +
+            final String sql = "CREATE TABLE " + this.schema + "." + tableName +"\n" +
                     "(\n" +
                     "    id serial NOT NULL,\n" +
                     "    table_name text NOT NULL,\n" +
@@ -266,7 +263,7 @@ public class DynamicFieldsManager implements FieldsManager {
 
             String tableName = getTableNameDynamic(object);
 
-            String sql = "INSERT INTO " + schema + "." + tableName + "("
+            String sql = "INSERT INTO " + this.schema + "." + tableName + "("
                     + attributes.toString().substring(0, attributes.toString().length() - 1) + ") VALUES ("
                     + values.toString().substring(0, values.toString().length() -1) + ") RETURNING ID";
 
@@ -281,6 +278,7 @@ public class DynamicFieldsManager implements FieldsManager {
 
             ResultSet rsID = ps.getGeneratedKeys();
             if (rsID.next()) {
+
                 Long id = rsID.getLong("id");
 
                 if (id == null) {
@@ -343,6 +341,8 @@ public class DynamicFieldsManager implements FieldsManager {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            dropField(object);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -439,6 +439,10 @@ public class DynamicFieldsManager implements FieldsManager {
                 Statement stmt = this.connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, 1);
                 resultSet = stmt.executeQuery(sql);
 
+                ResultSetMetaData rsmd = resultSet.getMetaData();
+
+                System.out.println("NOME DA COLUNA:" + rsmd.getColumnName(4));
+
                 while (resultSet.next()) {
                     loadObject(modelDynamicFields, mapValue, resultSet);
                 }
@@ -456,6 +460,59 @@ public class DynamicFieldsManager implements FieldsManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean isExistFieldInTable(String field, String tableName) {
+        List<ModelDynamicField> modelDynamicField = tableOfDynamicFields.get(tableName);
+
+        for (ModelDynamicField dynamicField : modelDynamicField) {
+            if (dynamicField.getAttribute().equals(field)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    public void dropField(Object object) throws SQLException {
+
+        String tableName = getTableNameDynamic(object);
+        Field field = ReflectionUtil.getDynamicField(object);
+
+        if (field == null) {
+            return;
+        }
+
+        DynamicFieldsEntity dynamicFieldsEntity = (DynamicFieldsEntity) ReflectionUtil.getValueField(field,object);
+
+        StringBuilder sql = new StringBuilder();
+        Set<String> dropFields = dynamicFieldsEntity.getDropFields();
+
+        if (dropFields.size() == 0) {
+            return;
+        }
+
+        for (String fieldName : dropFields) {
+            if (isExistFieldInTable(fieldName, tableName)) {
+                String sqlDrop = "ALTER TABLE " + this.schema + "." + tableName + "	DROP COLUMN " + fieldName + ";\n";
+                sql.append(sqlDrop);
+            } else {
+                throw new Error("NOT FOUND FIELD NAME: " + fieldName + " IN TABLE " + tableName);
+            }
+        }
+
+        System.out.println(sql);
+
+        Statement stmt = this.connection.createStatement();
+        stmt.execute(sql.toString());
+
+        try {
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
+
     }
 
     private void loadObject(List<ModelDynamicField> modelDynamicFields, Map<String, Object> mapValue, ResultSet resultSet) {
@@ -521,6 +578,7 @@ public class DynamicFieldsManager implements FieldsManager {
                 try {
 
                     try {
+                        System.out.println("Atributo: " + field.getAttribute());
                         String value = resultSet.getString(field.getAttribute());
                         mapValue.put(field.getAttribute(), value);
                     } catch (Exception e) {

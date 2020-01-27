@@ -3,11 +3,23 @@ package br.com.climbORM.framework;
 import br.com.climbORM.framework.interfaces.DynamicFields;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class DynamicFieldsEntity implements DynamicFields {
 
     private Class type;
+
+    public Set<String> getDropFields() {
+        return dropFields;
+    }
+
+    public void setDropFields(Set<String> dropFields) {
+        this.dropFields = dropFields;
+    }
+
+    private Set<String> dropFields;
 
     private Map<String, Class> newFields;
 
@@ -16,8 +28,8 @@ public class DynamicFieldsEntity implements DynamicFields {
     {
         newFields = new HashMap<>();
         valueFields = new HashMap<>();
+        dropFields = new HashSet<>();
     }
-
 
     private DynamicFieldsEntity(Class type) {
         this.type = type;
@@ -35,6 +47,11 @@ public class DynamicFieldsEntity implements DynamicFields {
     @Override
     public void createField(String name, Class type) {
         this.newFields.put(name.toLowerCase(), type);
+    }
+
+    @Override
+    public void dropField(String name) {
+        this.dropFields.add(name);
     }
 
     @Override

@@ -63,8 +63,6 @@ public class TestOrmDynamicFields {
         Float salario = (Float) diretor.getDynamicFields().getValue("salario");
         assertTrue(salario.equals(128.36f));
 
-        //#####
-
         Empresa empresa = new Empresa();
         empresa.setDiretor(diretor);
         empresa.setNomeEmpresa("Etico software");
@@ -214,6 +212,20 @@ public class TestOrmDynamicFields {
 
     @Test
     @Order(6)
+    void validateDropField() {
+
+        ClimbConnection connection = factory.getConnection("localhost");
+        Empresa empresa = (Empresa) connection.findOne(Empresa.class, idEmpresa);
+        empresa.getDynamicFields().dropField("idade_empresa");
+        empresa.getDynamicFields().dropField("distancia");
+
+        connection.update(empresa);
+
+        assertTrue(true);
+    }
+
+    @Test
+    @Order(7)
     void validDeleteDynamicFields() {
         ClimbConnection connection = factory.getConnection("localhost");
         connection.delete(Empresa.class, "where id > 0");

@@ -19,41 +19,45 @@ public class Main {
 
 		ResultIterator pessoasIterator = connection.find(Pessoa.class, "where id > 0");
 
-//		while (pessoasIterator.next()) {
-//
-//			Pessoa pessoa = (Pessoa) pessoasIterator.getObject();
-//			System.out.println(pessoa.getNome());
-//
-//			for(String fieldName : pessoa.getDynamicFields().getValueFields().keySet()) {
-//				System.out.println(fieldName + " = " +pessoa.getDynamicFields().getValue(fieldName));
-//			}
-//
-//			System.out.println("=======================");
-//		}
-
 
 		Pessoa pessoa = new Pessoa();
+		pessoa.setAltura(10f);
 		pessoa.setNome("Taliba jose");
 
 		DynamicFields dynamicFields = DynamicFieldsEntity.create(Pessoa.class);
 		pessoa.setDynamicFields(dynamicFields);
 
-		pessoa.getDynamicFields().createField("NomeDoCachoroo", String.class);
-		pessoa.getDynamicFields().createField("IdadeDoCachorro", Long.class);
-		pessoa.getDynamicFields().createField("FotoDoCachorro", byte[].class);
-
-		pessoa.getDynamicFields().addValue("NomeDoCachoroo","Dog");
-		pessoa.getDynamicFields().addValue("IdadeDoCachorro",30);
-		pessoa.getDynamicFields().addValue("FotoDoCachorro",new byte[]{});
+		pessoa.getDynamicFields().createField("nome_do_cachorro", String.class);
 
 		connection.save(pessoa);
+		connection.close();
 
+
+		System.out.println(pessoa.getId());
+
+		//******************************
+
+		connection = factory.getConnection("localhost");
 
 		pessoa = (Pessoa) connection.findOne(Pessoa.class, pessoa.getId());
 		dynamicFields = pessoa.getDynamicFields();
 
+		pessoa.getDynamicFields().addValue("nome_do_cachorro","Dog");
+
+		connection.update(pessoa);
+		connection.close();
+
+		//******************************
+
+		System.out.println("***********************************************");
+
+		connection = factory.getConnection("localhost");
+		pessoa = (Pessoa) connection.findOne(Pessoa.class, pessoa.getId());
+		dynamicFields = pessoa.getDynamicFields();
+
+
 		System.out.println("nome: " + pessoa.getNome());
-		System.out.println("Nome do cachorro: " + dynamicFields.getValue("NomeDoCachoroo"));
+		System.out.println("Nome do cachorro: " + dynamicFields.getValue("nome_do_cachorro"));
 
 	}
 
