@@ -38,6 +38,7 @@ public class Main {
 
 		//******************************
 
+		factory = ClimbORM.createManagerFactory("climb.properties");
 		connection = factory.getConnection("localhost");
 
 		connection.getTransaction().start();
@@ -52,7 +53,7 @@ public class Main {
 
 		//******************************
 		System.out.println("***********************************************");
-
+		factory = ClimbORM.createManagerFactory("climb.properties");
 		connection = factory.getConnection("localhost");
 		pessoa = (Pessoa) connection.findOne(Pessoa.class, pessoa.getId());
 		dynamicFields = pessoa.getDynamicFields();
