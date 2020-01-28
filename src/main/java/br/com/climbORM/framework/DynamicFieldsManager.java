@@ -305,6 +305,9 @@ public class DynamicFieldsManager implements FieldsManager {
 
         try {
 
+            createDynamicTable(object);
+            createDynamicFields(object);
+
             String tableName = getTableNameDynamic(object);
 
             Field field = ReflectionUtil.getDynamicField(object);
@@ -604,7 +607,6 @@ public class DynamicFieldsManager implements FieldsManager {
                     e.printStackTrace();
                 }
             }
-
         }
     }
 }

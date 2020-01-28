@@ -47,6 +47,9 @@ public class Main {
 
 		pessoa.getDynamicFields().addValue("nome_do_cachorro","Dog");
 
+		pessoa.getDynamicFields().createField("nome_do_pai", String.class);
+		pessoa.getDynamicFields().addValue("nome_do_pai", "jose");
+
 		connection.update(pessoa);
 		connection.getTransaction().commit();
 		connection.close();
@@ -57,6 +60,10 @@ public class Main {
 		connection = factory.getConnection("localhost");
 		pessoa = (Pessoa) connection.findOne(Pessoa.class, pessoa.getId());
 		dynamicFields = pessoa.getDynamicFields();
+
+		for (String v : dynamicFields.getValueFields().keySet()) {
+			System.out.println(v + " " + dynamicFields.getValueFields().get(v));
+		}
 
 		System.out.println("nome: " + pessoa.getNome());
 		System.out.println("Nome do cachorro: " + dynamicFields.getValue("nome_do_cachorro"));
