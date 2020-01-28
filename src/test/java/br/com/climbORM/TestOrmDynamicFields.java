@@ -168,7 +168,6 @@ public class TestOrmDynamicFields {
 
         ClimbConnection connection = factory.getConnection("localhost");
         Empresa empresa = (Empresa) connection.findOne(Empresa.class, idEmpresa);
-
         DynamicFields dynamicFields = empresa.getDynamicFields();
 
         dynamicFields.addValue("nome_do_gerente","Francisco antonio update");
@@ -178,8 +177,28 @@ public class TestOrmDynamicFields {
         dynamicFields.addValue("distancia",7985.987);
         dynamicFields.addValue("foto","taliba jose da silva update".getBytes());
 
+        dynamicFields.createField("nome_do_pai", String.class);
+        dynamicFields.addValue("nome_do_pai", "jose");
+
         connection.update(empresa);
         connection.close();
+
+        connection = factory.getConnection("localhost");
+        empresa = (Empresa) connection.findOne(Empresa.class, idEmpresa);
+        dynamicFields = empresa.getDynamicFields();
+
+        boolean axou = false;
+        for (String key : dynamicFields.getValueFields().keySet()) {
+//            System.out.println(value + " " + dynamicFields.getValueFields().get(value));
+
+            String dados = dynamicFields.getValueFields().get(key).toString();
+            if (key.equals("nome_do_pai") && dados.equals("jose")) {
+                axou = true;
+            }
+
+        }
+
+        assertTrue(axou);
 
         connection = factory.getConnection("localhost");
         empresa = (Empresa) connection.findOne(Empresa.class, idEmpresa);

@@ -52,6 +52,8 @@ public class TestOrmNull {
         assertTrue(idEndereco != null);
 
         Pessoa pessoa = new Pessoa();
+        pessoa.setNome("Taliba jose");
+        pessoa.setAltura(10f);
         connection.save(pessoa);
 
         idPessoa = pessoa.getId();
