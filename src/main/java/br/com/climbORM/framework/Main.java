@@ -17,8 +17,8 @@ public class Main {
 		ManagerFactory factory = ClimbORM.createManagerFactory("climb.properties");
 		ClimbConnection connection = factory.getConnection("localhost");
 
+		connection.getTransaction().start();
 		ResultIterator pessoasIterator = connection.find(Pessoa.class, "where id > 0");
-
 
 		Pessoa pessoa = new Pessoa();
 		pessoa.setAltura(10f);
@@ -30,6 +30,7 @@ public class Main {
 		pessoa.getDynamicFields().createField("nome_do_cachorro", String.class);
 
 		connection.save(pessoa);
+		connection.getTransaction().commit();
 		connection.close();
 
 
@@ -39,25 +40,26 @@ public class Main {
 
 		connection = factory.getConnection("localhost");
 
+		connection.getTransaction().start();
 		pessoa = (Pessoa) connection.findOne(Pessoa.class, pessoa.getId());
 		dynamicFields = pessoa.getDynamicFields();
 
 		pessoa.getDynamicFields().addValue("nome_do_cachorro","Dog");
 
 		connection.update(pessoa);
+		connection.getTransaction().commit();
 		connection.close();
 
 		//******************************
-
 		System.out.println("***********************************************");
 
 		connection = factory.getConnection("localhost");
 		pessoa = (Pessoa) connection.findOne(Pessoa.class, pessoa.getId());
 		dynamicFields = pessoa.getDynamicFields();
 
-
 		System.out.println("nome: " + pessoa.getNome());
 		System.out.println("Nome do cachorro: " + dynamicFields.getValue("nome_do_cachorro"));
+		connection.close();
 
 	}
 
