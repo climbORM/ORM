@@ -237,6 +237,7 @@ public class TestOrmDynamicFields {
         Empresa empresa = (Empresa) connection.findOne(Empresa.class, idEmpresa);
         empresa.getDynamicFields().dropField("idade_empresa");
         empresa.getDynamicFields().dropField("distancia");
+        System.out.println("**************");
 
         connection.update(empresa);
 
