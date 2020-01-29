@@ -6,14 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f563a8c1-5958-484f-85bf-23b373586e7d" name="Default Changelist" comment="update">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/DynamicFieldsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/DynamicFieldsManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/utils/SqlUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/utils/SqlUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/br/com/climbORM/TestOrm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/br/com/climbORM/TestOrm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/br/com/climbORM/TestOrmDynamicFields.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/br/com/climbORM/TestOrmDynamicFields.java" afterDir="false" />
-    </list>
+    <list default="true" id="f563a8c1-5958-484f-85bf-23b373586e7d" name="Default Changelist" comment="update" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,7 +40,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="teste" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -508,22 +501,22 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="484" y="140" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1577393446087" />
-    <state width="1323" height="158" key="GridCell.Tab.0.bottom" timestamp="1580328752392">
+    <state width="1323" height="255" key="GridCell.Tab.0.bottom" timestamp="1580334775897">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="158" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1580328752392" />
-    <state width="1323" height="158" key="GridCell.Tab.0.center" timestamp="1580328752391">
+    <state width="1323" height="255" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1580334775897" />
+    <state width="1323" height="255" key="GridCell.Tab.0.center" timestamp="1580334775897">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="158" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1580328752391" />
-    <state width="1323" height="158" key="GridCell.Tab.0.left" timestamp="1580328752391">
+    <state width="1323" height="255" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1580334775897" />
+    <state width="1323" height="255" key="GridCell.Tab.0.left" timestamp="1580334775896">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="158" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1580328752391" />
-    <state width="1323" height="158" key="GridCell.Tab.0.right" timestamp="1580328752392">
+    <state width="1323" height="255" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1580334775896" />
+    <state width="1323" height="255" key="GridCell.Tab.0.right" timestamp="1580334775897">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="158" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1580328752392" />
+    <state width="1323" height="255" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1580334775897" />
     <state width="1323" height="226" key="GridCell.Tab.1.bottom" timestamp="1580324987828">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -564,10 +557,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="499" y="163" key="chooseDestDirectoryDialog/0.0.1366.768@0.0.1366.768" timestamp="1577460903557" />
-    <state x="492" y="302" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1580314779237">
+    <state x="492" y="302" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1580334764635">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="492" y="302" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.768@0.0.1366.768" timestamp="1580314779237" />
+    <state x="492" y="302" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.768@0.0.1366.768" timestamp="1580334764635" />
     <state x="454" y="88" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1577460903565">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
