@@ -414,6 +414,7 @@ public class DynamicFieldsManager implements FieldsManager {
         try {
 
             String tableName = getTableNameDynamic(object);
+            loadDynamicFieldsTable(tableName);
 
             Field field = ReflectionUtil.getDynamicField(object);
             DynamicFields dynamicFields = DynamicFieldsEntity.create(object.getClass());
