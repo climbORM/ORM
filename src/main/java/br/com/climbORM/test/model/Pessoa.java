@@ -113,7 +113,6 @@ public class Pessoa extends PersistentEntity {
 		this.emails = emails;
 	}
 
-
 	public DynamicFields getDynamicFields() {
 		return dynamicFields;
 	}
