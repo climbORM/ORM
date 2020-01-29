@@ -196,27 +196,27 @@ public class TestOrm {
 
     }
 
-//    @Test
-//    @Order(5)
-//    void deleteAllBase() {
-//        ClimbConnection connection = factory.getConnection("localhost");
-//
-//        connection.getTransaction().start();
-//        connection.delete(Pessoa.class, "where id = " + idPessoa.toString());
-//        connection.delete(Cidade.class, "where id = " + idCidade.toString());
-//        connection.delete(Endereco.class, "where id = " + idEndereco.toString());
-//
-//        connection.getTransaction().commit();
-//        connection.close();
-//
-//        connection = factory.getConnection("localhost");
-//
-//        assertTrue(connection.findOne(Pessoa.class, idPessoa) == null);
-//        assertTrue(connection.findOne(Cidade.class, idCidade) == null);
-//        assertTrue(connection.findOne(Endereco.class, idEndereco) == null);
-//
-//        connection.close();
-//
-//    }
+    @Test
+    @Order(5)
+    void deleteAllBase() {
+        ClimbConnection connection = factory.getConnection("localhost");
+
+        connection.getTransaction().start();
+        connection.delete(Pessoa.class, "where id = " + idPessoa.toString());
+        connection.delete(Cidade.class, "where id = " + idCidade.toString());
+        connection.delete(Endereco.class, "where id = " + idEndereco.toString());
+
+        connection.getTransaction().commit();
+        connection.close();
+
+        connection = factory.getConnection("localhost");
+
+        assertTrue(connection.findOne(Pessoa.class, idPessoa) == null);
+        assertTrue(connection.findOne(Cidade.class, idCidade) == null);
+        assertTrue(connection.findOne(Endereco.class, idEndereco) == null);
+
+        connection.close();
+
+    }
 
 }
