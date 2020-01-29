@@ -30,9 +30,9 @@ public class SqlUtil {
         StringBuilder values = new StringBuilder();
 
         for (ModelTableField modelTableField : modelTableFields) {
-            atributes.append(model.getAttribute() + ",");
-            if (model.getField().isAnnotationPresent(Json.class)) {
-                Json json = (Json)model.getField().getAnnotation(Json.class);
+            atributes.append(modelTableField.getAttribute() + ",");
+            if (modelTableField.getField().isAnnotationPresent(Json.class)) {
+                Json json = (Json)modelTableField.getField().getAnnotation(Json.class);
                 values.append("?::"+json.typeJson()+",");
             } else {
                 values.append("?,");

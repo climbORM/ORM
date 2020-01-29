@@ -20,7 +20,6 @@ public class Empresa extends PersistentEntity {
     @DynamicField
     private DynamicFields dynamicFields;
 
-
     public String getNomeEmpresa() {
         return nomeEmpresa;
     }

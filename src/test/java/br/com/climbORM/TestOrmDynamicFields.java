@@ -224,9 +224,7 @@ public class TestOrmDynamicFields {
 
         byte[] foto = (byte[]) empresa.getDynamicFields().getValue("foto");
         assertTrue(new String(foto).equals("taliba jose da silva update"));
-
         connection.close();
-
     }
 
     @Test
