@@ -9,14 +9,14 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class TestOrm {
+public class TestOrmNull {
 
     public static Long idPessoa;
     public static Long idCidade;
@@ -39,14 +39,12 @@ public class TestOrm {
         connection.getTransaction().start();
 
         Cidade cidade = new Cidade();
-        cidade.setNomeDaCidade("Cacoal");
         connection.save(cidade);
 
         idCidade = cidade.getId();
         assertTrue(idCidade != null && idCidade > 0);
 
         Endereco endereco = new Endereco();
-        endereco.setNomeDaRua("Rua Ji-parana");
         endereco.setCidade(cidade);
         connection.save(endereco);
 
@@ -54,21 +52,8 @@ public class TestOrm {
         assertTrue(idEndereco != null);
 
         Pessoa pessoa = new Pessoa();
-        pessoa.setNome("Maria antonia");
-        pessoa.setEnderecoComercial("Treta");
-        pessoa.setIdade(32l);
-        pessoa.setAltura(174.1325525544f);
-        pessoa.setQtdQuilos(145.6144d);
-        pessoa.setCasado(true);
-        pessoa.setEndereco(endereco);
-        pessoa.setFoto(new byte[] {});
-
-        List<Email> emails = new ArrayList<>();
-        Email email = new Email();
-        email.setEmail("taliba@jose.com.br");
-        emails.add(email);
-        pessoa.setEmails(emails);
-
+        pessoa.setNome("Taliba jose");
+        pessoa.setAltura(10f);
         connection.save(pessoa);
 
         idPessoa = pessoa.getId();
@@ -93,12 +78,8 @@ public class TestOrm {
 
         Pessoa pessoa = (Pessoa) connection.findOne(Pessoa.class, idPessoa);
         assertTrue(pessoa != null);
-        assertTrue(pessoa.getEmails().size() > 0);
         assertTrue(pessoa.getId() != null);
-        assertTrue(pessoa.getEndereco() != null);
-        assertTrue(pessoa.getEndereco().getId() != null);
-        assertTrue(pessoa.getEndereco().getCidade() != null);
-        assertTrue(pessoa.getEndereco().getCidade().getId() != null);
+        assertTrue(pessoa.getEndereco() == null);
 
         connection.close();
 
@@ -111,12 +92,8 @@ public class TestOrm {
             Pessoa pessoa1 = (Pessoa) iterator.getObject();
 
             assertTrue(pessoa1 != null);
-            assertTrue(pessoa1.getEmails().size() > 0);
             assertTrue(pessoa1.getId() != null);
-            assertTrue(pessoa1.getEndereco() != null);
-            assertTrue(pessoa1.getEndereco().getId() != null);
-            assertTrue(pessoa1.getEndereco().getCidade() != null);
-            assertTrue(pessoa1.getEndereco().getCidade().getId() != null);
+            assertTrue(pessoa1.getEndereco() == null);
         }
 
         ResultIterator resultIterator = connection.findWithQuery(RespostaQuery.class, "SELECT " +
@@ -157,6 +134,7 @@ public class TestOrm {
         pessoa.setNome("Maria update");
         pessoa.setEnderecoComercial("update");
 
+        pessoa.setEmails(new ArrayList<>());
         Email email = new Email();
         email.setEmail("update@update.com.br");
         pessoa.getEmails().add(email);
@@ -177,23 +155,14 @@ public class TestOrm {
         System.out.println("size: " + pessoa.getEmails().size());
 
         assertTrue(pessoa != null);
-        assertTrue(pessoa.getEmails().size() == 2);
+        assertTrue(pessoa.getEmails().size() == 1);
         assertTrue(pessoa.getId().equals(idPessoa));
         assertTrue(pessoa.getNome().equals("Maria update"));
-        assertTrue(pessoa.getIdade().equals(32l));
-        assertTrue(pessoa.getAltura().equals(174.1325525544f));
 
         assertTrue(pessoa.getEnderecoComercial().equals("update"));
-        assertTrue(pessoa.getEndereco() != null);
-        assertTrue(pessoa.getEndereco().getId().equals(idEndereco));
-        assertTrue(pessoa.getEndereco().getNomeDaRua().equals("Rua Taliba"));
-
-        assertTrue(pessoa.getEndereco().getCidade() != null);
-        assertTrue(pessoa.getEndereco().getCidade().getId().equals(idCidade));
-        assertTrue(pessoa.getEndereco().getCidade().getNomeDaCidade().equals("Jipa"));
+        assertTrue(pessoa.getEndereco() == null);
 
         connection.close();
-
     }
 
     @Test

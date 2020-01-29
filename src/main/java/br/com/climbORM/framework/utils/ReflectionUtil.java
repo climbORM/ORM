@@ -1,13 +1,15 @@
 package br.com.climbORM.framework.utils;
 
+import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import br.com.climbORM.framework.PersistentEntity;
+import br.com.climbORM.framework.interfaces.DynamicFields;
 import br.com.climbORM.framework.mapping.*;
 import net.sf.cglib.beans.BeanGenerator;
 import net.sf.cglib.core.NamingPolicy;
@@ -15,7 +17,7 @@ import net.sf.cglib.core.Predicate;
 
 public class ReflectionUtil {
 
-	public static String getFieldName(Field field) {
+	public synchronized static String getFieldName(Field field) {
 		String fieldName = field.getName();
 		Column column = (Column) field.getAnnotation(Column.class);
 
@@ -26,7 +28,66 @@ public class ReflectionUtil {
 		return fieldName;
 	}
 
-	public static Object getValueField(Field field, Object object) {
+	public synchronized static Field getDynamicField(Object object) {
+
+		Field field = null;
+		Field[] fields = null;
+
+		if (isProxedCGLIB(object)) {
+			fields = object.getClass().getSuperclass().getDeclaredFields();
+		} else {
+			fields = object.getClass().getDeclaredFields();
+		}
+
+		for (Field f : fields) {
+			if (f.getType() == DynamicFields.class) {
+				field = f;
+			}
+		}
+
+		return field;
+
+	}
+
+	public synchronized static boolean isContainsDynamicFields(Object object) {
+
+		boolean exist = false;
+		Field[] fields = null;
+
+		if (object == null) {
+			return false;
+		}
+
+		if (isProxedCGLIB(object)) {
+			fields = object.getClass().getSuperclass().getDeclaredFields();
+		} else {
+			fields = object.getClass().getDeclaredFields();
+		}
+
+		for (Field field : fields) {
+			if (field.isAnnotationPresent(DynamicField.class)) {
+				exist= true;
+				break;
+			}
+		}
+
+		return exist;
+	}
+
+	public synchronized static void setValueField(Field field, Object object, Object value) {
+		try {
+			new PropertyDescriptor(field.getName(), object.getClass()).getWriteMethod()
+					.invoke(object, value);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (IntrospectionException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public synchronized static Object getValueField(Field field, Object object) {
 
 		Object tempValue = null;
 
@@ -35,7 +96,7 @@ public class ReflectionUtil {
 			Object value = new PropertyDescriptor(field.getName(), object.getClass()).getReadMethod().invoke(object);
 
 			if (value == null) {
-				return "null";
+				return null;
 			}
 
 			if (value != null && value.getClass().isAnnotationPresent(Entity.class)) {
@@ -53,11 +114,16 @@ public class ReflectionUtil {
 
 	public synchronized static boolean isProxedCGLIB(Object object) {
 
+		if (object == null) {
+			return false;
+		}
+
 		return object.getClass().getName().contains("EnhancerByCGLI");
 	}
 
 
-	public static  String getTableName(Object object) {
+
+	public synchronized static  String getTableName(Object object) {
 
 		Entity entity = null;
 
@@ -78,9 +144,9 @@ public class ReflectionUtil {
 		return tableName;
 	}
 
-	public static List<Model> generateModel(Object object) {
+	public synchronized static List<ModelTableField> generateModel(Object object) {
 
-		List<Model> models = new ArrayList<Model>();
+		List<ModelTableField> modelTableFields = new ArrayList<ModelTableField>();
 		Field[] fields = null;
 
 		if (ReflectionUtil.isProxedCGLIB(object)) {
@@ -98,7 +164,7 @@ public class ReflectionUtil {
 			if (field.isAnnotationPresent(Relation.class)) {
 				String fieldName = ReflectionUtil.getFieldName(field);
 				Object tempValue = ReflectionUtil.getValueField(field, object);
-				models.add(new Model(fieldName, tempValue, Long.class, field));
+				modelTableFields.add(new ModelTableField(fieldName, tempValue, Long.class, field));
 
 				continue;
 			}
@@ -114,7 +180,7 @@ public class ReflectionUtil {
 
 					String fieldName = ReflectionUtil.getFieldName(field);
 					Object tempValue = ReflectionUtil.getValueField(field, object);
-					models.add(new Model(fieldName, tempValue, Long.class, field));
+					modelTableFields.add(new ModelTableField(fieldName, tempValue, Long.class, field));
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -130,7 +196,7 @@ public class ReflectionUtil {
 
 					String fieldName = ReflectionUtil.getFieldName(field);
 					Object tempValue = ReflectionUtil.getValueField(field, object);
-					models.add(new Model(fieldName, tempValue, Integer.class, field));
+					modelTableFields.add(new ModelTableField(fieldName, tempValue, Integer.class, field));
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -140,7 +206,7 @@ public class ReflectionUtil {
 
 					String fieldName = ReflectionUtil.getFieldName(field);
 					Object tempValue = ReflectionUtil.getValueField(field, object);
-					models.add(new Model(fieldName, tempValue, Float.class, field));
+					modelTableFields.add(new ModelTableField(fieldName, tempValue, Float.class, field));
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -150,7 +216,7 @@ public class ReflectionUtil {
 
 					String fieldName = ReflectionUtil.getFieldName(field);
 					Object tempValue = ReflectionUtil.getValueField(field, object);
-					models.add(new Model(fieldName, tempValue, Double.class, field));
+					modelTableFields.add(new ModelTableField(fieldName, tempValue, Double.class, field));
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -160,7 +226,7 @@ public class ReflectionUtil {
 
 					String fieldName = ReflectionUtil.getFieldName(field);
 					Object tempValue = ReflectionUtil.getValueField(field, object);
-					models.add(new Model(fieldName, tempValue, Boolean.class, field));
+					modelTableFields.add(new ModelTableField(fieldName, tempValue, Boolean.class, field));
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -170,7 +236,7 @@ public class ReflectionUtil {
 
 					String fieldName = ReflectionUtil.getFieldName(field);
 					Object tempValue = ReflectionUtil.getValueField(field, object);
-					models.add(new Model(fieldName, tempValue, String.class, field));
+					modelTableFields.add(new ModelTableField(fieldName, tempValue, String.class, field));
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -179,7 +245,7 @@ public class ReflectionUtil {
 				try {
 					String fieldName = ReflectionUtil.getFieldName(field);
 					Object tempValue = ReflectionUtil.getValueField(field, object);
-					models.add(new Model(fieldName, tempValue, byte[].class, field));
+					modelTableFields.add(new ModelTableField(fieldName, tempValue, byte[].class, field));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -187,14 +253,14 @@ public class ReflectionUtil {
 				try {
 					String fieldName = ReflectionUtil.getFieldName(field);
 					Object tempValue = ReflectionUtil.getValueField(field, object);
-					models.add(new Model(fieldName, tempValue, List.class, field));
+					modelTableFields.add(new ModelTableField(fieldName, tempValue, List.class, field));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		}
 
-		return models;
+		return modelTableFields;
 	}
 
 	public static Class<?> beanGenerator(final String className, final Map<String, Class<?>> properties) {

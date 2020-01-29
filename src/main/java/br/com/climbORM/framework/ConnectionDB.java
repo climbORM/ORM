@@ -19,7 +19,7 @@ public class ConnectionDB implements ClimbConnection {
 	private Properties properties;
 	private String schema;
 	private Transaction transaction;
-	private Command command;
+	private FieldsManager fieldsManager;
 
 	public void createConnectionDB() {
 		try {
@@ -30,6 +30,7 @@ public class ConnectionDB implements ClimbConnection {
 			this.connection = DriverManager.getConnection("jdbc:postgresql://" + url + ":" + port + "/" + dataBase + "",
 					this.properties);
 			this.transaction = new TransactionDB(this.connection);
+			this.fieldsManager = new DynamicFieldsManager(this.connection, this.schema);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -57,6 +58,7 @@ public class ConnectionDB implements ClimbConnection {
 		return this.transaction;
 	}
 
+
 	public void save(Object object) {
 
 		try {
@@ -66,11 +68,17 @@ public class ConnectionDB implements ClimbConnection {
 			ps.executeUpdate();
 
 			ResultSet rsID = ps.getGeneratedKeys();
-			rsID.next();
-			Long id = rsID.getLong("id");
+			if (rsID.next()) {
+				Long id = rsID.getLong("id");
 
-			PersistentEntity pers = (PersistentEntity) object;
-			pers.setId(id);
+				PersistentEntity pers = (PersistentEntity) object;
+				pers.setId(id);
+			}
+
+			if (ReflectionUtil.isContainsDynamicFields(object)) {
+				this.fieldsManager.save(object);
+			}
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -86,6 +94,11 @@ public class ConnectionDB implements ClimbConnection {
 			PreparedStatement ps = SqlUtil.preparedStatementUpdate(this.schema, this.connection, ReflectionUtil.generateModel(object),
 					ReflectionUtil.getTableName(object), id);
 			ps.executeUpdate();
+
+			if (ReflectionUtil.isContainsDynamicFields(object)) {
+				this.fieldsManager.update(object);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -103,9 +116,23 @@ public class ConnectionDB implements ClimbConnection {
 		System.out.println(sql);
 
 		try {
+
+			if (ReflectionUtil.isContainsDynamicFields(object)) {
+				System.out.println("Entrou aqui??");
+				this.fieldsManager.delete(object);
+			}
+
 			Statement stmt = this.connection.createStatement();
 			stmt.execute(sql);
+
 			((PersistentEntity) object).setId(null);
+
+			try {
+				stmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -123,26 +150,38 @@ public class ConnectionDB implements ClimbConnection {
 		System.out.println(sql);
 
 		try {
+
+			if (ReflectionUtil.isContainsDynamicFields(object.getDeclaredConstructor().newInstance())) {
+				this.fieldsManager.delete(tableName, where);
+			}
+
 			Statement stmt = this.connection.createStatement();
 			stmt.execute(sql);
-		} catch (SQLException e) {
+
+			try {
+				stmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public Object findOne(Class classe, Long id) {
-		return new LazyLoader(this.connection, this.schema).loadLazyObject(classe, id);
+		return new LazyLoader(this.connection, this.schema, this.fieldsManager).loadLazyObject(classe, id);
 	}
 
 	@Override
 	public ResultIterator find(Class classe, String where) {
-		return new LazyLoader(this.connection,this.schema, classe, where, LazyLoader.ENTITY);
+		return new LazyLoader(this.connection, this.fieldsManager, this.schema, classe, where, LazyLoader.ENTITY);
 	}
 
 	@Override
 	public ResultIterator findWithQuery(Class classe, String sql) {
-		return new LazyLoader(this.connection,this.schema, classe, sql, LazyLoader.QUERY_RESULT);
+		return new LazyLoader(this.connection, this.fieldsManager, this.schema, classe, sql, LazyLoader.QUERY_RESULT);
 	}
 
 
@@ -155,6 +194,7 @@ public class ConnectionDB implements ClimbConnection {
 			e.printStackTrace();
 		}
 	}
+
 
 
 

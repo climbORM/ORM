@@ -2,11 +2,9 @@ package br.com.climbORM.test.model;
 
 import java.util.List;
 
+import br.com.climbORM.framework.interfaces.DynamicFields;
 import br.com.climbORM.framework.PersistentEntity;
-import br.com.climbORM.framework.mapping.Column;
-import br.com.climbORM.framework.mapping.Entity;
-import br.com.climbORM.framework.mapping.Json;
-import br.com.climbORM.framework.mapping.Relation;
+import br.com.climbORM.framework.mapping.*;
 
 @Entity(name = "tb_pessoa")
 public class Pessoa extends PersistentEntity {
@@ -39,7 +37,10 @@ public class Pessoa extends PersistentEntity {
 	@Json(typeJson = Json.JSON)
 	@Column(name = "lista_emails")
 	private List<Email> emails;
-	
+
+	@DynamicField
+	private DynamicFields dynamicFields;
+
 	public String getEnderecoComercial() {
 		return enderecoComercial;
 	}
@@ -110,5 +111,14 @@ public class Pessoa extends PersistentEntity {
 
 	public void setEmails(List<Email> emails) {
 		this.emails = emails;
+	}
+
+
+	public DynamicFields getDynamicFields() {
+		return dynamicFields;
+	}
+
+	public void setDynamicFields(DynamicFields dynamicFields) {
+		this.dynamicFields = dynamicFields;
 	}
 }
