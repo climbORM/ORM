@@ -244,6 +244,27 @@ public class TestOrmDynamicFields {
 
     @Test
     @Order(7)
+    void validateOthersInserts() {
+
+        ClimbConnection connection = factory.getConnection("localhost");
+        Pessoa pessoa = (Pessoa) connection.findOne(Pessoa.class, 266l);
+
+        assertTrue(pessoa.getId() != null);
+
+        pessoa.getDynamicFields().createField("nome_do_gato", String.class);
+        connection.update(pessoa);
+        connection.close();
+
+        connection = factory.getConnection("localhost");
+        pessoa = (Pessoa) connection.findOne(Pessoa.class, 266l);
+        pessoa.getDynamicFields().addValue("nome_do_gato","gatinho");
+        connection.update(pessoa);
+        connection.close();
+
+    }
+
+    @Test
+    @Order(8)
     void validDeleteDynamicFields() {
         ClimbConnection connection = factory.getConnection("localhost");
         connection.delete(Empresa.class, "where id > 0");

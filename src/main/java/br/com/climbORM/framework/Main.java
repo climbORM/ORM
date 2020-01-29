@@ -10,6 +10,8 @@ import br.com.climbORM.framework.interfaces.ManagerFactory;
 import br.com.climbORM.framework.interfaces.ResultIterator;
 import br.com.climbORM.test.model.*;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class Main {
 
 	public static void main(String[] args) throws IOException {
@@ -17,56 +19,18 @@ public class Main {
 		ManagerFactory factory = ClimbORM.createManagerFactory("climb.properties");
 		ClimbConnection connection = factory.getConnection("localhost");
 
-		connection.getTransaction().start();
-		ResultIterator pessoasIterator = connection.find(Pessoa.class, "where id > 0");
+		Pessoa pessoa = (Pessoa) connection.findOne(Pessoa.class, 294l);
 
-		Pessoa pessoa = new Pessoa();
-		pessoa.setAltura(10f);
-		pessoa.setNome("Taliba jose");
+		assertTrue(pessoa.getId() != null);
 
-		DynamicFields dynamicFields = DynamicFieldsEntity.create(Pessoa.class);
-		pessoa.setDynamicFields(dynamicFields);
-
-		pessoa.getDynamicFields().createField("nome_do_cachorro", String.class);
-
-		connection.save(pessoa);
-		connection.getTransaction().commit();
-		connection.close();
-
-
-		System.out.println(pessoa.getId());
-
-		//******************************
-
-		factory = ClimbORM.createManagerFactory("climb.properties");
-		connection = factory.getConnection("localhost");
-
-		connection.getTransaction().start();
-		pessoa = (Pessoa) connection.findOne(Pessoa.class, pessoa.getId());
-		dynamicFields = pessoa.getDynamicFields();
-
-		pessoa.getDynamicFields().addValue("nome_do_cachorro","Dog");
-
-		pessoa.getDynamicFields().createField("nome_do_pai", String.class);
-		pessoa.getDynamicFields().addValue("nome_do_pai", "jose");
-
+		pessoa.getDynamicFields().createField("nome_do_gato3", String.class);
 		connection.update(pessoa);
-		connection.getTransaction().commit();
 		connection.close();
 
-		//******************************
-		System.out.println("***********************************************");
-		factory = ClimbORM.createManagerFactory("climb.properties");
 		connection = factory.getConnection("localhost");
-		pessoa = (Pessoa) connection.findOne(Pessoa.class, pessoa.getId());
-		dynamicFields = pessoa.getDynamicFields();
-
-		for (String v : dynamicFields.getValueFields().keySet()) {
-			System.out.println(v + " " + dynamicFields.getValueFields().get(v));
-		}
-
-		System.out.println("nome: " + pessoa.getNome());
-		System.out.println("Nome do cachorro: " + dynamicFields.getValue("nome_do_cachorro"));
+		pessoa = (Pessoa) connection.findOne(Pessoa.class, 294l);
+		pessoa.getDynamicFields().addValue("nome_do_gato3","gatinho");
+		connection.update(pessoa);
 		connection.close();
 
 	}

@@ -2,18 +2,11 @@ package br.com.climbORM.framework;
 
 import br.com.climbORM.framework.interfaces.DynamicFields;
 import br.com.climbORM.framework.interfaces.FieldsManager;
-import br.com.climbORM.framework.mapping.Json;
-import br.com.climbORM.framework.mapping.Relation;
-import br.com.climbORM.framework.mapping.Transient;
 import br.com.climbORM.framework.utils.ModelDynamicField;
-import br.com.climbORM.framework.utils.ModelTableField;
 import br.com.climbORM.framework.utils.ReflectionUtil;
 import br.com.climbORM.framework.utils.SqlUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
 import java.sql.*;
 import java.util.*;
 
@@ -154,6 +147,55 @@ public class DynamicFieldsManager implements FieldsManager {
 
         this.tableOfDynamicFields.put(tableName, listModel);
     }
+//
+//    private boolean isNewField(Object object) {
+//
+//        try {
+//
+//            Field field = ReflectionUtil.getDynamicField(object);
+//
+//            if (field == null) {
+//                return false;
+//            }
+//
+//            String tableName = getTableNameDynamic(object);
+//
+//            DynamicFieldsEntity dynamicFieldsEntity = (DynamicFieldsEntity) ReflectionUtil.getValueField(field,object);
+//
+//            if (dynamicFieldsEntity == null) {
+//                return false;
+//            }
+//
+//            Map<String, Class> newFields = new HashMap<>();
+//            newFields.putAll(dynamicFieldsEntity.getNewFields());
+//
+//            StringBuilder builder = new StringBuilder();
+//
+//            List<ModelDynamicField> listModel = this.tableOfDynamicFields.get(tableName);
+//
+//            for (ModelDynamicField model : listModel) {
+//
+//                Class classe = newFields.get(model.getAttribute());
+//
+//                if (classe != null) {
+//
+//                    classe = newFields.remove(model.getAttribute());
+//
+//                    if (classe == null) {
+//                        throw new Error("cannot remove map field" + model.getAttribute());
+//                    }
+//                }
+//            }
+//
+//            return (newFields.keySet().size() > 0);
+//
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        return false;
+//    }
 
     private void createDynamicFields(Object object) {
 
@@ -240,12 +282,30 @@ public class DynamicFieldsManager implements FieldsManager {
 
             DynamicFieldsEntity dynamicFieldsEntity = (DynamicFieldsEntity) ReflectionUtil.getValueField(field,object);
 
-            if (dynamicFieldsEntity == null) {
-                return;
-            }
+            String tableName = getTableNameDynamic(object);
 
             Map<String, Object> newFields = new HashMap<>();
-            newFields.putAll(dynamicFieldsEntity.getValueFields());
+            if (dynamicFieldsEntity == null || dynamicFieldsEntity.getValueFields().size() == 0) {
+                System.out.println("nulooooo");
+                List<ModelDynamicField> dynamicFields = this.tableOfDynamicFields.get(tableName);
+
+                for (ModelDynamicField modelDynamicField : dynamicFields) {
+
+                    if (modelDynamicField.getAttribute().equals("id")) {
+                        continue;
+                    }
+                    if (modelDynamicField.getAttribute().equals("id_record")) {
+                        continue;
+                    }
+                    if (modelDynamicField.getAttribute().equals("table_name")) {
+                        continue;
+                    }
+
+                    newFields.put(modelDynamicField.getAttribute(), null);
+                }
+            } else {
+                newFields.putAll(dynamicFieldsEntity.getValueFields());
+            }
 
             StringBuilder attributes = new StringBuilder();
             StringBuilder values = new StringBuilder();
@@ -260,8 +320,6 @@ public class DynamicFieldsManager implements FieldsManager {
                 attributes.append(fieldName + ",");
                 values.append("?,");
             }
-
-            String tableName = getTableNameDynamic(object);
 
             String sql = "INSERT INTO " + this.schema + "." + tableName + "("
                     + attributes.toString().substring(0, attributes.toString().length() - 1) + ") VALUES ("
@@ -306,6 +364,12 @@ public class DynamicFieldsManager implements FieldsManager {
         try {
 
             createDynamicTable(object);
+
+//            if (isNewField(object)) {
+//                save(object);
+//                return;
+//            }
+
             createDynamicFields(object);
 
             String tableName = getTableNameDynamic(object);
@@ -317,7 +381,10 @@ public class DynamicFieldsManager implements FieldsManager {
             StringBuilder values = new StringBuilder();
             for(String fieldName : dynamicFields.getValueFields().keySet()) {
                 values.append(fieldName+"=?,");
+//                System.out.println(fieldName + " " + dynamicFields.getValueFields().get(fieldName));
             }
+
+//            System.out.println("nulo? : " + dynamicFields.getValueFields().size());
 
             if(values.toString().trim().length() == 0) {
                 return;
@@ -444,8 +511,6 @@ public class DynamicFieldsManager implements FieldsManager {
                 resultSet = stmt.executeQuery(sql);
 
                 ResultSetMetaData rsmd = resultSet.getMetaData();
-
-                System.out.println("NOME DA COLUNA:" + rsmd.getColumnName(4));
 
                 while (resultSet.next()) {
                     loadObject(modelDynamicFields, mapValue, resultSet);

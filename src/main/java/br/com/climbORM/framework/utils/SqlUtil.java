@@ -56,10 +56,20 @@ public class SqlUtil {
         int i = start;
 
         for (String fieldName : fields.keySet()) {
-
+            System.out.println("Nome: " + fieldName);
             Object object = fields.get(fieldName);
+//
+//            if (object == null) {
+//                continue;
+//            }
 
             i += 1;
+
+            if (object == null) {
+                ps.setNull(i,1);
+                continue;
+            }
+
             if (object.getClass() == Long.class || object.getClass() == long.class) {
                 ps.setLong(i, (Long) object);
             } else if (object.getClass() == Integer.class || object.getClass() == int.class) {
