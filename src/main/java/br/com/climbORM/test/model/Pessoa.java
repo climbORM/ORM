@@ -34,7 +34,7 @@ public class Pessoa extends PersistentEntity {
 	@Column
 	private byte[] foto;
 
-	@Json
+	@Json(typeJson = Json.JSON)
 	@Column(name = "lista_emails")
 	private List<Email> emails;
 

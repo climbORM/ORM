@@ -30,10 +30,10 @@ public class SqlUtil {
         StringBuilder values = new StringBuilder();
 
         for (ModelTableField modelTableField : modelTableFields) {
-
-            atributes.append(modelTableField.getAttribute() + ",");
-            if (modelTableField.getField().isAnnotationPresent(Json.class)) {
-                values.append("?::JSON,");
+            atributes.append(model.getAttribute() + ",");
+            if (model.getField().isAnnotationPresent(Json.class)) {
+                Json json = (Json)model.getField().getAnnotation(Json.class);
+                values.append("?::"+json.typeJson()+",");
             } else {
                 values.append("?,");
             }
@@ -187,7 +187,6 @@ public class SqlUtil {
 
         return map;
 
-
     }
 
     public synchronized static String getTypeDataBase(final Class type) {
@@ -285,7 +284,6 @@ public class SqlUtil {
         return false;
 
     }
-
 
 }
 

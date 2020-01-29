@@ -6,10 +6,14 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import br.com.climbORM.framework.PersistentEntity;
 import br.com.climbORM.framework.interfaces.DynamicFields;
 import br.com.climbORM.framework.mapping.*;
+import net.sf.cglib.beans.BeanGenerator;
+import net.sf.cglib.core.NamingPolicy;
+import net.sf.cglib.core.Predicate;
 
 public class ReflectionUtil {
 
@@ -116,6 +120,7 @@ public class ReflectionUtil {
 
 		return object.getClass().getName().contains("EnhancerByCGLI");
 	}
+
 
 
 	public synchronized static  String getTableName(Object object) {
@@ -256,6 +261,19 @@ public class ReflectionUtil {
 		}
 
 		return modelTableFields;
+	}
+
+	public static Class<?> beanGenerator(final String className, final Map<String, Class<?>> properties) {
+		BeanGenerator beanGenerator = new BeanGenerator();
+		beanGenerator.setNamingPolicy(new NamingPolicy() {
+			@Override
+			public String getClassName(String prefix, String source, Object key, Predicate names) {
+				return className;
+			}
+		});
+
+		BeanGenerator.addProperties(beanGenerator, properties);
+		return (Class<?>) beanGenerator.createClass();
 	}
 
 }

@@ -7,9 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f563a8c1-5958-484f-85bf-23b373586e7d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/test/model/teste.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/br/com/climbORM/TestOrmDynamicFields.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/br/com/climbORM/TestOrmDynamicFields.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/br/com/climbORM/TestOrmNull.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/br/com/climbORM/TestOrmNull.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/utils/ReflectionUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/utils/ReflectionUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,6 +102,7 @@
     </key>
   </component>
   <component name="RunManager" selected="JUnit.TestOrmNull">
+  <component name="RunManager" selected="JUnit.TestOrm">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="br.com.climbORM.framework.Main" />
       <module name="climbORM" />
@@ -217,6 +220,7 @@
       <workItem from="1578927634830" duration="958000" />
       <workItem from="1580151878972" duration="10301000" />
       <workItem from="1580246479092" duration="4989000" />
+
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1577374215130</created>
@@ -535,6 +539,7 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="275" y="118" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1580248689388" />
+
     <state x="499" y="163" key="chooseDestDirectoryDialog" timestamp="1577460903557">
       <screen x="0" y="0" width="1366" height="768" />
     </state>

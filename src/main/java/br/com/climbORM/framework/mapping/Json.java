@@ -8,4 +8,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface Json {
+
+    public static final String JSON = "JSON";
+    public static final String JSONB = "JSONB";
+
+    public String typeJson();
+
 }
