@@ -23,6 +23,10 @@ public interface ClimbConnection {
 
 	public void close();
 
+	public void createDynamicField(DynamicFields dynamicFields);
+
+	public void dropDynamicField(DynamicFields dynamicFields);
+
 //	public ClimbConnection where(String where);
 
 }

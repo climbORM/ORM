@@ -59,6 +59,29 @@ public class ConnectionDB implements ClimbConnection {
 	}
 
 
+	@Override
+	public void dropDynamicField(DynamicFields dynamicFields) {
+
+		try {
+			this.fieldsManager.dropField(dynamicFields);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public void createDynamicField(DynamicFields dynamicFields) {
+
+		try {
+			this.fieldsManager.createDynamicField(dynamicFields);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+	}
+
+	@Override
 	public void save(Object object) {
 
 		try {
@@ -94,6 +117,11 @@ public class ConnectionDB implements ClimbConnection {
 			PreparedStatement ps = SqlUtil.preparedStatementUpdate(this.schema, this.connection, ReflectionUtil.generateModel(object),
 					ReflectionUtil.getTableName(object), id);
 			ps.executeUpdate();
+
+			if (ReflectionUtil.isContainsDynamicFields(object)) {
+				this.fieldsManager.update(object);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -111,9 +139,23 @@ public class ConnectionDB implements ClimbConnection {
 		System.out.println(sql);
 
 		try {
+
+			if (ReflectionUtil.isContainsDynamicFields(object)) {
+				System.out.println("Entrou aqui??");
+				this.fieldsManager.delete(object);
+			}
+
 			Statement stmt = this.connection.createStatement();
 			stmt.execute(sql);
+
 			((PersistentEntity) object).setId(null);
+
+			try {
+				stmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -122,7 +164,6 @@ public class ConnectionDB implements ClimbConnection {
 
 	public void delete(Class object, String where) {
 		Entity entity = (Entity) object.getAnnotation(Entity.class);
-//		System.out.println(entity.name());
 
 		String tableName = entity.name();
 
@@ -131,9 +172,21 @@ public class ConnectionDB implements ClimbConnection {
 		System.out.println(sql);
 
 		try {
+
+			if (ReflectionUtil.isContainsDynamicFields(object.getDeclaredConstructor().newInstance())) {
+				this.fieldsManager.delete(tableName, where);
+			}
+
 			Statement stmt = this.connection.createStatement();
 			stmt.execute(sql);
-		} catch (SQLException e) {
+
+			try {
+				stmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -163,8 +216,5 @@ public class ConnectionDB implements ClimbConnection {
 			e.printStackTrace();
 		}
 	}
-
-
-
 
 }

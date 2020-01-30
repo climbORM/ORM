@@ -10,6 +10,8 @@ import br.com.climbORM.framework.interfaces.ManagerFactory;
 import br.com.climbORM.framework.interfaces.ResultIterator;
 import br.com.climbORM.test.model.*;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class Main {
 
 	public static void main(String[] args) throws IOException {
@@ -17,43 +19,41 @@ public class Main {
 		ManagerFactory factory = ClimbORM.createManagerFactory("climb.properties");
 		ClimbConnection connection = factory.getConnection("localhost");
 
-		ResultIterator pessoasIterator = connection.find(Pessoa.class, "where id > 0");
+		//cria o campo o campo dinanico
+		DynamicFields dynamicFields = DynamicFieldsEntity.create(Empresa.class);
+		dynamicFields.createField("nome_do_nome2", String.class);
+		connection.createDynamicField(dynamicFields);
 
-//		while (pessoasIterator.next()) {
-//
-//			Pessoa pessoa = (Pessoa) pessoasIterator.getObject();
-//			System.out.println(pessoa.getNome());
-//
-//			for(String fieldName : pessoa.getDynamicFields().getValueFields().keySet()) {
-//				System.out.println(fieldName + " = " +pessoa.getDynamicFields().getValue(fieldName));
-//			}
-//
-//			System.out.println("=======================");
-//		}
+		connection.close();
 
+		connection = factory.getConnection("localhost");
 
-		Pessoa pessoa = new Pessoa();
-		pessoa.setNome("Taliba jose");
+		Empresa empresa = new Empresa();
+		dynamicFields = DynamicFieldsEntity.create(Empresa.class);
+		dynamicFields.addValue("nome_do_nome2","Taliba andrade");
+		empresa.setDynamicFields(dynamicFields);
 
-		DynamicFields dynamicFields = DynamicFieldsEntity.create(Pessoa.class);
-		pessoa.setDynamicFields(dynamicFields);
+		connection.save(empresa);
+		connection.close();
 
-		pessoa.getDynamicFields().createField("NomeDoCachoroo", String.class);
-		pessoa.getDynamicFields().createField("IdadeDoCachorro", Long.class);
-		pessoa.getDynamicFields().createField("FotoDoCachorro", byte[].class);
+		connection = factory.getConnection("localhost");
 
-		pessoa.getDynamicFields().addValue("NomeDoCachoroo","Dog");
-		pessoa.getDynamicFields().addValue("IdadeDoCachorro",30);
-		pessoa.getDynamicFields().addValue("FotoDoCachorro",new byte[]{});
+		//apaga o campo dinamico somente
+		dynamicFields = DynamicFieldsEntity.create(Empresa.class);
+		dynamicFields.dropField("nome_do_nome2");
+		connection.dropDynamicField(dynamicFields);
 
-		connection.save(pessoa);
+		empresa = (Empresa) connection.findOne(Empresa.class, empresa.getId());
 
+		boolean apagou = true;
+		for (String fieldName : empresa.getDynamicFields().getValueFields().keySet()) {
+			if (fieldName.equals("nome_do_nome2")) {
+				apagou = false;
+				break;
+			}
+		}
 
-		pessoa = (Pessoa) connection.findOne(Pessoa.class, pessoa.getId());
-		dynamicFields = pessoa.getDynamicFields();
-
-		System.out.println("nome: " + pessoa.getNome());
-		System.out.println("Nome do cachorro: " + dynamicFields.getValue("NomeDoCachoroo"));
+		System.out.println(apagou);
 
 	}
 

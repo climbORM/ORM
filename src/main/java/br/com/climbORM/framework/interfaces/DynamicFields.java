@@ -10,5 +10,9 @@ public interface DynamicFields {
 
     public void createField(String name, Class type);
 
+    public void dropField(String name);
+
     public Map<String, Object> getValueFields();
+
+    public Class getType();
 }

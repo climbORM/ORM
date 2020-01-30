@@ -5,18 +5,12 @@ import br.com.climbORM.framework.interfaces.ClimbConnection;
 import br.com.climbORM.framework.interfaces.DynamicFields;
 import br.com.climbORM.framework.interfaces.ManagerFactory;
 import br.com.climbORM.framework.interfaces.ResultIterator;
-import br.com.climbORM.framework.mapping.DynamicField;
 import br.com.climbORM.test.model.*;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-
-import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TestOrmDynamicFields {
@@ -224,9 +218,7 @@ public class TestOrmDynamicFields {
 
         byte[] foto = (byte[]) empresa.getDynamicFields().getValue("foto");
         assertTrue(new String(foto).equals("taliba jose da silva update"));
-
         connection.close();
-
     }
 
     @Test
@@ -237,6 +229,7 @@ public class TestOrmDynamicFields {
         Empresa empresa = (Empresa) connection.findOne(Empresa.class, idEmpresa);
         empresa.getDynamicFields().dropField("idade_empresa");
         empresa.getDynamicFields().dropField("distancia");
+        System.out.println("**************");
 
         connection.update(empresa);
 
@@ -245,6 +238,71 @@ public class TestOrmDynamicFields {
 
     @Test
     @Order(7)
+    void validateOthersInserts() {
+
+        ClimbConnection connection = factory.getConnection("localhost");
+        Pessoa pessoa = (Pessoa) connection.findOne(Pessoa.class, 266l);
+
+        assertTrue(pessoa.getId() != null);
+
+        pessoa.getDynamicFields().createField("nome_do_gato", String.class);
+        connection.update(pessoa);
+        connection.close();
+
+        connection = factory.getConnection("localhost");
+        pessoa = (Pessoa) connection.findOne(Pessoa.class, 266l);
+        pessoa.getDynamicFields().addValue("nome_do_gato","gatinho");
+        connection.update(pessoa);
+        connection.close();
+    }
+
+    @Test
+    @Order(8)
+    void validCreateAndDropField() {
+        ManagerFactory factory = ClimbORM.createManagerFactory("climb.properties");
+        ClimbConnection connection = factory.getConnection("localhost");
+
+        DynamicFields dynamicFields = DynamicFieldsEntity.create(Empresa.class);
+        dynamicFields.createField("nome_do_nome2", String.class);
+        connection.createDynamicField(dynamicFields);
+        connection.close();
+
+        connection = factory.getConnection("localhost");
+
+        Empresa empresa = new Empresa();
+        dynamicFields = DynamicFieldsEntity.create(Empresa.class);
+        dynamicFields.addValue("nome_do_nome2","Taliba andrade");
+        empresa.setDynamicFields(dynamicFields);
+
+        connection.save(empresa);
+        connection.close();
+
+        connection = factory.getConnection("localhost");
+        empresa = (Empresa) connection.findOne(Empresa.class, empresa.getId());
+        assertTrue(empresa.getDynamicFields().getValue("nome_do_nome2").equals("Taliba andrade"));
+        connection.close();
+
+        connection = factory.getConnection("localhost");
+        dynamicFields = DynamicFieldsEntity.create(Empresa.class);
+        dynamicFields.dropField("nome_do_nome2");
+        connection.dropDynamicField(dynamicFields);
+
+        empresa = (Empresa) connection.findOne(Empresa.class, empresa.getId());
+
+        boolean apagou = true;
+        for (String fieldName : empresa.getDynamicFields().getValueFields().keySet()) {
+            if (fieldName.equals("nome_do_nome2")) {
+                apagou = false;
+                break;
+            }
+        }
+
+        //AQUI DEVE APAGAR O CAMPO DINAMICO "nome_do_nome2
+        assertTrue(apagou);
+    }
+
+    @Test
+    @Order(9)
     void validDeleteDynamicFields() {
         ClimbConnection connection = factory.getConnection("localhost");
         connection.delete(Empresa.class, "where id > 0");

@@ -7,9 +7,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f563a8c1-5958-484f-85bf-23b373586e7d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/test/model/teste.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/ConnectionDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/ConnectionDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/DynamicFieldsEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/DynamicFieldsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/DynamicFieldsManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/interfaces/ClimbConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/interfaces/ClimbConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/interfaces/DynamicFields.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/interfaces/DynamicFields.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/interfaces/FieldsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/interfaces/FieldsManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/utils/ReflectionUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/utils/ReflectionUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/utils/SqlUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/framework/utils/SqlUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/test/model/Empresa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/test/model/Empresa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/test/model/Fields.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/climbORM/test/model/Pessoa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/climbORM/test/model/Pessoa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/climb.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/climb.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/br/com/climbORM/TestOrmDynamicFields.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/br/com/climbORM/TestOrmDynamicFields.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/climb.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/climb.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +56,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="teste" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
@@ -71,7 +90,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="create.test.in.the.same.root" value="true" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java/br/com/climbORM/test/units" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -87,6 +106,12 @@
     <key name="CreateTestDialog.RecentsKey">
       <recent name="br.com.climbORM.test.units" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="br.com.climbORM" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Thago Rodrigues\IdeaProjects\ORM2" />
+    </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
@@ -94,7 +119,7 @@
       <recent name="C:\Users\Thago Rodrigues\IdeaProjects\ORM\src\main\resources\META-INF" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TestOrm">
+  <component name="RunManager" selected="JUnit.TestOrmDynamicFields.validCreateAndDropField">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="br.com.climbORM.framework.Main" />
       <module name="climbORM" />
@@ -112,7 +137,7 @@
       <module name="climbORM" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="br.com.climbORM.*" />
+          <option name="PATTERN" value="br.com.climbORM.framework.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -123,60 +148,59 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="climbORM" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestOrmDynamicFields" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="climbORM" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="br.com.climbORM.test.units.*" />
+          <option name="PATTERN" value="br.com.climbORM.framework.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="br.com.climbORM.test.units" />
-      <option name="MAIN_CLASS_NAME" value="br.com.climbORM.test.units.climbORM" />
+      <option name="PACKAGE_NAME" value="br.com.climbORM" />
+      <option name="MAIN_CLASS_NAME" value="br.com.climbORM.TestOrmDynamicFields" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="climbORM.insert" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestOrmDynamicFields.validCreateAndDropField" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="climbORM" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="br.com.climbORM.test.units.*" />
+          <option name="PATTERN" value="br.com.climbORM.framework.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="br.com.climbORM.test.units" />
-      <option name="MAIN_CLASS_NAME" value="br.com.climbORM.test.units.climbORM" />
-      <option name="METHOD_NAME" value="insert" />
+      <option name="PACKAGE_NAME" value="br.com.climbORM" />
+      <option name="MAIN_CLASS_NAME" value="br.com.climbORM.TestOrmDynamicFields" />
+      <option name="METHOD_NAME" value="validCreateAndDropField" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="climbORM.printaID" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestOrmNull" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="climbORM" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="br.com.climbORM.test.units.*" />
+          <option name="PATTERN" value="br.com.climbORM.framework.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="br.com.climbORM.test.units" />
-      <option name="MAIN_CLASS_NAME" value="br.com.climbORM.test.units.climbORM" />
-      <option name="METHOD_NAME" value="printaID" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="br.com.climbORM" />
+      <option name="MAIN_CLASS_NAME" value="br.com.climbORM.TestOrmNull" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TestOrm" />
+        <item itemvalue="JUnit.TestOrmDynamicFields.validCreateAndDropField" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.climbORM" />
-        <item itemvalue="JUnit.climbORM.printaID" />
-        <item itemvalue="JUnit.climbORM.insert" />
+        <item itemvalue="JUnit.TestOrm" />
+        <item itemvalue="JUnit.TestOrmDynamicFields" />
+        <item itemvalue="JUnit.TestOrmNull" />
       </list>
     </recent_temporary>
   </component>
@@ -208,6 +232,15 @@
       <workItem from="1577538710705" duration="11465000" />
       <workItem from="1577733320009" duration="1648000" />
       <workItem from="1577736493216" duration="7310000" />
+      <workItem from="1577807458715" duration="3013000" />
+      <workItem from="1578515432622" duration="1731000" />
+      <workItem from="1578602508017" duration="1578000" />
+      <workItem from="1578927634830" duration="958000" />
+      <workItem from="1580151878972" duration="10301000" />
+      <workItem from="1580246479092" duration="4989000" />
+      <workItem from="1580322386076" duration="6357000" />
+      <workItem from="1580411527690" duration="6210000" />
+      <workItem from="1580418064149" duration="1187000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1577374215130</created>
@@ -370,11 +403,84 @@
       <option name="project" value="LOCAL" />
       <updated>1577743995607</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="update">
+      <created>1580154232743</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1580154232743</updated>
+    </task>
+    <task id="LOCAL-00025" summary="update">
+      <created>1580163788009</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1580163788009</updated>
+    </task>
+    <task id="LOCAL-00026" summary="update">
+      <created>1580247666944</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1580247666944</updated>
+    </task>
+    <task id="LOCAL-00027" summary="update">
+      <created>1580248680587</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1580248680587</updated>
+    </task>
+    <task id="LOCAL-00028" summary="update">
+      <created>1580250451126</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1580250451127</updated>
+    </task>
+    <task id="LOCAL-00029" summary="update">
+      <created>1580313458002</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1580313458002</updated>
+    </task>
+    <task id="LOCAL-00030" summary="update">
+      <created>1580314567131</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1580314567131</updated>
+    </task>
+    <task id="LOCAL-00031" summary="update">
+      <created>1580319980541</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1580319980541</updated>
+    </task>
+    <task id="LOCAL-00032" summary="update">
+      <created>1580418126676</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1580418126676</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -403,10 +509,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="92" y="92" width="1182" height="584" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1366.768@0.0.1366.768" timestamp="1577469043617" />
-    <state x="488" y="94" key="#com.intellij.ide.util.MemberChooser" timestamp="1577541804487">
+    <state x="488" y="94" key="#com.intellij.ide.util.MemberChooser" timestamp="1580413104770">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="488" y="94" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1577541804487" />
+    <state x="488" y="94" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1580413104770" />
     <state x="434" y="169" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1577393437672">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -415,70 +521,70 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="479" y="244" width="409" height="288" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1366.768@0.0.1366.768" timestamp="1577458942732" />
-    <state x="385" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1577458820439">
+    <state x="385" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1577804541093">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="385" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.768@0.0.1366.768" timestamp="1577458820439" />
-    <state x="413" y="132" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1577734995378">
+    <state x="385" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.768@0.0.1366.768" timestamp="1577804541093" />
+    <state x="413" y="132" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1580421484661">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="413" y="132" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.768@0.0.1366.768" timestamp="1577734995378" />
+    <state x="413" y="132" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.768@0.0.1366.768" timestamp="1580421484661" />
     <state x="412" y="263" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1577569980701">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="412" y="263" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1366.768@0.0.1366.768" timestamp="1577569980701" />
-    <state x="344" y="45" width="749" height="586" key="CommitChangelistDialog2" timestamp="1577743995000">
+    <state x="344" y="45" width="749" height="586" key="CommitChangelistDialog2" timestamp="1580418125755">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="344" y="45" width="749" height="586" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1577743995000" />
-    <state x="129" y="65" key="DiffContextDialog" timestamp="1577736789873">
+    <state x="344" y="45" width="749" height="586" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1580418125755" />
+    <state x="129" y="65" width="1092" height="640" key="DiffContextDialog" timestamp="1580313287212">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="129" y="65" key="DiffContextDialog/0.0.1366.768@0.0.1366.768" timestamp="1577736789873" />
+    <state x="129" y="65" width="1092" height="640" key="DiffContextDialog/0.0.1366.768@0.0.1366.768" timestamp="1580313287212" />
     <state x="484" y="140" key="FileChooserDialogImpl" timestamp="1577393446087">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="484" y="140" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1577393446087" />
-    <state width="1323" height="209" key="GridCell.Tab.0.bottom" timestamp="1577744528691">
+    <state width="1323" height="238" key="GridCell.Tab.0.bottom" timestamp="1580421693607">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="209" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1577744528691" />
-    <state width="1323" height="209" key="GridCell.Tab.0.center" timestamp="1577744528691">
+    <state width="1323" height="238" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1580421693607" />
+    <state width="1323" height="238" key="GridCell.Tab.0.center" timestamp="1580421693607">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="209" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1577744528691" />
-    <state width="1323" height="209" key="GridCell.Tab.0.left" timestamp="1577744528691">
+    <state width="1323" height="238" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1580421693607" />
+    <state width="1323" height="238" key="GridCell.Tab.0.left" timestamp="1580421693606">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="209" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1577744528691" />
-    <state width="1323" height="209" key="GridCell.Tab.0.right" timestamp="1577744528691">
+    <state width="1323" height="238" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1580421693606" />
+    <state width="1323" height="238" key="GridCell.Tab.0.right" timestamp="1580421693607">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="209" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1577744528691" />
-    <state width="1323" height="238" key="GridCell.Tab.1.bottom" timestamp="1577735044449">
+    <state width="1323" height="238" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1580421693607" />
+    <state width="1323" height="226" key="GridCell.Tab.1.bottom" timestamp="1580335175156">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="238" key="GridCell.Tab.1.bottom/0.0.1366.768@0.0.1366.768" timestamp="1577735044449" />
-    <state width="1323" height="238" key="GridCell.Tab.1.center" timestamp="1577735044449">
+    <state width="1323" height="226" key="GridCell.Tab.1.bottom/0.0.1366.768@0.0.1366.768" timestamp="1580335175156" />
+    <state width="1323" height="226" key="GridCell.Tab.1.center" timestamp="1580335175156">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="238" key="GridCell.Tab.1.center/0.0.1366.768@0.0.1366.768" timestamp="1577735044449" />
-    <state width="1323" height="238" key="GridCell.Tab.1.left" timestamp="1577735044449">
+    <state width="1323" height="226" key="GridCell.Tab.1.center/0.0.1366.768@0.0.1366.768" timestamp="1580335175156" />
+    <state width="1323" height="226" key="GridCell.Tab.1.left" timestamp="1580335175155">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="238" key="GridCell.Tab.1.left/0.0.1366.768@0.0.1366.768" timestamp="1577735044449" />
-    <state width="1323" height="238" key="GridCell.Tab.1.right" timestamp="1577735044449">
+    <state width="1323" height="226" key="GridCell.Tab.1.left/0.0.1366.768@0.0.1366.768" timestamp="1580335175155" />
+    <state width="1323" height="226" key="GridCell.Tab.1.right" timestamp="1580335175156">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="238" key="GridCell.Tab.1.right/0.0.1366.768@0.0.1366.768" timestamp="1577735044449" />
-    <state x="395" y="101" key="MultipleFileMergeDialog" timestamp="1577393828737">
+    <state width="1323" height="226" key="GridCell.Tab.1.right/0.0.1366.768@0.0.1366.768" timestamp="1580335175156" />
+    <state x="395" y="101" key="MultipleFileMergeDialog" timestamp="1580314787174">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="395" y="101" key="MultipleFileMergeDialog/0.0.1366.768@0.0.1366.768" timestamp="1577393828737" />
-    <state x="451" y="96" key="RollbackChangesDialog" timestamp="1577374132366">
+    <state x="395" y="101" key="MultipleFileMergeDialog/0.0.1366.768@0.0.1366.768" timestamp="1580314787174" />
+    <state x="451" y="96" key="RollbackChangesDialog" timestamp="1580324571681">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="451" y="96" key="RollbackChangesDialog/0.0.1366.768@0.0.1366.768" timestamp="1577374132366" />
+    <state x="451" y="96" key="RollbackChangesDialog/0.0.1366.768@0.0.1366.768" timestamp="1580324571681" />
     <state x="184" y="0" key="SettingsEditor" timestamp="1577481194246">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -487,18 +593,18 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1366.768@0.0.1366.768" timestamp="1577566590370" />
-    <state x="275" y="118" key="Vcs.Push.Dialog.v2" timestamp="1577743211183">
+    <state x="275" y="118" key="Vcs.Push.Dialog.v2" timestamp="1580418133104">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="275" y="118" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1577743211183" />
+    <state x="275" y="118" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1580418133104" />
     <state x="499" y="163" key="chooseDestDirectoryDialog" timestamp="1577460903557">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="499" y="163" key="chooseDestDirectoryDialog/0.0.1366.768@0.0.1366.768" timestamp="1577460903557" />
-    <state x="492" y="302" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577733408420">
+    <state x="492" y="302" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1580334764635">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="492" y="302" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.768@0.0.1366.768" timestamp="1577733408420" />
+    <state x="492" y="302" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.768@0.0.1366.768" timestamp="1580334764635" />
     <state x="454" y="88" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1577460903565">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -507,6 +613,14 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="413" y="151" key="extract.method.dialog/0.0.1366.768@0.0.1366.768" timestamp="1577472354080" />
+    <state x="464" y="98" key="git4idea.branch.GitSmartOperationDialog" timestamp="1580314508269">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="464" y="98" key="git4idea.branch.GitSmartOperationDialog/0.0.1366.768@0.0.1366.768" timestamp="1580314508269" />
+    <state x="65" y="80" key="new project wizard" timestamp="1578603477817">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="65" y="80" key="new project wizard/0.0.1366.768@0.0.1366.768" timestamp="1578603477817" />
     <state x="339" y="172" key="run.anything.popup" timestamp="1577377861036">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
