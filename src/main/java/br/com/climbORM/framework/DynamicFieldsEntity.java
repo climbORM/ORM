@@ -59,12 +59,9 @@ public class DynamicFieldsEntity implements DynamicFields {
         this.valueFields.put(name, value);
     }
 
+    @Override
     public Class getType() {
         return type;
-    }
-
-    public void setType(Class type) {
-        this.type = type;
     }
 
     public Map<String, Class> getNewFields() {

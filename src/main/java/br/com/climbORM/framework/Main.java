@@ -19,19 +19,41 @@ public class Main {
 		ManagerFactory factory = ClimbORM.createManagerFactory("climb.properties");
 		ClimbConnection connection = factory.getConnection("localhost");
 
-		Pessoa pessoa = (Pessoa) connection.findOne(Pessoa.class, 294l);
+		//cria o campo o campo dinanico
+		DynamicFields dynamicFields = DynamicFieldsEntity.create(Empresa.class);
+		dynamicFields.createField("nome_do_nome2", String.class);
+		connection.createDynamicField(dynamicFields);
 
-		assertTrue(pessoa.getId() != null);
-
-		pessoa.getDynamicFields().createField("nome_do_gato3", String.class);
-		connection.update(pessoa);
 		connection.close();
 
 		connection = factory.getConnection("localhost");
-		pessoa = (Pessoa) connection.findOne(Pessoa.class, 294l);
-		pessoa.getDynamicFields().addValue("nome_do_gato3","gatinho");
-		connection.update(pessoa);
+
+		Empresa empresa = new Empresa();
+		dynamicFields = DynamicFieldsEntity.create(Empresa.class);
+		dynamicFields.addValue("nome_do_nome2","Taliba andrade");
+		empresa.setDynamicFields(dynamicFields);
+
+		connection.save(empresa);
 		connection.close();
+
+		connection = factory.getConnection("localhost");
+
+		//apaga o campo dinamico somente
+		dynamicFields = DynamicFieldsEntity.create(Empresa.class);
+		dynamicFields.dropField("nome_do_nome2");
+		connection.dropDynamicField(dynamicFields);
+
+		empresa = (Empresa) connection.findOne(Empresa.class, empresa.getId());
+
+		boolean apagou = true;
+		for (String fieldName : empresa.getDynamicFields().getValueFields().keySet()) {
+			if (fieldName.equals("nome_do_nome2")) {
+				apagou = false;
+				break;
+			}
+		}
+
+		System.out.println(apagou);
 
 	}
 

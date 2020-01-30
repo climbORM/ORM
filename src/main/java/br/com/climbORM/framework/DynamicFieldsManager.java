@@ -147,69 +147,28 @@ public class DynamicFieldsManager implements FieldsManager {
 
         this.tableOfDynamicFields.put(tableName, listModel);
     }
-//
-//    private boolean isNewField(Object object) {
-//
-//        try {
-//
-//            Field field = ReflectionUtil.getDynamicField(object);
-//
-//            if (field == null) {
-//                return false;
-//            }
-//
-//            String tableName = getTableNameDynamic(object);
-//
-//            DynamicFieldsEntity dynamicFieldsEntity = (DynamicFieldsEntity) ReflectionUtil.getValueField(field,object);
-//
-//            if (dynamicFieldsEntity == null) {
-//                return false;
-//            }
-//
-//            Map<String, Class> newFields = new HashMap<>();
-//            newFields.putAll(dynamicFieldsEntity.getNewFields());
-//
-//            StringBuilder builder = new StringBuilder();
-//
-//            List<ModelDynamicField> listModel = this.tableOfDynamicFields.get(tableName);
-//
-//            for (ModelDynamicField model : listModel) {
-//
-//                Class classe = newFields.get(model.getAttribute());
-//
-//                if (classe != null) {
-//
-//                    classe = newFields.remove(model.getAttribute());
-//
-//                    if (classe == null) {
-//                        throw new Error("cannot remove map field" + model.getAttribute());
-//                    }
-//                }
-//            }
-//
-//            return (newFields.keySet().size() > 0);
-//
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return false;
-//    }
 
     private void createDynamicFields(Object object) {
 
         try {
 
-            Field field = ReflectionUtil.getDynamicField(object);
+            String tableName = null;
+            DynamicFieldsEntity dynamicFieldsEntity = null;
 
-            if (field == null) {
-                return;
+            if (object.getClass() == DynamicFieldsEntity.class) {
+                dynamicFieldsEntity = (DynamicFieldsEntity)object;
+                tableName = getTableNameDynamic(dynamicFieldsEntity.getType().getDeclaredConstructor().newInstance());
+            } else {
+
+                Field field = ReflectionUtil.getDynamicField(object);
+
+                if (field == null) {
+                    return;
+                }
+
+                tableName = getTableNameDynamic(object);
+                dynamicFieldsEntity = (DynamicFieldsEntity) ReflectionUtil.getValueField(field,object);
             }
-
-            String tableName = getTableNameDynamic(object);
-
-            DynamicFieldsEntity dynamicFieldsEntity = (DynamicFieldsEntity) ReflectionUtil.getValueField(field,object);
 
             if (dynamicFieldsEntity == null) {
                 return;
@@ -258,9 +217,18 @@ public class DynamicFieldsManager implements FieldsManager {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void createDynamicField(DynamicFields dynamicFields) {
+        try {
+            createDynamicTable(dynamicFields.getType().getDeclaredConstructor().newInstance());
+            createDynamicFields(dynamicFields);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -286,7 +254,6 @@ public class DynamicFieldsManager implements FieldsManager {
 
             Map<String, Object> newFields = new HashMap<>();
             if (dynamicFieldsEntity == null || dynamicFieldsEntity.getValueFields().size() == 0) {
-                System.out.println("nulooooo");
                 List<ModelDynamicField> dynamicFields = this.tableOfDynamicFields.get(tableName);
 
                 for (ModelDynamicField modelDynamicField : dynamicFields) {
@@ -364,12 +331,6 @@ public class DynamicFieldsManager implements FieldsManager {
         try {
 
             createDynamicTable(object);
-
-//            if (isNewField(object)) {
-//                save(object);
-//                return;
-//            }
-
             createDynamicFields(object);
 
             String tableName = getTableNameDynamic(object);
@@ -381,16 +342,13 @@ public class DynamicFieldsManager implements FieldsManager {
             StringBuilder values = new StringBuilder();
             for(String fieldName : dynamicFields.getValueFields().keySet()) {
                 values.append(fieldName+"=?,");
-//                System.out.println(fieldName + " " + dynamicFields.getValueFields().get(fieldName));
             }
-
-//            System.out.println("nulo? : " + dynamicFields.getValueFields().size());
 
             if(values.toString().trim().length() == 0) {
                 return;
             }
 
-            String sql = "UPDATE " + schema + "." + tableName + " SET " + values.toString().substring(0, values.toString().length() -1) + " " +
+            String sql = "UPDATE " + this.schema + "." + tableName + " SET " + values.toString().substring(0, values.toString().length() -1) + " " +
                     "WHERE id_record = " + ((PersistentEntity)object).getId().toString();
 
             System.out.println(sql);
@@ -544,16 +502,24 @@ public class DynamicFieldsManager implements FieldsManager {
     }
 
     @Override
-    public void dropField(Object object) throws SQLException {
+    public void dropField(Object object) throws Exception {
 
-        String tableName = getTableNameDynamic(object);
-        Field field = ReflectionUtil.getDynamicField(object);
+        String tableName = null;
+        DynamicFieldsEntity dynamicFieldsEntity = null;
 
-        if (field == null) {
-            return;
+        if (object.getClass() == DynamicFieldsEntity.class) {
+            dynamicFieldsEntity = (DynamicFieldsEntity)object;
+            tableName = getTableNameDynamic(dynamicFieldsEntity.getType().getDeclaredConstructor().newInstance());
+        } else {
+            tableName = getTableNameDynamic(object);
+            Field field = ReflectionUtil.getDynamicField(object);
+
+            if (field == null) {
+                return;
+            }
+
+            dynamicFieldsEntity = (DynamicFieldsEntity) ReflectionUtil.getValueField(field,object);
         }
-
-        DynamicFieldsEntity dynamicFieldsEntity = (DynamicFieldsEntity) ReflectionUtil.getValueField(field,object);
 
         StringBuilder sql = new StringBuilder();
         Set<String> dropFields = dynamicFieldsEntity.getDropFields();
@@ -583,6 +549,8 @@ public class DynamicFieldsManager implements FieldsManager {
         }
 
     }
+
+
 
     private void loadObject(List<ModelDynamicField> modelDynamicFields, Map<String, Object> mapValue, ResultSet resultSet) {
 

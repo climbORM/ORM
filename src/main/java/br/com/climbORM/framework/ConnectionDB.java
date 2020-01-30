@@ -59,6 +59,29 @@ public class ConnectionDB implements ClimbConnection {
 	}
 
 
+	@Override
+	public void dropDynamicField(DynamicFields dynamicFields) {
+
+		try {
+			this.fieldsManager.dropField(dynamicFields);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public void createDynamicField(DynamicFields dynamicFields) {
+
+		try {
+			this.fieldsManager.createDynamicField(dynamicFields);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+	}
+
+	@Override
 	public void save(Object object) {
 
 		try {
@@ -141,7 +164,6 @@ public class ConnectionDB implements ClimbConnection {
 
 	public void delete(Class object, String where) {
 		Entity entity = (Entity) object.getAnnotation(Entity.class);
-//		System.out.println(entity.name());
 
 		String tableName = entity.name();
 
@@ -194,8 +216,5 @@ public class ConnectionDB implements ClimbConnection {
 			e.printStackTrace();
 		}
 	}
-
-
-
 
 }

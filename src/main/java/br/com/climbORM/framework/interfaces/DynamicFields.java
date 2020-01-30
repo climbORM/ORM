@@ -13,4 +13,6 @@ public interface DynamicFields {
     public void dropField(String name);
 
     public Map<String, Object> getValueFields();
+
+    public Class getType();
 }

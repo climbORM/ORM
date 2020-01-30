@@ -260,11 +260,55 @@ public class TestOrmDynamicFields {
         pessoa.getDynamicFields().addValue("nome_do_gato","gatinho");
         connection.update(pessoa);
         connection.close();
-
     }
 
     @Test
     @Order(8)
+    void validCreateAndDropField() {
+        ManagerFactory factory = ClimbORM.createManagerFactory("climb.properties");
+        ClimbConnection connection = factory.getConnection("localhost");
+
+        DynamicFields dynamicFields = DynamicFieldsEntity.create(Empresa.class);
+        dynamicFields.createField("nome_do_nome2", String.class);
+        connection.createDynamicField(dynamicFields);
+        connection.close();
+
+        connection = factory.getConnection("localhost");
+
+        Empresa empresa = new Empresa();
+        dynamicFields = DynamicFieldsEntity.create(Empresa.class);
+        dynamicFields.addValue("nome_do_nome2","Taliba andrade");
+        empresa.setDynamicFields(dynamicFields);
+
+        connection.save(empresa);
+        connection.close();
+
+        connection = factory.getConnection("localhost");
+        empresa = (Empresa) connection.findOne(Empresa.class, empresa.getId());
+        assertTrue(empresa.getDynamicFields().getValue("nome_do_nome2").equals("Taliba andrade"));
+        connection.close();
+
+        connection = factory.getConnection("localhost");
+        dynamicFields = DynamicFieldsEntity.create(Empresa.class);
+        dynamicFields.dropField("nome_do_nome2");
+        connection.dropDynamicField(dynamicFields);
+
+        empresa = (Empresa) connection.findOne(Empresa.class, empresa.getId());
+
+        boolean apagou = true;
+        for (String fieldName : empresa.getDynamicFields().getValueFields().keySet()) {
+            if (fieldName.equals("nome_do_nome2")) {
+                apagou = false;
+                break;
+            }
+        }
+
+        //AQUI DEVE APAGAR O CAMPO DINAMICO "nome_do_nome2
+        assertTrue(apagou);
+    }
+
+    @Test
+    @Order(9)
     void validDeleteDynamicFields() {
         ClimbConnection connection = factory.getConnection("localhost");
         connection.delete(Empresa.class, "where id > 0");
