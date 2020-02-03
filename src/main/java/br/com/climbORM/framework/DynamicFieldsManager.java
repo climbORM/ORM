@@ -447,6 +447,10 @@ public class DynamicFieldsManager implements FieldsManager {
 
             List<ModelDynamicField> modelDynamicFields = this.tableOfDynamicFields.get(tableName);
 
+            if (modelDynamicFields == null || modelDynamicFields.size() == 0) {
+                return;
+            }
+
             StringBuilder atributes = new StringBuilder();
             for (ModelDynamicField modelDynamicField : modelDynamicFields) {
                 atributes.append(modelDynamicField.getAttribute()+",");
