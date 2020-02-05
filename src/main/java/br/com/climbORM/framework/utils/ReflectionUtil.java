@@ -121,9 +121,7 @@ public class ReflectionUtil {
 		return object.getClass().getName().contains("EnhancerByCGLI");
 	}
 
-
-
-	public synchronized static  String getTableName(Object object) {
+	public synchronized static String getTableName(Object object) {
 
 		Entity entity = null;
 
@@ -136,7 +134,7 @@ public class ReflectionUtil {
 		String tableName = "";
 
 		if (entity != null && entity.name().trim().length() > 0) {
-			tableName = entity.name().trim();
+			tableName = entity.name().trim().toLowerCase();
 		} else {
 			throw new Error("ERROR: " + object.getClass().getName() + " Unnamed entity ");
 		}
@@ -262,18 +260,4 @@ public class ReflectionUtil {
 
 		return modelTableFields;
 	}
-
-	public static Class<?> beanGenerator(final String className, final Map<String, Class<?>> properties) {
-		BeanGenerator beanGenerator = new BeanGenerator();
-		beanGenerator.setNamingPolicy(new NamingPolicy() {
-			@Override
-			public String getClassName(String prefix, String source, Object key, Predicate names) {
-				return className;
-			}
-		});
-
-		BeanGenerator.addProperties(beanGenerator, properties);
-		return (Class<?>) beanGenerator.createClass();
-	}
-
 }
