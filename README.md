@@ -61,7 +61,7 @@ public abstract class PersistentEntity {
 
 ## **@DynamicField**
 Essa anotação é usada antes de declaração do atributo do tipo DynamicFields, para que possa ocorrer o uso de campos dinâmicos na classe.
-**Exemplo: **
+**Exemplo:**
 ```
 @Entity(name = "contato")
 public class Contato extends PersistentEntity{
