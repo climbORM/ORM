@@ -76,7 +76,7 @@ public class Contato extends PersistentEntity{
 ## **Primeiros passos com ClimORM**
 Para que seja possível utilizar o FrameWork ClimbORM, é necessário que sejam feitas alterações para a importação do mesmo no arquivo “pom.xml”, dentro do projeto Spring, como indicado na figura abaixo:
 
-IMAGEM AQUIIIIIIII
+![alt text](https://github.com/climbORM/ORM/blob/criar_arquivo_md/POMXMLTUTORIAL.PNG)
 
 Após aberto o arquivo “pom.xml”, deve-se inserir as seguintes linhas de código para a importação das dependências e do repositório da ferramenta com as seguintes tags, como no exemplo a seguir:
 > Para importar a dependência:
