@@ -281,7 +281,8 @@ public class PessoaService{
             while(result.next()){
             Pessoa pessoa = (Pessoa) result.getObject()
             pessoas.add(pessoa);
-        }}catch{
+        }
+        }catch{
             e.printStackTrace();
         }
     }
@@ -302,8 +303,8 @@ public class Contato extends PersistentEntity{
     @Column(name =”nome_pessoa”)
     private String nomePessoa;
 
-	@DynamicField
-	private DynamicFields dynamicFields;
+@DynamicField
+private DynamicFields dynamicFields;
 	
     //GETTER E SETTER OMITIDOS
 }
@@ -371,29 +372,30 @@ public class PessoaService{
 Para inserir valores nos atributos dinâmicos é extremamente simples, com o método **addValue** é passado o nome do atributo e o valor, fazendo uma inserção simples. Como no exemplo abaixo:
 ```
 public class PessoaService{
-ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
+    ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
 
-public static void main (String... args){
-	ClimbConnection rep = factory.getConnection("public");
-	try{
-rep.getTransaction().start();
+    public static void main (String... args){
+        ClimbConnection rep = factory.getConnection("public");
+        try{
+            rep.getTransaction().start();
 
-Pessoa pessoa = new Pessoa();
-Pessoa.setNomePessoa(“Pedro”);	
-DynamicFields dynamicFields = DynamicFieldsEntity.create(Pessoa.class);
-		dynamicField.addValue(“Nome_da_String”, “Thiago”);
-dynamicField.addValue (“Nome_do_Integer”, 14);
-dynamicField.addValue (“Nome_do_Float”, 89.36);
-pessoa.setDynamicField(dynamicField);
-rep.save(pessoa);
+            Pessoa pessoa = new Pessoa();
+            Pessoa.setNomePessoa(“Pedro”);	
+            DynamicFields dynamicFields = DynamicFieldsEntity.create(Pessoa.class);
+            dynamicField.addValue(“Nome_da_String”, “Thiago”);
+            dynamicField.addValue (“Nome_do_Integer”, 14);
+            dynamicField.addValue (“Nome_do_Float”, 89.36);
+            pessoa.setDynamicField(dynamicField);
+            rep.save(pessoa);
 
-rep.getTransaction().commit();
-}catch{
-rep.getTransaction().rollback();
-e.printStackTrace();
-}finally{
-rep.close();
-}
+            rep.getTransaction().commit();
+        }catch{
+            rep.getTransaction().rollback();
+            e.printStackTrace();
+        }finally{
+            rep.close();
+        }
+    }
 }
 ```
 
@@ -402,27 +404,28 @@ Assim como no método tradicional, realizar um **update** em algum registro com 
 Seguindo o modelo de update abaixo, para que seja possível atualizar os valores é necessário passar o nome do atributo que será alterado junto com o valor do mesmo no método **addValue*8:
 ```
 public class PessoaService{
-ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
+    ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
 
-public static void main (String... args){
-	ClimbConnection rep = factory.getConnection("public");
-	try{
-rep.getTransaction().start();
-  		Pessoa pessoa = (Pessoa) rep.findOne(Contato.class, 1L);
-DynamicFields dynamicFields = DynamicFieldsEntity.create(Pessoa.class);
-		dynamicField.addValue(“Nome_da_String”, “Thiago - Update”);
-dynamicField.addValue (“Nome_do_Integer”, 99);
-dynamicField.addValue (“Nome_do_Float”, 99.99);
-pessoa.setDynamicField(dynamicField);
-rep.update(pessoa);
+    public static void main (String... args){
+        ClimbConnection rep = factory.getConnection("public");
+        try{
+            rep.getTransaction().start();
+            Pessoa pessoa = (Pessoa) rep.findOne(Contato.class, 1L);
+            DynamicFields dynamicFields = DynamicFieldsEntity.create(Pessoa.class);
+            dynamicField.addValue(“Nome_da_String”, “Thiago - Update”);
+            dynamicField.addValue (“Nome_do_Integer”, 99);
+            dynamicField.addValue (“Nome_do_Float”, 99.99);
+            pessoa.setDynamicField(dynamicField);
+            rep.update(pessoa);
 
-rep.getTransaction().commit();
-}catch{
-rep.getTransaction().rollback();
-e.printStackTrace();
-}finally{
-rep.close();
-}
+            rep.getTransaction().commit();
+        }catch{
+            rep.getTransaction().rollback();
+            e.printStackTrace();
+        }finally{
+            rep.close();
+        }
+    }
 }
 ```
 
@@ -430,40 +433,42 @@ rep.close();
 Caso um atributo criado não tenha mais relevância para a aplicação, é possível através do método **dropDynamicField** exclui-lo, passando como parâmetro o nome do atributo desejado, como no exemplo abaixo:
 ```
 public class PessoaService{
-ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
+        ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
 
-public static void main (String... args){
-	ClimbConnection rep = factory.getConnection("public");
-	try{
-rep.getTransaction().start();
+        public static void main (String... args){
+            ClimbConnection rep = factory.getConnection("public");
+            try{
+            rep.getTransaction().start();
 
-rep.dropDynamicField(“Nome_da_String”);
+            rep.dropDynamicField(“Nome_da_String”);
 
-rep.getTransaction().commit();
-}catch{
-rep.getTransaction().rollback();
-e.printStackTrace();
-}finally{
-rep.close();
-}
+            rep.getTransaction().commit();
+        }catch{
+            rep.getTransaction().rollback();
+            e.printStackTrace();
+        }finally{
+            rep.close();
+        }
+    }
 }
 ```
 ## **Buscando valor de um campo dinâmico**
 Assim como nas classes normais, é possível buscar o valor de um único atributo ou a lista de todos os atributos com o uso dos métodos **getValue** e **getValueFields**, respctivamente, como no código abaixo:
 ```
 public class PessoaService{
-ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
-public static void main (String... args){
-	ClimbConnection rep = factory.getConnection("public");
-	try{		
-		Pessoa pessoa = new Pessoa();
-		pessoa = (Pessoa) rep.findOne(Contato.class, 1L);		System.out.println(pessoa.getDynamicField().getValue(“Nome_String));
-		
-//RETORNO DE LISTA DE ATRIBUTOS
-System.out.println(pessoa.getDynamicField().getValueFields());
-}catch{
-e.printStackTrace();
-}
+    ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
+        public static void main (String... args){
+        ClimbConnection rep = factory.getConnection("public");
+        try{		
+            Pessoa pessoa = new Pessoa();
+            pessoa = (Pessoa) rep.findOne(Contato.class, 1L);		System.out.println(pessoa.getDynamicField().getValue(“Nome_String));
+                    
+            //RETORNO DE LISTA DE ATRIBUTOS
+            System.out.println(pessoa.getDynamicField().getValueFields());
+        }catch{
+            e.printStackTrace();
+        }
+    }
 }
 ```
 
