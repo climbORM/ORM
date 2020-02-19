@@ -160,6 +160,7 @@ public class PessoaService{
         }finally{
             rep.close();
         }
+    }
 }
 ```
 Nas operações de busca não se faz o uso desta estrutura pelo uso do LazyLoader usado no framework, deixando o código de busca em tal estrutura:
@@ -168,7 +169,7 @@ public static void main (String... args){
     ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
 	ClimbConnection rep = factory.getConnection("public");
 	try{		
-		//TODO CÓDIGO DE BUSCA AQUI
+	//TODO CÓDIGO DE BUSCA AQUI
     }catch{
     e.printStackTrace();
     }
