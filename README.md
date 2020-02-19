@@ -170,9 +170,9 @@ public static void main (String... args){
 	ClimbConnection rep = factory.getConnection("public");
 	try{		
 	    //TODO CÓDIGO DE BUSCA AQUI
-    }catch{
+        }catch{
         e.printStackTrace();
-    }
+        }
 }
 
 ```
