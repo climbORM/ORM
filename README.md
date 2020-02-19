@@ -169,9 +169,9 @@ public static void main (String... args){
     ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
 	ClimbConnection rep = factory.getConnection("public");
 	try{		
-	//TODO CÓDIGO DE BUSCA AQUI
+	    //TODO CÓDIGO DE BUSCA AQUI
     }catch{
-    e.printStackTrace();
+        e.printStackTrace();
     }
 }
 
