@@ -54,7 +54,7 @@ Essa anotação é usada antes da declaração de um atributo identificador de u
 
 ```
 public abstract class PersistentEntity {
-	@ID
+@ID
     private Long id;
 }
 ```
@@ -303,8 +303,8 @@ public class Contato extends PersistentEntity{
     @Column(name =”nome_pessoa”)
     private String nomePessoa;
 
-@DynamicField
-private DynamicFields dynamicFields;
+    @DynamicField
+    private DynamicFields dynamicFields;
 	
     //GETTER E SETTER OMITIDOS
 }
@@ -461,7 +461,8 @@ public class PessoaService{
         ClimbConnection rep = factory.getConnection("public");
         try{		
             Pessoa pessoa = new Pessoa();
-            pessoa = (Pessoa) rep.findOne(Contato.class, 1L);		System.out.println(pessoa.getDynamicField().getValue(“Nome_String));
+            pessoa = (Pessoa) rep.findOne(Contato.class, 1L);		
+            System.out.println(pessoa.getDynamicField().getValue(“Nome_String));
                     
             //RETORNO DE LISTA DE ATRIBUTOS
             System.out.println(pessoa.getDynamicField().getValueFields());
