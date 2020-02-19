@@ -54,7 +54,7 @@ Essa anotação é usada antes da declaração de um atributo identificador de u
 
 ```
 public abstract class PersistentEntity {
-@ID
+    @ID
     private Long id;
 }
 ```
