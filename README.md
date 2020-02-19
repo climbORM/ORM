@@ -171,10 +171,9 @@ public static void main (String... args){
 	try{		
 	    //TODO CÓDIGO DE BUSCA AQUI
         }catch{
-        e.printStackTrace();
+            e.printStackTrace();
         }
 }
-
 ```
 ## Inserindo registros
 Com o modelo de código de operação CRUD, agora pode-se executar as inserções no banco de dados relacional, como no exemplo abaixo:
@@ -257,13 +256,14 @@ Para buscas de apenas um registro, usa-se o exemplo abaixo:
 ```
 public class PessoaService{
     ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
+    
     public static void main (String... args){
         ClimbConnection rep = factory.getConnection("public");
         try{		
             Pessoa pessoa = new Pessoa();
             pessoa = (Pessoa) rep.findOne(Contato.class, 1L);
         }catch{
-        e.printStackTrace();
+            e.printStackTrace();
         }
     }
 }
@@ -271,19 +271,20 @@ public class PessoaService{
 Para buscas de mais de um registro é usado o método **find**, como no exemplo abaixo:
 ```
 public class PessoaService{
-ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
+    ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
 
-public static void main (String... args){
-	ClimbConnection rep = factory.getConnection("public");
-	try{		
-		List<Pessoa> pessoas = new ArrayList<Pessoa>();
-		ResultIterator result = rep.find(Contato.class, “where id > 0”);
-		while(result.next()){
-		Pessoa pessoa = (Pessoa) result.getObject()
-		pessoas.add(pessoa);
-		}
-}catch{
-e.printStackTrace();
+    public static void main (String... args){
+        ClimbConnection rep = factory.getConnection("public");
+        try{		
+            List<Pessoa> pessoas = new ArrayList<Pessoa>();
+            ResultIterator result = rep.find(Contato.class, “where id > 0”);
+            while(result.next()){
+            Pessoa pessoa = (Pessoa) result.getObject()
+            pessoas.add(pessoa);
+        }}catch{
+            e.printStackTrace();
+        }
+    }
 }
 ```
 Usando o método **find**, deve-se passar a classe do objeto que será retornado e a condição (where) para o retorno, assim, as buscas são dinâmicas e podem ser variáveis as condições de retorno.
@@ -295,38 +296,39 @@ Esse modo de campos dinâmicos permitem o usuário criar atributos, escolher o t
 ## **Declarando campo dinâmico na classe**
 Como dito acima, para a declaração do uso de campos dinâmicos na classe Java, deve-se usar a anotação **“@DynamicFiled”**, e logo abaixo declarar um atributo do tipo **DynamicFields**, como no exemplo abaixo:
 ```
-
 @Entity(name = "contato")
 public class Contato extends PersistentEntity{
 
-@Column(name =”nome_pessoa”)
-private String nomePessoa;
+    @Column(name =”nome_pessoa”)
+    private String nomePessoa;
 
 	@DynamicField
 	private DynamicFields dynamicFields;
-	//GETTER E SETTER OMITIDOS
+	
+    //GETTER E SETTER OMITIDOS
 }
 ```
 ## **Criando um campo dinâmico**
 Com a classe Java em questão já possuindo a anotação de campos dinâmicos, a criação de um novo campo na entidade se torna algo simples, como no exemplo abaixo:
 ```
 public class PessoaService{
-ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
+    ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
 
-public static void main (String... args){
-	ClimbConnection rep = factory.getConnection("public");
-	try{
-rep.getTransaction().start();		
-DynamicFields dynamicFields = DynamicFieldsEntity.create(Pessoa.class);
-		dynamicField.createField(“Nome_do_atributo”, String.classs);
-		rep.createDynamicField(dynamicField);
-rep.getTransaction().commit();
-}catch{
-rep.getTransaction().rollback();
-e.printStackTrace();
-}finally{
-rep.close();
-}
+    public static void main (String... args){
+        ClimbConnection rep = factory.getConnection("public");
+        try{
+            rep.getTransaction().start();		
+            DynamicFields dynamicFields = DynamicFieldsEntity.create(Pessoa.class);
+            dynamicField.createField(“Nome_do_atributo”, String.classs);
+            rep.createDynamicField(dynamicField);
+            rep.getTransaction().commit();
+        }catch{
+            rep.getTransaction().rollback();
+            e.printStackTrace();
+        }finally{
+            rep.close();
+        }
+    }
 }
 ```
 O nome do atributo que será criado não pode possuir espaços (Ex: o atributo “nome do pai” deve ser inserido como “nome_do_pai”). Para substituir espaços vazios na string use o método replace:
@@ -337,29 +339,31 @@ nomeAtributo = nomeAtributo.replace(“ “, “_”);
 dynamicField.createField(nomeAtributo, String.classs);
 rep.createDynamicField(dynamicField);
 ```
-Além disso, usando o método **createField**, pode-se usar todos os tipos de dados Java para os novos atributos dinâmicos. Como no exemplo:
+Além disso, usando o método **createField**, pode-se usar todos os tipos de dados Java para os novos atributos dinâmicos. Como no exemplo de alguns casos:
 ```
 public class PessoaService{
-ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
+    ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
 
-public static void main (String... args){
-	ClimbConnection rep = factory.getConnection("public");
-	try{
-rep.getTransaction().start();		
-DynamicFields dynamicFields = DynamicFieldsEntity.create(Pessoa.class);
-		dynamicField.createField(“Nome_da_String”, String.classs);
-		dynamicField.createField(“Nome_do_Integer”, Integer.classs);
-dynamicField.createField(“Nome_do_Float”, Float.classs);
-dynamicField.createField(“Nome_do_Double”, Double.classs);
-		rep.createDynamicField(dynamicField);
+    public static void main (String... args){
+        ClimbConnection rep = factory.getConnection("public");
+        try{
+            rep.getTransaction().start();	
 
-rep.getTransaction().commit();
-}catch{
-rep.getTransaction().rollback();
-e.printStackTrace();
-}finally{
-rep.close();
-}
+            DynamicFields dynamicFields = DynamicFieldsEntity.create(Pessoa.class);
+            dynamicField.createField(“Nome_da_String”, String.classs);
+            dynamicField.createField(“Nome_do_Integer”, Integer.classs);
+            dynamicField.createField(“Nome_do_Float”, Float.classs);
+            dynamicField.createField(“Nome_do_Double”, Double.classs);
+            rep.createDynamicField(dynamicField);
+
+            rep.getTransaction().commit();
+        }catch{
+            rep.getTransaction().rollback();
+            e.printStackTrace();
+        }finally{
+            rep.close();
+        }
+    }
 }
 ```
 
