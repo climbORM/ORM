@@ -27,10 +27,12 @@ Essa anotação é usada antes da declaração de um atributo de uma classe para
 ```
 @Entity(name = "contato")
 public class Contato extends PersistentEntity{
-@Column
-private String nome;
-@Column(name = “telefone_pessoa”)
-private String telefonePessoa;
+
+    @Column
+    private String nome;
+
+    @Column(name = “telefone_pessoa”)
+    private String telefonePessoa;
 }
 ```
 
@@ -40,9 +42,10 @@ Essa anotação é usada antes da declaração de um atributo de uma classe para
 ```
 @Entity(name = "contato")
 public class Contato extends PersistentEntity{
-@Relation
-@Column(name = “id_cli”)
-private Cliente cliente;
+
+    @Relation
+    @Column(name = “id_cli”)
+    private Cliente cliente;
 }
 ```
 ## **@ID**
@@ -51,8 +54,8 @@ Essa anotação é usada antes da declaração de um atributo identificador de u
 
 ```
 public abstract class PersistentEntity {
-		@ID
-private Long id;
+	@ID
+    private Long id;
 }
 ```
 
@@ -62,10 +65,12 @@ Essa anotação é usada antes de declaração do atributo do tipo DynamicFields
 ```
 @Entity(name = "contato")
 public class Contato extends PersistentEntity{
-@Column
-private String nome;
-@DynamicField
-private DynamicFields dynamicField;
+
+    @Column
+    private String nome;
+
+    @DynamicField
+    private DynamicFields dynamicField;
 }
 ```
 ## **Primeiros passos com ClimORM**
@@ -92,11 +97,11 @@ Após aberto o arquivo “pom.xml”, deve-se inserir as seguintes linhas de có
 		<id>bobboyms-climbORM</id>
 		<url>https://packagecloud.io/bobboyms/climbORM/maven2</url>
 		<releases>
-		<enabled>true</enabled>
-			</releases>
-			<snapshots>
-		<enabled>true</enabled>
-			</snapshots>
+		    <enabled>true</enabled>
+		</releases>
+		<snapshots>
+		    <enabled>true</enabled>
+		</snapshots>
 	</repository>
 </repositories>
 ```
@@ -114,56 +119,59 @@ ssl=false
 Para seguir com o exemplo, será usado o código de criação de uma Tabela (Entidade) genérica no banco de dados relacional:
 ```
 create table Pessoa(
-id SERIAL PRIMARY KEY,
-nome_pessoa VARCHAR(30) NOT NULL
+    id SERIAL PRIMARY KEY,
+    nome_pessoa VARCHAR(30) NOT NULL
 );
 ```
 Para que seja feito o mapeamento desta tabela para uma classe Java, deve-se seguir a estrutura como no exemplo de classe a seguir, com os getters e setters omitidos:
 ```
 @Entity(name = "contato")
 public class Contato extends PersistentEntity{
-@Column(name =”nome_pessoa”)
-private String nomePessoa;
+
+    @Column(name =”nome_pessoa”)
+    private String nomePessoa;
 }
 ```
-Como no exemplo acima, não é necessário a declaração do atributo “id” com a extensão da classe “PersistentEntity”, pois a mesma já conta com tais declarações, assim como getter e setter para o atributo.
+Como no exemplo acima, não é necessário a declaração do atributo **“id”** com a extensão da classe **“PersistentEntity”**, pois a mesma já conta com tais declarações, assim como getter e setter para o atributo.
 O uso da anotação @Entity(name = “XXX”) é obrigatório para especificar a qual Tabela a classe Java está ligada.
 ## **Criando o ManagerFactory**
 Para que sejam feitas todas as ações relacionadas ao banco de dados relacional é necessário o uso de uma classe controladora para as ações CRUD. Dentro desta classe, deve-se declarar no início o ManagerFactory, e passar como parâmetro no método createManagerFactory(“XXXX”) o nome do arquivo criado com as especificações do banco de dados, como no exemplo abaixo:
 ```
 public class PessoaService{
-ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
+    ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
 }
 ```
 ## **Operações CRUD**
 Com o ManagerFactory criado com sucesso, segue-se então para a criação da conexão do tipo ClimbConnection dentro de cada operação CRUD, como no exemplo:
 ```
 public class PessoaService{
-ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
+    
+    ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
 
-public static void main (String... args){
-	ClimbConnection rep = factory.getConnection("public");
-	try{
-rep.getTransaction().start();		
-		//TODO CÓDIGO CRUD AQUI
-rep.getTransaction().commit();
-}catch{
-rep.getTransaction().rollback();
-e.printStackTrace();
-}finally{
-rep.close();
-}
+    public static void main (String... args){
+        ClimbConnection rep = factory.getConnection("public");
+        try{
+            rep.getTransaction().start();		
+            //TODO CÓDIGO CRUD AQUI
+            rep.getTransaction().commit();
+        }catch{
+            rep.getTransaction().rollback();
+            e.printStackTrace();
+        }finally{
+            rep.close();
+        }
 }
 ```
 Nas operações de busca não se faz o uso desta estrutura pelo uso do LazyLoader usado no framework, deixando o código de busca em tal estrutura:
 ```
 public static void main (String... args){
-ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
+    ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
 	ClimbConnection rep = factory.getConnection("public");
 	try{		
 		//TODO CÓDIGO DE BUSCA AQUI
-}catch{
-e.printStackTrace();
+    }catch{
+    e.printStackTrace();
+    }
 }
 
 ```
@@ -171,22 +179,23 @@ e.printStackTrace();
 Com o modelo de código de operação CRUD, agora pode-se executar as inserções no banco de dados relacional, como no exemplo abaixo:
 ```
 public class PessoaService{
-ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
+    ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
 
-public static void main (String... args){
-	ClimbConnection rep = factory.getConnection("public");
-	try{
-rep.getTransaction().start();		
-		Pessoa pessoa = new Pessoa();
-		pessoa.setNomePessoa(“Carlos”);
-		rep.save(pessoa);
-rep.getTransaction().commit();
-}catch{
-rep.getTransaction().rollback();
-e.printStackTrace();
-}finally{
-rep.close();
-}
+    public static void main (String... args){
+        ClimbConnection rep = factory.getConnection("public");
+        try{
+            rep.getTransaction().start();		
+            Pessoa pessoa = new Pessoa();
+            pessoa.setNomePessoa(“Carlos”);
+            rep.save(pessoa);
+            rep.getTransaction().commit();
+        }catch{
+            rep.getTransaction().rollback();
+            e.printStackTrace();
+        }finally{
+            rep.close();
+        }
+    }
 }
 ```
 
@@ -196,61 +205,66 @@ Como pode-se ver, não é necessário inserir o valor do **“id”** do objeto 
 Seguindo o mesmo padrão de inserção, o código de exclusão de um registro é extremamente simples:
 ```
 public class PessoaService{
-ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
+    ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
 
-public static void main (String... args){
-	ClimbConnection rep = factory.getConnection("public");
-	try{
-rep.getTransaction().start();		
-		Pessoa pessoa = new Pessoa();
-		pessoa = (Pessoa) rep.findOne(Contato.class, 1L);
-		rep.delete(pessoa);
-rep.getTransaction().commit();
-}catch{
-rep.getTransaction().rollback();
-e.printStackTrace();
-}finally{
-rep.close();
-}
+    public static void main (String... args){
+         ClimbConnection rep = factory.getConnection("public");
+        try{
+            rep.getTransaction().start();		
+            Pessoa pessoa = new Pessoa();
+            pessoa = (Pessoa) rep.findOne(Contato.class, 1L);
+            rep.delete(pessoa);
+            rep.getTransaction().commit();
+        }catch{
+            rep.getTransaction().rollback();
+            e.printStackTrace();
+        }finally{
+            rep.close();
+        }
+    }
 }
 ```
 
 ## **Atualizando registros**
 Atualizar registros é algo natural em toda aplicação, assim, a fermenta permite atualizações de maneiras simples eficientes, como no exemplo do código abaixo:
 ```
- public class PessoaService{
-ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
+public class PessoaService{
+    ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
 
-public static void main (String... args){
-	ClimbConnection rep = factory.getConnection("public");
-	try{
-rep.getTransaction().start();		
-		Pessoa pessoa = new Pessoa();
-		pessoa = (Pessoa) rep.findOne(Contato.class, 1L);
-		pessoa.setNomePessoa(“Carlos - Update”);
-		rep.update (pessoa);
-rep.getTransaction().commit();
-}catch{
-rep.getTransaction().rollback();
-e.printStackTrace();
-}finally{
-rep.close();
+    public static void main (String... args){
+        ClimbConnection rep = factory.getConnection("public");
+        try{
+            rep.getTransaction().start();		
+            Pessoa pessoa = new Pessoa();
+            pessoa = (Pessoa) rep.findOne(Contato.class, 1L);
+            pessoa.setNomePessoa(“Carlos - Update”);
+            rep.update (pessoa);
+            rep.getTransaction().commit();
+        }catch{
+            rep.getTransaction().rollback();
+            e.printStackTrace();
+        }finally{
+            rep.close();
+        }
+    }
 }
-}
+
 ```
 ## **Buscando registros**
 Diferente dos códigos acima, as buscas no banco de dados não fecham as transações, ao invés disso, permanecem abertas durante toda a execução da aplicação, por isso, fechar a conexão dentro de um método de busca implicará em um erro de execução.
 Para buscas de apenas um registro, usa-se o exemplo abaixo:
 ```
 public class PessoaService{
-ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
-public static void main (String... args){
-	ClimbConnection rep = factory.getConnection("public");
-	try{		
-		Pessoa pessoa = new Pessoa();
-		pessoa = (Pessoa) rep.findOne(Contato.class, 1L);
-}catch{
-e.printStackTrace();
+    ManagerFactory factory = ClimbORM.createManagerFactory("application.properties");
+    public static void main (String... args){
+        ClimbConnection rep = factory.getConnection("public");
+        try{		
+            Pessoa pessoa = new Pessoa();
+            pessoa = (Pessoa) rep.findOne(Contato.class, 1L);
+        }catch{
+        e.printStackTrace();
+        }
+    }
 }
 ```
 Para buscas de mais de um registro é usado o método **find**, como no exemplo abaixo:
